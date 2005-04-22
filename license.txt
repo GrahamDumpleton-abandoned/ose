@@ -1,0 +1,61 @@
+License
+=======
+
+OSE (8.0)
+
+| Copyright 1992-1993 OTC LIMITED
+| Copyright 1994 TELSTRA CORPORATION LIMITED
+| Copyright 1994-2005 DUMPLETON SOFTWARE CONSULTING PTY LIMITED
+
+All rights reserved.
+
+This software contains licensed program materials which are the copyright
+of Telstra Corporation Limited and which are licensed to Dumpleton Software
+Consulting Pty Limited by Telstra Corporation Limited.
+
+To the best of its knowledge Dumpleton Software Consulting Pty Limited has
+the right to grant permission to use this software under the terms listed
+below.
+
+The build environment called "makeit", if provided as part of this package,
+is made available under the terms of a `BSD style license`_.
+
+The source code for the C++ library which is contained within the
+"software/library" and "software/include" subdirectories and the resultant
+libraries created from compiling that source code may be used and
+distributed under the terms and conditions of the `Q Public License`_
+version 1.0.
+
+The source code for the Python wrappers encapsulating aspects of the
+functionality provided by the C++ library and which are contained within
+the "software/python", "software/netrpc", "software/netsvc" and
+"software/zsirpc" directories, are made available under the terms of a `BSD
+style license`_.
+
+Note that the resultant loadable module created to support the Python
+wrappers will contain object code resulting from the compilation of code
+from the C++ library. Under normal circumstances this would mean that use
+of the Python wrappers would also be governed by the terms and conditions
+of the Q Public License. As a special exception, provided that no changes
+are made to any of the C++ source code, the Python wrappers may be used
+without the terms and conditions of the Q Public License applying to your
+Python based application. This exception does not invalidate any other
+reason why an application making use of the C++ library might be covered by
+the terms and conditions of the Q Public License.
+
+In summary, if you are developing C++ applications using the C++ library
+from this package you are bound by the `Q Public License`_. That license
+requires you to make the source code for your application freely available
+if you distribute it to others. If on the other hand your application is
+developed completely in Python using only the Python wrappers, the special
+exception listed above means that you are not obligated to make your Python
+code freely available. You must however still provide the source code of
+this package to any recipient of any application of yours which you
+distribute which makes use of those Python wrappers.
+
+Any other C++ and/or Python code provided with OSE in the way of example
+or test programs may be used for any purpose under the terms of the same
+`BSD style license`_.
+
+.. _Q Public License: qpl-license.html
+.. _BSD style license: bsd-license.html
