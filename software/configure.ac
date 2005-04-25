@@ -1,6 +1,6 @@
 AC_INIT
 
-AC_CONFIG_AUX_DIR(makeit/scripts)
+AC_CONFIG_AUX_DIR(scripts)
 AC_CANONICAL_BUILD
 
 AC_CONFIG_HEADER(include/OSE/config.h)
