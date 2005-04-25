@@ -1,0 +1,216 @@
+============
+Installation
+============
+
+.. contents::
+
+This file contains a quick guide to what needs to be done to configure and
+install OSE. If you are only interested in the Python wrappers, you do not
+need to perform the separate step of installing the C++ library first and
+you can instead skip direct to the instructions for installing the Python
+wrappers.
+
+Note that all the instructions described here should be read as if you are
+in the "software" subdirectory and not the root directory of the package.
+
+
+C++ Library (UNIX)
+------------------
+
+You will need to have a moderately recent version of GNU make. Version 3.79
+or later of GNU make is known to work, but version 3.78 should also work.
+Anything prior to version 3.78 lacks support for certain features of GNU
+make which are used by the build environment.
+
+Where instructions are provided and they require you to run GNU make, it
+will give the command to run as "make". If GNU make is called something
+different on your system, such as "gmake" or "gnumake", you will need to
+substitute that in place of "make" when executing the command.
+
+If you are on a Win32 system, you must have the `Cygwin`_ package installed,
+including the developer tools, and be performing the installation of this
+package from within a Cygwin terminal window.
+
+.. _Cygwin: http://www.cygwin.com
+
+Having satisfied these prerequisites, the following steps should be carried
+out.
+
+1. Configure and install the "makeit" package which can be found in the
+"makeit" subdirectory. If you are going to use your own build environment
+to make use of the C++ class libraries after installation, you do not
+actually need to install "makeit", but you must at least configure it.
+
+2. If you have already configured and installed this package once before in
+this directory and are now preparing to install it again but for a
+different host platform, or into a different location, or if you have
+applied any patches, ensure that you first run the command::
+
+  make distclean
+
+3. Configuration of the package is carried out by a configuration script
+created by the GNU autoconf system. This is done by running the command::
+
+  sh ./configure
+
+The default makefile will install files into "/usr/local/include" and
+"/usr/local/lib". You can override where files are installed by specifying
+the "--prefix" option to the "configure" script. For example, to install
+the package under the directory "/usr/local/ose" instead of "/usr/local",
+run the command::
+
+  sh ./configure --prefix /usr/local/ose
+
+4. To build the C++ class libraries run the command:
+
+::
+
+  make
+
+If you want to include support for threads, you should instead run::
+
+  make OSE_OPTIONS=with_threads
+
+Note that only use of the POSIX thread library is now supported. Also be
+aware that the non threaded and threaded libraries are named differently,
+so both variants can be installed if desired.
+
+5. To install the C++ class libraries and header files run the command:
+
+::
+
+  make install
+
+If you compiled in support for threads, you should instead run::
+
+  make OSE_OPTIONS=with_threads install
+
+You must have the required permissions to install software into the target
+location. If you don't, the installation phase would need to be done as
+"root" or as some other privileged user.
+
+If you are going to build and install another variant of the library which
+does or doesn't include threading, or which is built with a different
+compiler, you need to cleanup the results of the first build by running::
+
+  make clean
+
+6. If you are going to use "makeit" for your build environment and use it
+to access the install C++ class libraries, run the command::
+
+  makeit install-modules
+
+The newly installed "makeit" command must be in your PATH when you run
+this command, else you should specify the full pathname to the "makeit"
+command as appropriate.
+
+When using the "ose" module for "makeit", if you want to access the version
+of the library which includes support for threads, your makefile must include
+the setting::
+
+  OSE_OPTIONS = with_threads
+
+If not using "makeit"
+
+
+C++ Library (WIN32)
+-------------------
+
+Makefiles specifically designed for Microsoft C++ are located within the
+"win32" directory. The commands listed below need to be run from a DOS
+command window within that directory.
+
+Note that you must have the `Win32 POSIX thread library`_ if you want to
+build in thread support to the OSE C++ class library. You may need to
+adjust the makefiles so as to define the location of the POSIX thread
+library depending on where it has been installed on your system.
+
+.. _Win32 POSIX thread library: http://sourceware.org/pthreads-win32/
+
+To build a "Release" DLL and import library without thread support built in
+to the OSE C++ class library, run::
+
+  nmake -f release.mk clean
+  nmake -f release.mk ose_opt.dll
+
+To build a "Debug" library without thread support built in to the OSE C++
+class library, run::
+
+  nmake -f debug.mk clean
+  nmake -f debug.mk ose_dbg.lib
+
+To build a "Release" DLL and import library with thread support built in to
+the OSE C++ class library, run::
+
+  nmake -f release-mt.mk clean
+  nmake -f release-mt.mk ose_mt_opt.dll
+
+To build a "Debug" library with thread support built in to the OSE C++ class
+library, run::
+
+  nmake -f debug-mt.mk clean
+  nmake -f debug-mt.mk ose_mt_dbg.lib
+
+All the above should work for Visual C++ 6.0 onwards. If you have Visual
+C++ 7.1 or onwards, you can build an extended version of the library which
+incorporates the latest high level messaging system APIs. In this case
+modify the appropriate makefile and uncomment the line::
+
+  OBJECTS = $(OBJECTS1) $(OBJECTS2) $(OBJECTS3)
+
+It is presumed at this point that you know what to do with these libraries
+to make use of them in your project. Note that if you are using a version
+of the library which has thread support builtin, you must define the
+preprocessor symbol "OSE_WITH_THREADS" when compiling any of your own code
+which includes header files from the library.
+
+
+Python Wrappers
+---------------
+
+Building and installation of the Python wrappers is performed using the
+Python "distutils" module. In practice the "distutils" module still isn't
+well setup for C++ code on UNIX platforms and only GNU C/C++ may actually
+work. This is because the "distutils" module uses the C compiler to compile
+all files even though they may equate to C++ code. The C++ compiler is only
+used for the creation of the loadable module.
+
+Thus, whatever is defined for the C compiler on a UNIX platform must be
+able to recognise what file extensions equate to C++ code and compile them
+as C++ code instead of C code. The GNU C compiler will do this, but other C
+compilers may not. Because a mix of C and C++ code is used, you cannot
+simply make it compile all files as C++ code.
+
+On the Win32 platform, Microsoft C++ can handle this distinction between C
+and C++ code files fine. On a Win32 platform however, you must have access
+to a `Win32 POSIX thread library`_ if you want to build in thread support
+to the C++ class library.
+
+.. _Win32 POSIX thread library: http://sourceware.org/pthreads-win32/
+
+Having satisfied these prerequisites, the following steps should be carried
+out.
+
+1. Edit the "setup.py" file and review the settings at the start of the
+file. You would normally only need to change these if you are on a Win32
+platform and you have installed the POSIX thread library into a location
+different to that stated in the file.
+
+2. If you are on a UNIX platform, you need to generate the configuration
+files for the C++ class library. This configuration is carried out by a
+configuration script created by the GNU autoconf system. This is done by
+running the command::
+
+  sh ./configure
+
+3. The package now has to be built by running the command::
+
+  python setup.py build
+
+4. Installation of the package is then performed by running the command::
+
+  python setup.py install
+
+This will attempt to install modules into the "site-packages" directory
+of your Python installation. As such, you will need to run the installation
+setp as root, or some of user with suitable privledges.
