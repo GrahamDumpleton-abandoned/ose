@@ -27,9 +27,17 @@ if _links == []:
 _package.append(("License","%(ose_home)s/license.html"))
 #_package.append(("Examples","%(ose_home)s/examples/index.html"))
 _package.append(("Installation","%(ose_home)s/install.html"))
-#_package.append(("Porting","%(ose_home)s/porting.html"))
 #_package.append(("Changes","%(ose_home)s/changes.html"))
 #_package.append(("TODO","%(ose_home)s/todo.html"))
+
+_package.append(("News Archive","%(sf_news)s"))
+_package.append(("Bug Reporting","%(sf_bugs)s"))
+_package.append(("Support Requests","%(sf_support)s"))
+_package.append(("Feature Requests","%(sf_features)s"))
+_package.append(("Submit Patches","%(sf_patches)s"))
+_package.append(("Web Forums","%(sf_forum)s"))
+_package.append(("Mailing Lists","%(sf_mail)s"))
+_package.append(("Downloads","%(sf_files)s"))
 
 _links.append(("OSE",_package))
 

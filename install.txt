@@ -27,9 +27,10 @@ will give the command to run as "make". If GNU make is called something
 different on your system, such as "gmake" or "gnumake", you will need to
 substitute that in place of "make" when executing the command.
 
-If you are on a Win32 system, you must have the `Cygwin`_ package installed,
-including the developer tools, and be performing the installation of this
-package from within a Cygwin terminal window.
+Installation can be carried out on a Win32 platform using this method
+provided that you have the `Cygwin`_ package installed, including the
+developer tools, and be performing the installation of this package from
+within a Cygwin terminal window.
 
 .. _Cygwin: http://www.cygwin.com
 
@@ -61,9 +62,8 @@ run the command::
 
   sh ./configure --prefix /usr/local/ose
 
-4. To build the C++ class libraries run the command:
-
-::
+4. To build the C++ class libraries run the
+command::
 
   make
 
@@ -75,9 +75,8 @@ Note that only use of the POSIX thread library is now supported. Also be
 aware that the non threaded and threaded libraries are named differently,
 so both variants can be installed if desired.
 
-5. To install the C++ class libraries and header files run the command:
-
-::
+5. To install the C++ class libraries and header files run the
+command::
 
   make install
 
@@ -110,7 +109,10 @@ the setting::
 
   OSE_OPTIONS = with_threads
 
-If not using "makeit"
+If not using "makeit" and you are using a version of the library which has
+thread support builtin, you must at least define the preprocessor symbol
+"OSE_WITH_THREADS" when compiling any of your own code which includes
+header files from the library.
 
 
 C++ Library (WIN32)
@@ -162,7 +164,10 @@ It is presumed at this point that you know what to do with these libraries
 to make use of them in your project. Note that if you are using a version
 of the library which has thread support builtin, you must define the
 preprocessor symbol "OSE_WITH_THREADS" when compiling any of your own code
-which includes header files from the library.
+which includes header files from the library. If you are using the DLL
+version of a library, you must define the preprocessor symbol
+"OSE_DLL_IMPORT" when compiling any of your own code which includes header
+files from the library.
 
 
 Python Wrappers
@@ -183,7 +188,7 @@ simply make it compile all files as C++ code.
 
 On the Win32 platform, Microsoft C++ can handle this distinction between C
 and C++ code files fine. On a Win32 platform however, you must have access
-to a `Win32 POSIX thread library`_ if you want to build in thread support
+to the `Win32 POSIX thread library`_ if you want to build in thread support
 to the C++ class library.
 
 .. _Win32 POSIX thread library: http://sourceware.org/pthreads-win32/
@@ -203,14 +208,17 @@ running the command::
 
   sh ./configure
 
-3. The package now has to be built by running the command::
+3. The package can now be built by running the
+command::
 
   python setup.py build
 
-4. Installation of the package is then performed by running the command::
+4. Installation of the package is then performed by running the
+command::
 
   python setup.py install
 
-This will attempt to install modules into the "site-packages" directory
-of your Python installation. As such, you will need to run the installation
-setp as root, or some of user with suitable privledges.
+This will attempt to install modules into the "site-packages" directory of
+your Python installation. You must have the required permissions to install
+software into the target location. If you don't, the installation phase
+would need to be done as "root" or as some other privileged user.

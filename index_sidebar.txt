@@ -1,0 +1,8 @@
+Note that the OSE package is in the process of being reorganised, with
+makeit being extracted out of OSE and made into a separate package in its
+own right. In the process of doing this, the documentation for makeit, the
+C++ class libraries and the Python wrappers are being updated and moved
+here to this web site. While this is being done, older documentation can
+still be found on the SourceForge_ web site.
+
+.. _SourceForge: http://ose.sourceforge.net

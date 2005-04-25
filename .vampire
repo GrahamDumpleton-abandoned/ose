@@ -6,6 +6,18 @@ styles_home = %(__baseurl_rel__)s/styles
 website_home = %(__baseurl_rel__)s/../..
 ose_home = %(__baseurl_rel__)s
 
+sf_pid = 17371
+sf_home = http://sourceforge.net
+sf_news = %(sf_home)s/news/?group_id=%(sf_pid)s
+sf_forum = %(sf_home)s/forum/?group_id=%(sf_pid)s
+sf_mail = %(sf_home)s/mail/?group_id=%(sf_pid)s
+sf_files = %(sf_home)s/project/showfiles.php?group_id=%(sf_pid)s
+sf_tracker = %(sf_home)s/tracker/?group_id=%(sf_pid)s&func=browse
+sf_bugs = %(sf_tracker)s&atid=117371
+sf_support = %(sf_tracker)s&atid=217371
+sf_features = %(sf_tracker)s&atid=367371
+sf_patches = %(sf_tracker)s&atid=317371
+
 [Handlers]
 
 handler_html = %(__config_root__)s/layouts/%(LayoutEngine)s.py
