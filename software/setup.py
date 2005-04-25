@@ -110,7 +110,7 @@ else:
     if compiler_basename == "gcc":
       sysconfig._config_vars["LDSHARED"] = string.replace( \
        sysconfig._config_vars["LDSHARED"],"gcc","g++")
-      libraries.extend(["stdc++"]).
+      libraries.extend(["stdc++"])
 
   # Don't compile with debugging as final shared object
   # is simply way to big otherwise.
