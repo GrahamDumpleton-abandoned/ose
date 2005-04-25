@@ -125,7 +125,7 @@ else:
   if sys.platform == "win32":
     if WITH_THREADS:
       include_dirs.extend(WIN32_PTHREAD_INCDIRS)
-      library_dirs.extendWIN32_PTHREAD_LIBDIRS)
+      library_dirs.extend(WIN32_PTHREAD_LIBDIRS)
       libraries.extend(WIN32_PTHREAD_LDLIBS)
     libraries.extend(["ws2_32"])
 
