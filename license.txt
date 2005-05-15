@@ -54,8 +54,8 @@ this package to any recipient of any application of yours which you
 distribute which makes use of those Python wrappers.
 
 Any other C++ and/or Python code provided with OSE in the way of example
-or test programs may be used for any purpose under the terms of the same
-`BSD style license`_.
+programs may be used for any purpose under the terms of the same `BSD style
+license`_.
 
 .. _Q Public License: qpl-license.html
 .. _BSD style license: bsd-license.html
