@@ -21,7 +21,7 @@ ifneq "$(MAKEIT_HOME)" ""
 INSTALLED_MAKEIT_HOME := $(MAKEIT_HOME)
 endif
 
-MAKEIT_HOME = $(SRCROOT)/makeit
+MAKEIT_HOME = $(SRCROOT)/makeit/software
 
 # Define where the directory this file resides in is supposed to be.
 
@@ -31,7 +31,7 @@ CONFIG_HOME = $(SRCROOT)/config
 # hasn't yet been defined so we need to cheat and work it out here
 # so that we can use it to pull in platform specific options.
 
-CONFIG.GUESS := $(MAKEIT_HOME)/scripts/config.guess
+CONFIG.GUESS := $(SRCROOT)/scripts/config.guess
 
 PLATFORM_HOST := $(strip $(shell $(SHELL) $(CONFIG.GUESS)))
 
