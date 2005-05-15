@@ -20,4 +20,6 @@ sf_patches = %(sf_tracker)s&atid=317371
 
 [Handlers]
 
-handler_html = %(__config_root__)s/layouts/%(LayoutEngine)s.py
+layouts_root = %(__config_root__)s/layouts
+
+handler_html = %(layouts_root)s/skidoo.py
