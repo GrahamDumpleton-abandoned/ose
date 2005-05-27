@@ -251,8 +251,6 @@ class Template(basic.Template):
         sidebar.body._renderContent(collector)
         sidebar = ''.join(collector)
 
-    #self.template.rightColumn.raw = sidebar
-
     self.__components["sidebar"] = sidebar
 
   def __renderHeader(self):
@@ -268,12 +266,12 @@ class Template(basic.Template):
       node.atts["media"] = media
 
     STYLESHEETS_2COLUMN = (
-     ( "screen",        "%(styles_home)s/two_column.css" ),
+     ( "screen", "%(styles_home)s/two_column.css" ),
      ( "print", "%(styles_home)s/print_media.css" ),
     )
 
     STYLESHEETS_3COLUMN = (
-     ( "screen",        "%(styles_home)s/three_column.css" ),
+     ( "screen", "%(styles_home)s/three_column.css" ),
      ( "print", "%(styles_home)s/print_media.css" ),
     )
 
