@@ -407,8 +407,17 @@ class Duration:
     else:
       value = self.value
       neg = ''
-    return "%sP%dY%dM%dDT%dH%dM%gS" % \
-        (neg,value[0],value[1],value[2],value[3],value[4],value[5])
+    sign = "%sP" % neg
+    if value[0] != 0:
+      year = "%dY" % value[0]
+    else:
+      year = ""
+    if value[1] != 0:
+      month = "%dM" % value[1]
+    else:
+      month = ""
+    return sign + year + month + \
+        "%dDT%dH%dM%gS" % (value[2],value[3],value[4],value[5])
 
   def __repr__(self):
     return "Duration(%s)" % `str(self)`

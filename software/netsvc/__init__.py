@@ -1854,7 +1854,7 @@ class Service(Monitor):
 	  self.unsubscribeReports(target,subjectPattern)
       else:
 	for subjectPattern in self._activeSubscriptions[subscription].keys():
-	  self.subscribeReports(target,subjectPattern)
+	  self.unsubscribeReports(target,subjectPattern)
 	del self._activeSubscriptions[subscription]
     if self._passiveSubscriptions.has_key(subscription):
       if subjectPattern != None:
