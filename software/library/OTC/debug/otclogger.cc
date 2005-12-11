@@ -203,47 +203,45 @@ void OTC_Logger::notify(
       int theProcessId = 0;
       theProcessId = getpid();
 
-      int theThreadId = 0;
+//       int theThreadId = 0;
 
-#if 0
 // XXX Alternative needs to be found for this.
-#if defined(OSE_WITH_THREADS)
-      pthread_t theThread;
-      theThread = pthread_self();
-      theThreadId = (int)theThread;
-#endif
-#endif
+// #if defined(OSE_WITH_THREADS)
+//       pthread_t theThread;
+//       theThread = pthread_self();
+//       theThreadId = (int)theThread;
+// #endif
 
-#if defined(OSE_WITH_THREADS)
-#if defined(OSE_SYS_WIN32)
-      sprintf(
-       buffer,
-       "%s %2d %.2d:%.2d:%.2d [%lu/%lu] %s: ",
-       OTCLIB_SHORTMONTHS[timetm->tm_mon],
-       timetm->tm_mday,
-       timetm->tm_hour,
-       timetm->tm_min,
-       timetm->tm_sec,
-       u_long(theProcessId),
-       u_long(theThreadId),
-       OTCLIB_LOGLEVELMESSAGES[theLevel]
-      );
-#else
-      snprintf(
-       buffer,
-       BUFSIZE,
-       "%s %2d %.2d:%.2d:%.2d [%lu/%lu] %s: ",
-       OTCLIB_SHORTMONTHS[timetm->tm_mon],
-       timetm->tm_mday,
-       timetm->tm_hour,
-       timetm->tm_min,
-       timetm->tm_sec,
-       u_long(theProcessId),
-       u_long(theThreadId),
-       OTCLIB_LOGLEVELMESSAGES[theLevel]
-      );
-#endif
-#else
+// #if defined(OSE_WITH_THREADS)
+// #if defined(OSE_SYS_WIN32)
+//       sprintf(
+//        buffer,
+//        "%s %2d %.2d:%.2d:%.2d [%lu/%lu] %s: ",
+//        OTCLIB_SHORTMONTHS[timetm->tm_mon],
+//        timetm->tm_mday,
+//        timetm->tm_hour,
+//        timetm->tm_min,
+//        timetm->tm_sec,
+//        u_long(theProcessId),
+//        u_long(theThreadId),
+//        OTCLIB_LOGLEVELMESSAGES[theLevel]
+//       );
+// #else
+//       snprintf(
+//        buffer,
+//        BUFSIZE,
+//        "%s %2d %.2d:%.2d:%.2d [%lu/%lu] %s: ",
+//        OTCLIB_SHORTMONTHS[timetm->tm_mon],
+//        timetm->tm_mday,
+//        timetm->tm_hour,
+//        timetm->tm_min,
+//        timetm->tm_sec,
+//        u_long(theProcessId),
+//        u_long(theThreadId),
+//        OTCLIB_LOGLEVELMESSAGES[theLevel]
+//       );
+// #endif
+// #else
 #if defined(OSE_SYS_WIN32)
       sprintf(
        buffer,
@@ -270,7 +268,7 @@ void OTC_Logger::notify(
        OTCLIB_LOGLEVELMESSAGES[theLevel]
       );
 #endif
-#endif
+// #endif
     }
     else
     {
@@ -394,20 +392,24 @@ void OTC_Logger::notify(
 
       theFile = buf;
 
-      FILE* fp = 0;
+      // FILE* fp = 0;
+      int fd = -1;
 
       if (appendLogFile_ == false &&
        (lastLogFile_[0] == EOS || strcmp(theFile,lastLogFile_) != 0))
       {
 	strcpy(lastLogFile_,theFile);
-	fp = fopen((char*)theFile,"w");
+	// fp = fopen((char*)theFile,"w");
+	fd = open((char*)theFile,O_CREAT|O_WRONLY|O_TRUNC|O_APPEND,0664);
       }
       else
       {
-	fp = fopen((char*)theFile,"a+");
+	// fp = fopen((char*)theFile,"a+");
+	fd = open((char*)theFile,O_CREAT|O_WRONLY|O_APPEND,0664);
       }
 
-      if (fp != 0)
+      // if (fp != 0)
+      if (fd != -1)
       {
 	char const* theMatch;
 	char const* theText;
@@ -417,16 +419,22 @@ void OTC_Logger::notify(
 	theMatch = strchr(theText,EOL);
 	while (theMatch != 0)
 	{
-	  fwrite(buffer,1,strlen(buffer),fp);
-	  fwrite((char*)theText,1,theMatch-theText+1,fp);
+	  // fwrite(buffer,1,strlen(buffer),fp);
+	  // fwrite((char*)theText,1,theMatch-theText+1,fp);
+	  write(fd,buffer,strlen(buffer));
+	  write(fd,(char*)theText,theMatch-theText+1);
 	  theText = theMatch + 1;
 	  theMatch = strchr(theText,EOL);
 	}
 
-	fwrite(buffer,1,strlen(buffer),fp);
-	fwrite((char*)theText,1,theMessage+theLength-theText,fp);
-	fwrite("\n",1,1,fp);
-	fclose(fp);
+	// fwrite(buffer,1,strlen(buffer),fp);
+	// fwrite((char*)theText,1,theMessage+theLength-theText,fp);
+	// fwrite("\n",1,1,fp);
+	// fclose(fp);
+	write(fd,buffer,strlen(buffer));
+	write(fd,(char*)theText,theMessage+theLength-theText);
+	write(fd,"\n",1);
+	close(fd);
       }
     }
   }
