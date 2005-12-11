@@ -828,15 +828,30 @@ OTC_String OTC_Program::uniqueId(
   OTC_MutexReaper<OTC_NRMutex> xxxMutex;
   xxxMutex.grab(idmutex_);
 
-#if defined(__linux__) && defined(OSE_WITH_THREADS)
+// #if defined(__linux__) && defined(OSE_WITH_THREADS)
+//   if (gInitTime_ == 0)
+//     gInitTime_ = nowTime;
+// #else
+//   if (gInitTime_ == 0 || gProcessId_ != tmpProcessId)
+//   {
+//     gInitTime_ = nowTime;
+//     gProcessId_ = tmpProcessId;
+//     gCounter_ = 0;
+//   }
+// #endif
+
   if (gInitTime_ == 0)
-    gInitTime_ = nowTime;
-#else
-  if (gInitTime_ == 0 || gProcessId_ != tmpProcessId)
   {
     gInitTime_ = nowTime;
+    gCounter_ = (nowTime % 0xFFFF) << 16;
+  }
+
+#if !defined(__linux__) || !defined(OSE_WITH_THREADS)
+  if (gProcessId_ != tmpProcessId)
+  {
+    gInitTime_ = nowTime;
+    gCounter_ = (nowTime % 0xFFFF) << 16;
     gProcessId_ = tmpProcessId;
-    gCounter_ = 0;
   }
 #endif
 
