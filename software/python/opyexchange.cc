@@ -77,6 +77,7 @@ PyTypeObject OPY_Exchange::gType_ = {
 PyMethodDef OPY_Exchange::gMethods_[] = {
   { "connect", OPY_Exchange::mfn_connect, 1 },
   { "listen", OPY_Exchange::mfn_listen, 1 },
+  { "shutdown", OPY_Exchange::mfn_shutdown, 1 },
   { 0, 0 }
 };
 
@@ -210,6 +211,36 @@ PyObject* OPY_Exchange::mfn_listen(
 }
 
 /* ------------------------------------------------------------------------- */
+PyObject* OPY_Exchange::mfn_shutdown(
+ PyObject* theInstance,
+ PyObject* theArgs
+)
+{
+  char* theAddress = 0;
+  int theDelay = 0;
+
+  if (!PyArg_ParseTuple(theArgs,"s|i",&theAddress,&theDelay))
+    return 0;
+
+  OPY_Exchange* theSelf;
+  theSelf = (OPY_Exchange*)theInstance;
+
+  OTC_EndPoint* theEndPoint = 0;
+
+  theEndPoint = theSelf->exchange_.local(theAddress);
+
+  if (theEndPoint == 0)
+    theEndPoint = theSelf->exchange_.remote(theAddress);
+
+  if (theEndPoint != 0)
+    theSelf->exchange_.shutdown(theEndPoint,theDelay);
+
+  Py_XINCREF(Py_None);
+
+  return Py_None;
+}
+
+/* ------------------------------------------------------------------------- */
 void OPY_Exchange::handle(OTC_Event* theEvent)
 {
   if (theEvent == 0)
@@ -237,6 +268,8 @@ void OPY_Exchange::handle(OTC_Event* theEvent)
     }
     else
       Py_XDECREF(theResult);
+
+    Py_XDECREF(theObject);
 
     OPY_Dispatcher::leavePython(interpreterState_);
   }

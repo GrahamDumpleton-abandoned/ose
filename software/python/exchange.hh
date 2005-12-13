@@ -45,6 +45,8 @@ class OPY_Exchange : public PyObject, public OTC_EVAgent
 
     static PyObject*	mfn_listen(PyObject*, PyObject* theArgs);
 
+    static PyObject*	mfn_shutdown(PyObject*, PyObject* theArgs);
+
   protected:
 
     void		handle(OTC_Event* theEvent);

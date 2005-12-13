@@ -13,7 +13,7 @@
 //     Graham Dumpleton
 // 
 // = COPYRIGHT
-//     Copyright 1996-2004 DUMPLETON SOFTWARE CONSULTING PTY LIMITED
+//     Copyright 1996-2005 DUMPLETON SOFTWARE CONSULTING PTY LIMITED
 //
 // ============================================================================
 */
@@ -169,11 +169,24 @@ class OSE_EXPORT OTC_Exchange : public OTC_EVAgent
                                 // on <thePort>. A pointer to the listener
                                 // object is returned.
 
-    void		shutdown(OTC_EPClient* theClient);
+    void		shutdown(OTC_EndPoint* theEndPoint, int theDelay=0);
 				// If there is an active connection for
-				// <theClient> it will be stopped. When
-				// the client has been totally shutdown
+				// <theEndPoint> it will be stopped. When
+				// the connection has been totally shutdown
 				// it will be dropped from the exchange.
+				// Connections are permitted to wait until
+				// any pending messages are written out, but
+				// the maxmimum amount of time it should wait
+				// is given by <theDelay>. <theDelay> is
+				// given as milliseconds, with <-1> meaning
+				// that the connection should wait until all
+				// messages are written out. Note that if the
+				// endpoint is a client and the derived class
+				// provides a means of automatically
+				// restarting the connection, this should
+				// also stop it from restarting. The
+				// implementation of this method must be
+				// provided by a derived class.
 
     void		shutdown(OTC_EPListener* theListener);
 				// The listener will be stopped and dropped
@@ -183,6 +196,24 @@ class OSE_EXPORT OTC_Exchange : public OTC_EVAgent
 				// be destroyed and any active servers
 				// stopped and also dropped from the
 				// exchange.
+
+    // = ENDPOINTS
+    //     The operation of these functions is thread safe, however,
+    //     accessing the data after the call isn't unless you know
+    //     that new endpoints will not be created or existing endpoints
+    //     destroyed while using the result.
+
+    OTC_EndPoint*	local(OTC_String const& theLocalAddress);
+				// Returns a pointer to the endpoint
+				// with <theLocalAddress>. If no such
+				// endpoint is associated with this
+				// exchange, <0> will be returned.
+
+    OTC_EndPoint*	remote(OTC_String const& theRemoteAddress);
+				// Returns a pointer to the endpoint
+				// with <theRemoteAddress>. If no such
+				// endpoint is associated with this
+				// exchange, <0> will be returned.
 
     // = REGISTRY
 

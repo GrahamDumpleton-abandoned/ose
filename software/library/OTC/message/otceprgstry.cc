@@ -11,7 +11,7 @@
 //     Graham Dumpleton
 // 
 // = COPYRIGHT
-//     Copyright 1997-2002 DUMPLETON SOFTWARE CONSULTING PTY LIMITED
+//     Copyright 1997-2005 DUMPLETON SOFTWARE CONSULTING PTY LIMITED
 //
 // ============================================================================
 */
@@ -79,9 +79,9 @@ void OTC_EPRegistry::reset()
 }
 
 /* ------------------------------------------------------------------------- */
-void OTC_EPRegistry::shutdown()
+void OTC_EPRegistry::shutdown(int theDelay)
 {
-  endPoint_->stop();
+  endPoint_->stop(theDelay);
   exchangeType_ = OTCLIB_EXCHANGE_SHUTDOWN;
 }
 

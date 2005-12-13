@@ -11,7 +11,7 @@
 //     Graham Dumpleton
 // 
 // = COPYRIGHT
-//     Copyright 1996-2004 DUMPLETON SOFTWARE CONSULTING PTY LIMITED
+//     Copyright 1996-2005 DUMPLETON SOFTWARE CONSULTING PTY LIMITED
 //
 // ============================================================================
 */
@@ -224,17 +224,17 @@ OTC_EPListener* OTC_Exchange::listen(int thePort)
 }
 
 /* ------------------------------------------------------------------------- */
-void OTC_Exchange::shutdown(OTC_EPClient* theClient)
+void OTC_Exchange::shutdown(OTC_EndPoint* theEndPoint, int theDelay)
 {
   OTCLIB_MARKBLOCK(MODULE,
-   "OTC_Exchange::shutdown(OTC_EPClient*)");
+   "OTC_Exchange::shutdown(OTC_EndPoint*)");
 
-  OTCLIB_ENSURE_FN((theClient != 0),
-   "OTC_Exchange::shutdown(OTC_EPClient*)",
-   "invalid client");
-  OTCLIB_ENSURE_FN((endPoints_.contains(theClient->localAddress())),
-   "OTC_Exchange::shutdown(OTC_EPClient*)",
-   "invalid client");
+  OTCLIB_ENSURE_FN((theEndPoint != 0),
+   "OTC_Exchange::shutdown(OTC_EndPoint*)",
+   "invalid endpoint");
+  OTCLIB_ENSURE_FN((endPoints_.contains(theEndPoint->localAddress())),
+   "OTC_Exchange::shutdown(OTC_EndPoint*)",
+   "invalid endpoint");
 
   mutex_.lock();
 
@@ -242,16 +242,16 @@ void OTC_Exchange::shutdown(OTC_EPClient* theClient)
   xxxMutex.grab(mutex_);
 
   OTC_EPRegistry* theRegistry;
-  theRegistry = endPoints_.item(theClient->localAddress());
+  theRegistry = endPoints_.item(theEndPoint->localAddress());
 
   if (theRegistry->exchangeType() == OTCLIB_EXCHANGE_UNKNOWN)
   {
-    theRegistry->shutdown();
-    endPoints_.remove(theClient->localAddress());
+    theRegistry->shutdown(0);
+    endPoints_.remove(theEndPoint->localAddress());
   }
   else
   {
-    theRegistry->shutdown();
+    theRegistry->shutdown(theDelay);
   }
 
   xxxMutex.release();
@@ -284,6 +284,53 @@ void OTC_Exchange::shutdown(OTC_EPListener* theListener)
   xxxMutex.release();
 
   mutex_.unlock();
+}
+
+/* ------------------------------------------------------------------------- */
+OTC_EndPoint* OTC_Exchange::local(OTC_String const& theLocalAddress)
+{
+  OTC_EndPoint* theEndPoint = 0;
+
+  mutex_.lock();
+
+  OTC_MutexReaper<OTC_NRMutex> xxxMutex;
+  xxxMutex.grab(mutex_);
+
+  if (endPoints_.contains(theLocalAddress))
+    theEndPoint = endPoints_.item(theLocalAddress)->endPoint();
+
+  xxxMutex.release();
+
+  mutex_.unlock();
+
+  return theEndPoint;
+}
+
+/* ------------------------------------------------------------------------- */
+OTC_EndPoint* OTC_Exchange::remote(OTC_String const& theRemoteAddress)
+{
+  OTC_EndPoint* theEndPoint = 0;
+
+  mutex_.lock();
+
+  OTC_MutexReaper<OTC_NRMutex> xxxMutex;
+  xxxMutex.grab(mutex_);
+
+  theEndPoint = OTC_EndPoint::remote(theRemoteAddress);
+
+  if (theEndPoint != 0)
+  {
+    if (endPoints_.contains(theEndPoint->localAddress()))
+      theEndPoint = endPoints_.item(theEndPoint->localAddress())->endPoint();
+    else
+      theEndPoint = 0;
+  }
+
+  xxxMutex.release();
+
+  mutex_.unlock();
+
+  return theEndPoint;
 }
 
 /* ------------------------------------------------------------------------- */

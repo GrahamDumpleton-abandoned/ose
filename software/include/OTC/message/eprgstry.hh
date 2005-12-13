@@ -13,7 +13,7 @@
 //     Graham Dumpleton
 // 
 // = COPYRIGHT
-//     Copyright 1997-2004 DUMPLETON SOFTWARE CONSULTING PTY LIMITED
+//     Copyright 1997-2005 DUMPLETON SOFTWARE CONSULTING PTY LIMITED
 //
 // ============================================================================
 */
@@ -144,7 +144,7 @@ class OSE_EXPORT OTC_EPRegistry : public OTC_Resource
 
     // = SHUTDOWN
 
-    void		shutdown();
+    void		shutdown(int theDelay=0);
 				// Stops any active connection and marks that
 				// this whole registry entry can be removed
 				// thus dropping the endpoint from the
@@ -158,8 +158,15 @@ class OSE_EXPORT OTC_EPRegistry : public OTC_Resource
 				// can be removed after having called this
 				// function. If there is an active connection
 				// call this function and the exchange will
-				// drop it after it has cleaned up after the
-				// connection.
+				// drop it after it has cleaned up after
+				// the connection. Connections are permitted
+				// to wait until any pending messages are
+                                // written out, but the maxmimum amount of
+                                // time it should wait is given by <theDelay>.
+                                // <theDelay> is given as milliseconds, with
+                                // <-1> meaning that the connection should
+				// wait until all messages are written out.
+
 
     // = SERVICES
 

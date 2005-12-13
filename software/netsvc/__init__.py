@@ -2019,6 +2019,9 @@ class Exchange:
   def listen(self,port):
     self._Exchange.listen(port)
 
+  def shutdown(self,address,delay=0):
+    self._Exchange.shutdown(address,delay)
+
   def unexpectedException(self):
     logException()
 
