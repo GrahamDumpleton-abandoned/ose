@@ -318,6 +318,8 @@ void OTC_SVBroker::handle(OTC_Event* theEvent)
 
 	    theEnvelope->queue(OTCLIB_STANDARD_JOB);
 
+            OTCLIB_TRACER(MODULE) << "subscribe = " << *theEnvelope << endl;
+
 	    theSubjectPatterns.next();
 	  }
 

@@ -710,7 +710,7 @@ void OTC_Exchange::handleServiceAnnouncement(
 	}
 	else
 	{
-	  theContent += name();
+	  theContent += "$RELAY";
 
 	  if (!theBinding->processAddress().isEmpty())
 	  {
@@ -764,7 +764,7 @@ void OTC_Exchange::handleServiceAnnouncement(
 
 	if (theBinding->serviceLocation() == OTCLIB_SERVICE_LOCAL)
 	{
-	  theContent += name();
+	  theContent += "$RELAY";
 	  theContent += '!';
 	}
 
@@ -871,7 +871,7 @@ void OTC_Exchange::handleGroupAnnouncement(
 	}
 	else
 	{
-	  theContent += name();
+	  theContent += "$RELAY";
 
 	  if (!theBinding->processAddress().isEmpty())
 	  {
@@ -1055,7 +1055,7 @@ void OTC_Exchange::messageExchangeAnnounce(OTCEV_Envelope* theEnvelope)
 	}
 	else
 	{
-	  theContent += name();
+	  theContent += "$RELAY";
 
 	  if (!theBinding->processAddress().isEmpty())
 	  {
@@ -1093,7 +1093,7 @@ void OTC_Exchange::messageExchangeAnnounce(OTCEV_Envelope* theEnvelope)
 	  }
 	  else
 	  {
-	    tmpContent += name();
+	    tmpContent += "$RELAY";
 
 	    if (!theBinding->processAddress().isEmpty())
 	    {
@@ -1179,7 +1179,7 @@ void OTC_Exchange::messageExchangeAnnounce(OTCEV_Envelope* theEnvelope)
 	      }
 	      else
 	      {
-		tmpContent += name();
+		tmpContent += "$RELAY";
 
 		if (!theBinding->processAddress().isEmpty())
 		{
@@ -1243,7 +1243,7 @@ void OTC_Exchange::messageServiceAvailable(OTCEV_Envelope* theEnvelope)
 	  OTC_Capacity tmpCapacity(127);
 	  OTC_String theProcessAddress(tmpCapacity);
 
-	  theProcessAddress += name();
+	  theProcessAddress += "$RELAY";
 	  theProcessAddress += '!';
 
 	  theProcessAddress += theRemoteAddress;
@@ -1357,7 +1357,7 @@ void OTC_Exchange::messageServiceWithdrawn(OTCEV_Envelope* theEnvelope)
 	OTC_Capacity tmpCapacity(127);
 	OTC_String theServiceAddress(tmpCapacity);
 
-	theServiceAddress += name();
+	theServiceAddress += "$RELAY";
 	theServiceAddress += '!';
 	theServiceAddress += theRemoteAddress;
 	theServiceAddress += '!';
@@ -1435,7 +1435,7 @@ void OTC_Exchange::messageGroupAnnouncement(OTCEV_Envelope* theEnvelope)
 	  OTC_Capacity tmpCapacity(127);
 	  OTC_String theProcessAddress(tmpCapacity);
 
-	  theProcessAddress += name();
+	  theProcessAddress += "$RELAY";
 	  theProcessAddress += '!';
 
 	  theProcessAddress += theRemoteAddress;
@@ -1503,7 +1503,7 @@ void OTC_Exchange::messageGroupAnnouncement(OTCEV_Envelope* theEnvelope)
 	      }
 	      else
 	      {
-		theContent += name();
+		theContent += "$RELAY";
 
 		if (!theBinding->processAddress().isEmpty())
 		{

@@ -11,7 +11,7 @@
 //     Graham Dumpleton
 // 
 // = COPYRIGHT
-//     Copyright 1995-2002 DUMPLETON SOFTWARE CONSULTING PTY LIMITED
+//     Copyright 1995-2005 DUMPLETON SOFTWARE CONSULTING PTY LIMITED
 //
 // ============================================================================
 */
@@ -39,6 +39,7 @@ OTC_HIndex<OTC_String>* OTC_Receiver::gIndex_ = 0;
 OTC_Receiver* OTC_Receiver::gLocalReceiverInBox_;
 OTC_Receiver* OTC_Receiver::gReceiverInBox_;
 OTC_Receiver* OTC_Receiver::gAgentInBox_;
+OTC_Receiver* OTC_Receiver::gRelayInBox_;
 
 /* ------------------------------------------------------------------------- */
 OTC_Receiver::~OTC_Receiver()
@@ -371,6 +372,14 @@ void OTC_Receiver::fill_(
     gAgentInBox_->bind(proxy_,"$AGENT");
   }
 
+  if (gRelayInBox_ == 0)
+  {
+    gRelayInBox_ = new OTC_Receiver;
+    OTCLIB_ASSERT_M(gRelayInBox_ != 0);
+
+    gRelayInBox_->bind(proxy_,"$RELAY");
+  }
+
   xxxMutex.release();
 
   receiverMutex_.unlock();
@@ -524,7 +533,11 @@ void OTC_Receiver::proxy_(OTC_Event* theEvent)
     OTCEV_Envelope* theEnvelope;
     theEnvelope = (OTCEV_Envelope*)theEvent;
 
-    if (theEnvelope->currentReceiver() == "$RECEIVER" ||
+    if (theEnvelope->currentReceiver() == "$RELAY")
+    {
+      theEnvelope->forward(OTCLIB_STANDARD_JOB);
+    }
+    else if (theEnvelope->currentReceiver() == "$RECEIVER" ||
      theEnvelope->currentReceiver() == "$LOCAL-RECEIVER")
     {
       OTCEV_Envelope* tmpEnvelope;

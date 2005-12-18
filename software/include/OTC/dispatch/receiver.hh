@@ -13,7 +13,7 @@
 //     Graham Dumpleton
 // 
 // = COPYRIGHT
-//     Copyright 1995-2004 DUMPLETON SOFTWARE CONSULTING PTY LIMITED
+//     Copyright 1995-2005 DUMPLETON SOFTWARE CONSULTING PTY LIMITED
 //
 // ============================================================================
 */
@@ -241,6 +241,11 @@ class OSE_EXPORT OTC_Receiver
 				// delivered to agent with agent ID given by
 				// next recipient. The destination address
 				// will be preserved.
+
+    static OTC_Receiver*	gRelayInBox_;
+				// Special receiver for capturing messages
+				// send to "$RELAY". Messages will simply
+                                // be forwarded onto next recipient.
 
     int			agentId_;
 				// ID of agent.
