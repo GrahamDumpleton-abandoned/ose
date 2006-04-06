@@ -11,7 +11,7 @@
 //     Graham Dumpleton
 // 
 // = COPYRIGHT
-//     Copyright 1996-2005 DUMPLETON SOFTWARE CONSULTING PTY LIMITED
+//     Copyright 1996-2006 DUMPLETON SOFTWARE CONSULTING PTY LIMITED
 //
 // ============================================================================
 */
@@ -30,6 +30,7 @@
 #include <OTC/dispatch/message.hh>
 #include <OTC/dispatch/jobqueue.hh>
 #include <OTC/dispatch/shutdown.hh>
+#include <OTC/dispatch/action.hh>
 #include <OTC/system/program.hh>
 #include <OTC/text/vrecord.hh>
 #include <OTC/debug/logstrm.hh>
@@ -60,6 +61,8 @@ OTC_EXRegistry* OTC_Exchange::gRegistry_ = 0;
 OTC_Exchange::~OTC_Exchange()
 {
   OTCLIB_MARKBLOCK(MODULE,"OTC_Exchange::~OTC_Exchange()");
+
+  OTCEV_Action::cancelAgent(id(),"$KEEP-ALIVE");
 
   OTC_SVBroker::registry()->unsubscribeRegistry(id());
 
@@ -109,6 +112,13 @@ OTC_Exchange::OTC_Exchange(OTC_ExchangeType theType, char const* theGroup)
   // Subscribe to service announcements.
 
   OTC_SVBroker::registry()->subscribeRegistry(id());
+
+  // Schedule keep alive messages.
+
+  if (theType == OTCLIB_EXCHANGE_SERVER)
+    OTCEV_Action::schedule(id(),"0-58/2 * * * *","$KEEP-ALIVE");
+  else
+    OTCEV_Action::schedule(id(),"1-59/2 * * * *","$KEEP-ALIVE");
 }
 
 /* ------------------------------------------------------------------------- */
@@ -420,6 +430,39 @@ void OTC_Exchange::handle(OTC_Event* theEvent)
       // Pass onto next recipient.
 
       theEnvelope->forward(OTCLIB_STANDARD_JOB);
+    }
+  }
+  else if (theEvent->type() == OTCEV_Action::typeId())
+  {
+    OTCEV_Action* theAction;
+    theAction = (OTCEV_Action*)theEvent;
+
+    if (theAction->description() == "$KEEP-ALIVE")
+    {
+      OTC_Iterator<OTC_EPRegistry*> theEndPoints;
+      theEndPoints = endPoints_.items();
+      while (theEndPoints.isValid())
+      {
+        OTCEV_Message* tmpMessage;
+        tmpMessage = new OTCEV_Message(OTC_String::nullString());
+        OTCLIB_ASSERT_M(tmpMessage != 0);
+
+        OTC_Capacity tmpCapacity(127);
+        OTC_String tmpAddress(tmpCapacity);
+
+        tmpAddress += theEndPoints.item()->remoteAddress();
+        tmpAddress += '!';
+        tmpAddress += theEndPoints.item()->exchangeName();
+        tmpAddress += '!';
+        tmpAddress += theEndPoints.item()->localAddress();
+        tmpAddress += '!';
+        tmpAddress += inBox_.name();
+
+        tmpMessage->queue(tmpAddress,name(),
+         "$E::KEEP-ALIVE","",OTCLIB_STANDARD_JOB);
+
+        theEndPoints.next();
+      }
     }
   }
 
