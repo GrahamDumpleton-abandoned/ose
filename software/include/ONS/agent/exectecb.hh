@@ -156,9 +156,9 @@ class ONS_ExecuteCallback_t0_c : public ONS_ExecuteCallback_0
 template<class T>
 inline void ONS_ExecuteCallback_t0_c<T>::execute()
 {
-  if (dead()) return;
+  if (ONS_ExecuteCallback::dead()) return;
 
-  (*(T const*)target().*method_)();
+  (*(T const*)ONS_ExecuteCallback::target().*method_)();
 }
 
 template<class T>
@@ -187,9 +187,9 @@ class ONS_ExecuteCallback_t0 : public ONS_ExecuteCallback_0
 template<class T>
 inline void ONS_ExecuteCallback_t0<T>::execute()
 {
-  if (dead()) return;
+  if (ONS_ExecuteCallback::dead()) return;
 
-  (*(T*)target().*method_)();
+  (*(T*)ONS_ExecuteCallback::target().*method_)();
 }
 
 /* ------------------------------------------------------------------------- */
@@ -234,9 +234,9 @@ class ONS_ExecuteCallback_t1_c : public ONS_ExecuteCallback_1<A1>
 template<class T, class A1>
 inline void ONS_ExecuteCallback_t1_c<T,A1>::execute(A1 theArg1)
 {
-  if (dead()) return;
+  if (ONS_ExecuteCallback::dead()) return;
 
-  (*(T const*)target().*method_)(theArg1);
+  (*(T const*)ONS_ExecuteCallback::target().*method_)(theArg1);
 }
 
 template<class T, class A1>
@@ -265,9 +265,9 @@ class ONS_ExecuteCallback_t1 : public ONS_ExecuteCallback_1<A1>
 template<class T, class A1>
 inline void ONS_ExecuteCallback_t1<T,A1>::execute(A1 theArg1)
 {
-  if (dead()) return;
+  if (ONS_ExecuteCallback::dead()) return;
 
-  (*(T*)target().*method_)(theArg1);
+  (*(T*)ONS_ExecuteCallback::target().*method_)(theArg1);
 }
 
 /* ------------------------------------------------------------------------- */
@@ -312,9 +312,9 @@ class ONS_ExecuteCallback_t2_c : public ONS_ExecuteCallback_2<A1,A2>
 template<class T, class A1, class A2>
 inline void ONS_ExecuteCallback_t2_c<T,A1,A2>::execute(A1 theArg1, A2 theArg2)
 {
-  if (dead()) return;
+  if (ONS_ExecuteCallback::dead()) return;
 
-  (*(T const*)target().*method_)(theArg1,theArg2);
+  (*(T const*)ONS_ExecuteCallback::target().*method_)(theArg1,theArg2);
 }
 
 template<class T, class A1, class A2>
@@ -343,9 +343,9 @@ class ONS_ExecuteCallback_t2 : public ONS_ExecuteCallback_2<A1,A2>
 template<class T, class A1, class A2>
 inline void ONS_ExecuteCallback_t2<T,A1,A2>::execute(A1 theArg1, A2 theArg2)
 {
-  if (dead()) return;
+  if (ONS_ExecuteCallback::dead()) return;
 
-  (*(T*)target().*method_)(theArg1,theArg2);
+  (*(T*)ONS_ExecuteCallback::target().*method_)(theArg1,theArg2);
 }
 
 /* ------------------------------------------------------------------------- */
@@ -391,9 +391,9 @@ template<class T, class A1, class A2, class A3>
 inline void ONS_ExecuteCallback_t3_c<T,A1,A2,A3>::execute(A1 theArg1,
  A2 theArg2, A3 theArg3)
 {
-  if (dead()) return;
+  if (ONS_ExecuteCallback::dead()) return;
 
-  (*(T const*)target().*method_)(theArg1,theArg2,theArg3);
+  (*(T const*)ONS_ExecuteCallback::target().*method_)(theArg1,theArg2,theArg3);
 }
 
 template<class T, class A1, class A2, class A3>
@@ -423,9 +423,9 @@ template<class T, class A1, class A2, class A3>
 inline void ONS_ExecuteCallback_t3<T,A1,A2,A3>::execute(A1 theArg1,
  A2 theArg2, A3 theArg3)
 {
-  if (dead()) return;
+  if (ONS_ExecuteCallback::dead()) return;
 
-  (*(T*)target().*method_)(theArg1,theArg2,theArg3);
+  (*(T*)ONS_ExecuteCallback::target().*method_)(theArg1,theArg2,theArg3);
 }
 
 /* ------------------------------------------------------------------------- */
@@ -472,9 +472,10 @@ template<class T, class A1, class A2, class A3, class A4>
 inline void ONS_ExecuteCallback_t4_c<T,A1,A2,A3,A4>::execute(A1 theArg1,
  A2 theArg2, A3 theArg3, A4 theArg4)
 {
-  if (dead()) return;
+  if (ONS_ExecuteCallback::dead()) return;
 
-  (*(T const*)target().*method_)(theArg1,theArg2,theArg3,theArg4);
+  (*(T const*)ONS_ExecuteCallback::target().*method_)(theArg1,theArg2,
+   theArg3,theArg4);
 }
 
 template<class T, class A1, class A2, class A3, class A4>
@@ -505,9 +506,10 @@ template<class T, class A1, class A2, class A3, class A4>
 inline void ONS_ExecuteCallback_t4<T,A1,A2,A3,A4>::execute(A1 theArg1,
  A2 theArg2, A3 theArg3, A4 theArg4)
 {
-  if (dead()) return;
+  if (ONS_ExecuteCallback::dead()) return;
 
-  (*(T*)target().*method_)(theArg1,theArg2,theArg3,theArg4);
+  (*(T*)ONS_ExecuteCallback::target().*method_)(theArg1,theArg2,theArg3,
+   theArg4);
 }
 
 /* ------------------------------------------------------------------------- */
@@ -554,9 +556,10 @@ template<class T, class A1, class A2, class A3, class A4, class A5>
 inline void ONS_ExecuteCallback_t5_c<T,A1,A2,A3,A4,A5>::execute(A1 theArg1,
  A2 theArg2, A3 theArg3, A4 theArg4, A5 theArg5)
 {
-  if (dead()) return;
+  if (ONS_ExecuteCallback::dead()) return;
 
-  (*(T const*)target().*method_)(theArg1,theArg2,theArg3,theArg4,theArg5);
+  (*(T const*)ONS_ExecuteCallback::target().*method_)(theArg1,theArg2,
+   theArg3,theArg4,theArg5);
 }
 
 template<class T, class A1, class A2, class A3, class A4, class A5>
@@ -587,9 +590,10 @@ template<class T, class A1, class A2, class A3, class A4, class A5>
 inline void ONS_ExecuteCallback_t5<T,A1,A2,A3,A4,A5>::execute(A1 theArg1,
  A2 theArg2, A3 theArg3, A4 theArg4, A5 theArg5)
 {
-  if (dead()) return;
+  if (ONS_ExecuteCallback::dead()) return;
 
-  (*(T*)target().*method_)(theArg1,theArg2,theArg3,theArg4,theArg5);
+  (*(T*)ONS_ExecuteCallback::target().*method_)(theArg1,theArg2,theArg3,
+   theArg4,theArg5);
 }
 
 /* ------------------------------------------------------------------------- */
@@ -636,10 +640,10 @@ template<class T, class A1, class A2, class A3, class A4, class A5, class A6>
 inline void ONS_ExecuteCallback_t6_c<T,A1,A2,A3,A4,A5,A6>::execute(A1 theArg1,
  A2 theArg2, A3 theArg3, A4 theArg4, A5 theArg5, A6 theArg6)
 {
-  if (dead()) return;
+  if (ONS_ExecuteCallback::dead()) return;
 
-  (*(T const*)target().*method_)(theArg1,theArg2,theArg3,theArg4,theArg5,
-   theArg6);
+  (*(T const*)ONS_ExecuteCallback::target().*method_)(theArg1,theArg2,
+   theArg3,theArg4,theArg5,theArg6);
 }
 
 template<class T, class A1, class A2, class A3, class A4, class A5, class A6>
@@ -670,9 +674,10 @@ template<class T, class A1, class A2, class A3, class A4, class A5, class A6>
 inline void ONS_ExecuteCallback_t6<T,A1,A2,A3,A4,A5,A6>::execute(A1 theArg1,
  A2 theArg2, A3 theArg3, A4 theArg4, A5 theArg5, A6 theArg6)
 {
-  if (dead()) return;
+  if (ONS_ExecuteCallback::dead()) return;
 
-  (*(T*)target().*method_)(theArg1,theArg2,theArg3,theArg4,theArg5,theArg6);
+  (*(T*)ONS_ExecuteCallback::target().*method_)(theArg1,theArg2,theArg3,
+   theArg4,theArg5,theArg6);
 }
 
 /* ------------------------------------------------------------------------- */
@@ -723,10 +728,10 @@ inline void ONS_ExecuteCallback_t7_c<T,A1,A2,A3,A4,A5,A6,A7>::execute(
  A1 theArg1, A2 theArg2, A3 theArg3, A4 theArg4, A5 theArg5, A6 theArg6,
  A7 theArg7)
 {
-  if (dead()) return;
+  if (ONS_ExecuteCallback::dead()) return;
 
-  (*(T const*)target().*method_)(theArg1,theArg2,theArg3,theArg4,theArg5,
-   theArg6,theArg7);
+  (*(T const*)ONS_ExecuteCallback::target().*method_)(theArg1,theArg2,
+   theArg3,theArg4,theArg5,theArg6,theArg7);
 }
 
 template<class T, class A1, class A2, class A3, class A4, class A5, class A6,
@@ -761,10 +766,10 @@ inline void ONS_ExecuteCallback_t7<T,A1,A2,A3,A4,A5,A6,A7>::execute(
  A1 theArg1, A2 theArg2, A3 theArg3, A4 theArg4, A5 theArg5, A6 theArg6,
  A7 theArg7)
 {
-  if (dead()) return;
+  if (ONS_ExecuteCallback::dead()) return;
 
-  (*(T*)target().*method_)(theArg1,theArg2,theArg3,theArg4,theArg5,theArg6,
-   theArg7);
+  (*(T*)ONS_ExecuteCallback::target().*method_)(theArg1,theArg2,theArg3,
+   theArg4,theArg5,theArg6,theArg7);
 }
 
 /* ------------------------------------------------------------------------- */
@@ -816,10 +821,10 @@ inline void ONS_ExecuteCallback_t8_c<T,A1,A2,A3,A4,A5,A6,A7,A8>::execute(
  A1 theArg1, A2 theArg2, A3 theArg3, A4 theArg4, A5 theArg5, A6 theArg6,
  A7 theArg7, A8 theArg8)
 {
-  if (dead()) return;
+  if (ONS_ExecuteCallback::dead()) return;
 
-  (*(T const*)target().*method_)(theArg1,theArg2,theArg3,theArg4,theArg5,
-   theArg6,theArg7,theArg8);
+  (*(T const*)ONS_ExecuteCallback::target().*method_)(theArg1,theArg2,
+   theArg3,theArg4,theArg5,theArg6,theArg7,theArg8);
 }
 
 template<class T, class A1, class A2, class A3, class A4, class A5, class A6,
@@ -854,10 +859,10 @@ inline void ONS_ExecuteCallback_t8<T,A1,A2,A3,A4,A5,A6,A7,A8>::execute(
  A1 theArg1, A2 theArg2, A3 theArg3, A4 theArg4, A5 theArg5, A6 theArg6,
  A7 theArg7, A8 theArg8)
 {
-  if (dead()) return;
+  if (ONS_ExecuteCallback::dead()) return;
 
-  (*(T*)target().*method_)(theArg1,theArg2,theArg3,theArg4,theArg5,theArg6,
-   theArg7,theArg8);
+  (*(T*)ONS_ExecuteCallback::target().*method_)(theArg1,theArg2,theArg3,
+   theArg4,theArg5,theArg6,theArg7,theArg8);
 }
 
 /* ------------------------------------------------------------------------- */
@@ -909,10 +914,10 @@ inline void ONS_ExecuteCallback_t9_c<T,A1,A2,A3,A4,A5,A6,A7,A8,A9>::execute(
  A1 theArg1, A2 theArg2, A3 theArg3, A4 theArg4, A5 theArg5, A6 theArg6,
  A7 theArg7, A8 theArg8, A9 theArg9)
 {
-  if (dead()) return;
+  if (ONS_ExecuteCallback::dead()) return;
 
-  (*(T const*)target().*method_)(theArg1,theArg2,theArg3,theArg4,theArg5,
-   theArg6,theArg7,theArg8,theArg9);
+  (*(T const*)ONS_ExecuteCallback::target().*method_)(theArg1,theArg2,
+   theArg3,theArg4,theArg5,theArg6,theArg7,theArg8,theArg9);
 }
 
 template<class T, class A1, class A2, class A3, class A4, class A5, class A6,
@@ -947,10 +952,10 @@ inline void ONS_ExecuteCallback_t9<T,A1,A2,A3,A4,A5,A6,A7,A8,A9>::execute(
  A1 theArg1, A2 theArg2, A3 theArg3, A4 theArg4, A5 theArg5, A6 theArg6,
  A7 theArg7, A8 theArg8, A9 theArg9)
 {
-  if (dead()) return;
+  if (ONS_ExecuteCallback::dead()) return;
 
-  (*(T*)target().*method_)(theArg1,theArg2,theArg3,theArg4,theArg5,theArg6,
-   theArg7,theArg8,theArg9);
+  (*(T*)ONS_ExecuteCallback::target().*method_)(theArg1,theArg2,theArg3,
+   theArg4,theArg5,theArg6,theArg7,theArg8,theArg9);
 }
 
 /* ------------------------------------------------------------------------- */
