@@ -876,7 +876,7 @@ class _Request:
     self.sequenceNumber = self._inner.sequenceNumber
     self.methodName = self._inner.methodName
     self.bounceRequest = self._inner.bounceRequest
-    self.sendFailure = self._inner.sendFailure
+    #self.sendFailure = self._inner.sendFailure
     self.properties = self._inner.properties
 
   def content(self):
@@ -884,6 +884,9 @@ class _Request:
 
   def sendResponse(self,content):
     self._inner.sendResponse(content,self._service.encodeObject)
+
+  def sendFailure(self,error,description="",origin="",context=""):
+    self._inner.sendFailure(error,description,origin,context)
 
 
 class _Response:
