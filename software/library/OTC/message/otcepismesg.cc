@@ -11,7 +11,7 @@
 //     Graham Dumpleton
 // 
 // = COPYRIGHT
-//     Copyright 1995-2004 DUMPLETON SOFTWARE CONSULTING PTY LIMITED
+//     Copyright 1995-2006 DUMPLETON SOFTWARE CONSULTING PTY LIMITED
 //
 // ============================================================================
 */
@@ -27,6 +27,7 @@
 #include <OTC/message/connect.hh>
 #include <OTC/dispatch/envelope.hh>
 #include <OTC/dispatch/message.hh>
+#include <OTC/debug/logstrm.hh>
 #include <OTC/debug/tracer.hh>
 #include <OTC/debug/tracetag.hh>
 
@@ -321,17 +322,43 @@ bool OTC_EPISMessage::processIncoming(OTC_String& theBuffer)
 	  queueOutgoing(theEnvelope);
 	}
 
-	bindRemoteAddress(theFromAddress);
+        OTC_EndPoint* tmpEndPoint;
 
-	OTCEV_Connection* theEvent;
-	theEvent = new OTCEV_Connection(localAddress(),remoteAddress(),
-	 interface(),protocol(),localTransport(),remoteTransport(),
-	 OTCLIB_CONNECTION_ACTIVE);
-	OTCLIB_ASSERT_M(theEvent != 0);
+        tmpEndPoint = OTC_EndPoint::remote(theFromAddress);
 
-	endPoint()->notifyObservers(theEvent,OTCLIB_PRIORITY_JOB);
+        if (tmpEndPoint != 0)
+        {
+          OTC_LogStream theLogger;
+          theLogger.setLevel(OTCLIB_LOG_WARNING);
 
-	resumeOutput();
+          theLogger << "Sanity check failed" << EOL;
+          theLogger << "Class: OTC_EPISMessage" << EOL;
+          theLogger << "Method: processIncoming()" << EOL;
+          theLogger << "Description: remote endpoint already exists" << EOL;
+          theLogger << "Result: forcibly stopping both endpoints" << EOL;
+          theLogger << "RemoteAddress: " << theFromAddress << EOL;
+          theLogger << flush;
+
+          tmpEndPoint->stop(0);
+
+          endPoint()->stop(0);
+
+          return true;
+        }
+        else
+        {
+          bindRemoteAddress(theFromAddress);
+
+          OTCEV_Connection* theEvent;
+          theEvent = new OTCEV_Connection(localAddress(),remoteAddress(),
+           interface(),protocol(),localTransport(),remoteTransport(),
+           OTCLIB_CONNECTION_ACTIVE);
+          OTCLIB_ASSERT_M(theEvent != 0);
+
+          endPoint()->notifyObservers(theEvent,OTCLIB_PRIORITY_JOB);
+
+          resumeOutput();
+        }
       }
     }
     else
