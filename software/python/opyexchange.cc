@@ -8,7 +8,7 @@
 //     Graham Dumpleton
 // 
 // = COPYRIGHT
-//     Copyright 1999-2005 DUMPLETON SOFTWARE CONSULTING PTY LIMITED
+//     Copyright 1999-2006 DUMPLETON SOFTWARE CONSULTING PTY LIMITED
 //
 // ============================================================================
 */
@@ -217,9 +217,9 @@ PyObject* OPY_Exchange::mfn_shutdown(
 )
 {
   char* theAddress = 0;
-  int theDelay = 0;
+  double theDelay = 0;
 
-  if (!PyArg_ParseTuple(theArgs,"s|i",&theAddress,&theDelay))
+  if (!PyArg_ParseTuple(theArgs,"s|d",&theAddress,&theDelay))
     return 0;
 
   OPY_Exchange* theSelf;
@@ -233,7 +233,7 @@ PyObject* OPY_Exchange::mfn_shutdown(
     theEndPoint = theSelf->exchange_.remote(theAddress);
 
   if (theEndPoint != 0)
-    theSelf->exchange_.shutdown(theEndPoint,theDelay);
+    theSelf->exchange_.shutdown(theEndPoint,1000*theDelay);
 
   Py_XINCREF(Py_None);
 
@@ -251,27 +251,30 @@ void OPY_Exchange::handle(OTC_Event* theEvent)
     OTCEV_ExchangeAnnouncement* theAnnouncement;
     theAnnouncement = (OTCEV_ExchangeAnnouncement*)theEvent;
 
-    OPY_Dispatcher::enterPython(interpreterState_);
-
-    OPY_ExchangeAnnouncement* theObject;
-    theObject = new OPY_ExchangeAnnouncement(theAnnouncement);
-    OTCLIB_ASSERT_M(theObject != 0);
-
-    PyObject* theResult;
-    theResult = PyObject_CallMethod(outer_,
-     "_handleConnection","O",theObject);
-
-    if (theResult == 0)
+    if (theAnnouncement->group() == exchange_.group())
     {
-      PyErr_Print();
-      PyErr_Clear();
+      OPY_Dispatcher::enterPython(interpreterState_);
+
+      OPY_ExchangeAnnouncement* theObject;
+      theObject = new OPY_ExchangeAnnouncement(theAnnouncement);
+      OTCLIB_ASSERT_M(theObject != 0);
+
+      PyObject* theResult;
+      theResult = PyObject_CallMethod(outer_,
+       "_handleConnection","O",theObject);
+
+      if (theResult == 0)
+      {
+        PyErr_Print();
+        PyErr_Clear();
+      }
+      else
+        Py_XDECREF(theResult);
+
+      Py_XDECREF(theObject);
+
+      OPY_Dispatcher::leavePython(interpreterState_);
     }
-    else
-      Py_XDECREF(theResult);
-
-    Py_XDECREF(theObject);
-
-    OPY_Dispatcher::leavePython(interpreterState_);
   }
 
   theEvent->destroy();
