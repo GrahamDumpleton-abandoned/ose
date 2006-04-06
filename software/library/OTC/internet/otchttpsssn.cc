@@ -2002,9 +2002,6 @@ bool OTC_HttpSession::b64Decode(
     theInput = theStream.get();
   }
 
-  if (theStream.fail())
-    return false;
-
   // Must always find delimiter.
 
   if (theDelim == EOF && theInput == EOF && thePhase == 0)
