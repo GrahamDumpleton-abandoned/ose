@@ -1,4 +1,4 @@
-## Copyright 1999-2004 DUMPLETON SOFTWARE CONSULTING PTY LIMITED
+## Copyright 2006 DUMPLETON SOFTWARE CONSULTING PTY LIMITED
 
 ## Initialisation.
 
@@ -14,6 +14,7 @@ PROGRAMS += _httpdaem
 PROGRAMS += _rpcgtway
 PROGRAMS += _filesrvr
 PROGRAMS += _xmlrpcgw
+PROGRAMS += _jsongtwy
 
 CPPFLAGS += -I$(SRCROOT)/include
 

@@ -14,7 +14,7 @@
 // 
 // = COPYRIGHT
 //     Copyright 1991-1993 OTC LIMITED
-//     Copyright 1994-2004 DUMPLETON SOFTWARE CONSULTING PTY LIMITED
+//     Copyright 1994-2006 DUMPLETON SOFTWARE CONSULTING PTY LIMITED
 //
 // ============================================================================
 */
@@ -69,8 +69,11 @@ extern int __OSE_DEPENDENCY_MARKER;
 #ifndef OTC_MISC_COPY_HH
 #include <OTC/misc/copy.hh>
 #endif
+#if 0
+// XXX Now obsolete.
 #ifndef OTC_DEBUG_NEWHNDLR_HH
 #include <OTC/debug/newhndlr.hh>
+#endif
 #endif
 #ifndef OTC_DEBUG_TERMFUNC_HH
 #include <OTC/debug/termfunc.hh>
