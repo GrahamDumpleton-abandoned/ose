@@ -13,7 +13,7 @@
 //     Graham Dumpleton
 // 
 // = COPYRIGHT
-//     Copyright 1997-2004 DUMPLETON SOFTWARE CONSULTING PTY LIMITED
+//     Copyright 1997-2006 DUMPLETON SOFTWARE CONSULTING PTY LIMITED
 //
 // ============================================================================
 */
@@ -142,6 +142,13 @@ class OSE_EXPORT OTC_EPListener
 				{ return servers_.items(); }
 				// Returns iterator over server objects
 				// created by this listener.
+
+    u_int               numClients() const
+                                { return servers_.population(); }
+				// Returns the number of active client
+                                // connections currently established.
+                                // This is the same as the number of server
+                                // objects created to manage them.
 
   protected:
 

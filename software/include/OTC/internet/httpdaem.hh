@@ -13,7 +13,7 @@
 //     Graham Dumpleton
 // 
 // = COPYRIGHT
-//     Copyright 1999-2004 DUMPLETON SOFTWARE CONSULTING PTY LIMITED
+//     Copyright 1999-2006 DUMPLETON SOFTWARE CONSULTING PTY LIMITED
 //
 // ============================================================================
 */
@@ -104,7 +104,7 @@ class OSE_EXPORT OTC_HttpDaemon : public OTC_EVAgent
     				// Returns the port on which the daemon
 				// is listening for connections.
 
-    // = EXECUTION
+    // = LISTENING
 
     void		start()
       				{ listener_.start(); }
@@ -115,6 +115,14 @@ class OSE_EXPORT OTC_HttpDaemon : public OTC_EVAgent
       				{ listener_.stop(); }
 				// Directs the HTTP dameon to stop listening
 				// for connection requests.
+
+    void                suspendListening()
+                                { listener_.suspendListening(); }
+                                // Will suspend accepting of new connections.
+
+    void                resumeListening()
+                                { listener_.resumeListening(); }
+                                // Will resume accepting of new connections.
 
     // = SERVER OBJECTS
 
@@ -134,6 +142,65 @@ class OSE_EXPORT OTC_HttpDaemon : public OTC_EVAgent
 				// with "/" and should be normalised. Ie.,
 				// it shouldn't contain directory components
 				// matching "." or "..".
+
+    // = SUBSCRIPTION
+
+    void		addObserver(
+			 int theAgentId,
+			 char const* thePattern=0
+			)
+                                {
+                                    listener_.addObserver(theAgentId,
+                                     thePattern);
+                                }
+				// Events with subject matching <thePattern>
+				// should be sent to the agent identified by
+				// <theAgentId>. <thePattern> is actually a
+				// glob style pattern and will be matched as
+				// such. Note that if <thePattern> is <0>,
+				// any events will be sent to <theAgentId>.
+				// Ie., <thePattern> equal to <0> is the
+				// same as it being <"*">.
+
+    void		removeObserver(
+			 int theAgentId,
+			 char const* thePattern=0
+			)
+                                {
+                                  listener_.removeObserver(theAgentId,
+                                   thePattern);
+                                }
+				// Events with subject matching <thePattern>
+				// should no longer be sent to the agent
+				// identified by <theAgentId>.
+
+    void		removeAllObservers()
+                                { listener_.removeAllObservers(); }
+				// None of the current observers will be
+				// regarded as being interested in this
+				// object.
+
+    bool		observersExist() const
+                                { return listener_.observersExist(); }
+				// Returns <true> if any observers have been
+				// registered against this object.
+
+    bool		observersExist(char const* theSubject) const
+                                {
+                                    return listener_.observersExist(
+                                     theSubject);
+                                }
+				// Returns <true> if any observers have been
+				// registered against this object which have
+				// defined a pattern which would match
+				// <theSubject>.
+
+  // = CLIENT CONNECTIONS
+  //
+    u_int               numClients() const
+                                { return listener_.numClients(); }
+				// Returns the number of active client
+                                // connections currently established.
 
   protected:
 
