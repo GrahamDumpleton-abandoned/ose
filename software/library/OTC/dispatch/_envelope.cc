@@ -11,7 +11,7 @@
 //     Graham Dumpleton
 //
 // = COPYRIGHT
-//     Copyright 1998-2003 DUMPLETON SOFTWARE CONSULTING PTY LIMITED
+//     Copyright 1998-2006 DUMPLETON SOFTWARE CONSULTING PTY LIMITED
 //
 // ============================================================================
 */
@@ -30,6 +30,11 @@
 #include <signal.h>
 
 /* ------------------------------------------------------------------------- */
+
+void callback0(OTC_Event* theEvent, int)
+{
+  theEvent->destroy();
+}
 
 void callback1(OTC_Event* theEvent, int)
 {
@@ -267,6 +272,22 @@ void test5()
   OTC_Dispatcher::run();
 }
 
+void test6()
+{
+  OTC_Tracer tracer("void test6()");
+
+  OTC_FNAgent fnAgent0(callback0);
+
+  OTC_Receiver inBox0(&fnAgent0,"AGENT0");
+
+  OTCEV_Message* theMessage;
+  theMessage = new OTCEV_Message("CONTENT","CONTENT-TYPE","EVENT-TYPE");
+  OTCLIB_ASSERT_M(theMessage != 0);
+
+  for (u_int i=0; i<1000000; i++)
+    OTC_Receiver::deliver("AGENT0",theMessage->clone());
+}
+
 /* ------------------------------------------------------------------------- */
 
 typedef void (*testFunc)();
@@ -277,7 +298,8 @@ testFunc tests[] =
   test2,
   test3,
   test4,
-  test5
+  test5,
+  test6
 };
 
 /* ------------------------------------------------------------------------- */

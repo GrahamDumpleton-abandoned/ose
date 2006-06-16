@@ -11,7 +11,7 @@
 //     Graham Dumpleton
 // 
 // = COPYRIGHT
-//     Copyright 1995-2005 DUMPLETON SOFTWARE CONSULTING PTY LIMITED
+//     Copyright 1995-2006 DUMPLETON SOFTWARE CONSULTING PTY LIMITED
 //
 // ============================================================================
 */
@@ -35,7 +35,7 @@
 /* ------------------------------------------------------------------------- */
 OTC_NRMutex OTC_Receiver::mutex_;
 OTC_NRMutex OTC_Receiver::receiverMutex_;
-OTC_HIndex<OTC_String>* OTC_Receiver::gIndex_ = 0;
+OTC_HIndex<char const*>* OTC_Receiver::gIndex_ = 0;
 OTC_Receiver* OTC_Receiver::gLocalReceiverInBox_;
 OTC_Receiver* OTC_Receiver::gReceiverInBox_;
 OTC_Receiver* OTC_Receiver::gAgentInBox_;
@@ -105,7 +105,7 @@ void OTC_Receiver::unbind()
 
     if (prev_ == 0)
     {
-      OTC_HIndexEntry<OTC_String>* theNode;
+      OTC_HIndexEntry<char const*>* theNode;
       theNode = gIndex_->entry(name_);
       OTCLIB_ASSERT(theNode != 0);
 
@@ -151,7 +151,7 @@ void OTC_Receiver::bind(OTC_EVAgent* theAgent, char const* theName)
   callback_ = 0;
   name_ = tmpName;
 
-  OTC_HIndexEntry<OTC_String>* theNode;
+  OTC_HIndexEntry<char const*>* theNode;
   theNode = gIndex_->insert(name_);
 
   next_ = (OTC_Receiver*)theNode->item();
@@ -192,7 +192,7 @@ void OTC_Receiver::bind(OTC_EVAgent* theAgent)
     agentId_ = theAgent->id();
     callback_ = 0;
 
-    OTC_HIndexEntry<OTC_String>* theNode;
+    OTC_HIndexEntry<char const*>* theNode;
     theNode = gIndex_->insert(name_);
 
     next_ = (OTC_Receiver*)theNode->item();
@@ -231,7 +231,7 @@ void OTC_Receiver::bind(void (*theCallback)(OTC_Event*), char const* theName)
   callback_ = theCallback;
   name_ = tmpName;
 
-  OTC_HIndexEntry<OTC_String>* theNode;
+  OTC_HIndexEntry<char const*>* theNode;
   theNode = gIndex_->insert(name_);
 
   next_ = (OTC_Receiver*)theNode->item();
@@ -271,7 +271,7 @@ void OTC_Receiver::bind(void (*theCallback)(OTC_Event*))
     callback_ = theCallback;
     name_ = tmpName;
 
-    OTC_HIndexEntry<OTC_String>* theNode;
+    OTC_HIndexEntry<char const*>* theNode;
     theNode = gIndex_->insert(name_);
 
     next_ = (OTC_Receiver*)theNode->item();
@@ -403,7 +403,7 @@ void OTC_Receiver::fill_(
 
   if (gIndex_ != 0)
   {
-    OTC_HIndexEntry<OTC_String>* theNode;
+    OTC_HIndexEntry<char const*>* theNode;
     theNode = gIndex_->entry(theName);
 
     if (theNode != 0)
@@ -491,7 +491,7 @@ OTC_Receiver const* OTC_Receiver::lookup(char const* theName)
 
   if (gIndex_ != 0)
   {
-    OTC_HIndexEntry<OTC_String>* theNode;
+    OTC_HIndexEntry<char const*>* theNode;
     theNode = gIndex_->entry(theName);
 
     if (theNode != 0)
@@ -513,7 +513,7 @@ void OTC_Receiver::init_()
     OTC_MutexReaper<OTC_NRMutex> xxxMutex;
     xxxMutex.grab(mutex_);
 
-    gIndex_ = new OTC_HIndex<OTC_String>;
+    gIndex_ = new OTC_HIndex<char const*>;
     OTCLIB_ASSERT_M(gIndex_ != 0);
 
     xxxMutex.release();

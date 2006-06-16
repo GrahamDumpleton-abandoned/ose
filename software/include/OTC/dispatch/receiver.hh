@@ -13,7 +13,7 @@
 //     Graham Dumpleton
 // 
 // = COPYRIGHT
-//     Copyright 1995-2005 DUMPLETON SOFTWARE CONSULTING PTY LIMITED
+//     Copyright 1995-2006 DUMPLETON SOFTWARE CONSULTING PTY LIMITED
 //
 // ============================================================================
 */
@@ -217,7 +217,7 @@ class OSE_EXPORT OTC_Receiver
                                 // Special Lock for threads when creating
 				// special receivers.
 
-    static OTC_HIndex<OTC_String>*	gIndex_;
+    static OTC_HIndex<char const*>*	gIndex_;
 				// Index onto receiver.
 
     static OTC_Receiver*	gLocalReceiverInBox_;

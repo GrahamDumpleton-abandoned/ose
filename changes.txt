@@ -1,6 +1,17 @@
 Changes In OSE 8.2
 ==================
 
+Improvements
+------------
+
+- Avoid redundant memory allocations and string copying when performing
+  the lookup of the receiver of an event. That is, where an agent has an
+  instance of OTC_Receiver bound to it and the event is being delivered
+  using the name of the receiver. This mechanism underlays the whole
+  OTC_Envelope event delivery system and the higher level messaging
+  framework. At the unit level, the change delivered a 15% improvement
+  in speed.
+
 New Features
 ------------
 
@@ -26,3 +37,4 @@ New Features
   some basic information about how many jobs are waiting to be executed.
   The instance OTC_JobQueue in use by the dispatcher is accessible using
   OTC_Dispatcher::queue().
+
