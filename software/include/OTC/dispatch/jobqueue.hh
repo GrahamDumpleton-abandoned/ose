@@ -152,15 +152,15 @@ class OSE_EXPORT OTC_JobQueue
 				// <OTCLIB_IDLE_JOB>, <OTCLIB_STANDARD_JOB>
 				// and <OTCLIB_PRIORITY_JOB>.
 
-    virtual u_int       countPriorityJobs() const;
+    virtual u_int       numPriorityJobs() const;
                                 // Returns count of the number of priority
                                 // jobs waiting to be executed.
 
-    virtual u_int       countStandardJobs() const;
+    virtual u_int       numStandardJobs() const;
                                 // Returns count of the number of standard
                                 // jobs waiting to be executed.
 
-    virtual u_int       countIdleJobs() const;
+    virtual u_int       numIdleJobs() const;
                                 // Returns count of the number of idle
                                 // jobs waiting to be executed.
 

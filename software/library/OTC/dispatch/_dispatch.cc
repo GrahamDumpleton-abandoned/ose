@@ -273,12 +273,17 @@ void Condition1::evaluate()
 
   tracer() << "count = " << current_ << endl;
 
-  OTC_JobQueue* theQueue;
-  theQueue = OTC_Dispatcher::queue();
+  tracer() << "priority jobs = "
+   << OTC_Dispatcher::queue()->numPriorityJobs() << endl;
+  tracer() << "standard jobs = "
+   << OTC_Dispatcher::queue()->numStandardJobs() << endl;
+  tracer() << "idle jobs = "
+   << OTC_Dispatcher::queue()->numIdleJobs() << endl;
 
-  tracer() << "priority jobs = " << theQueue->countPriorityJobs() << endl;
-  tracer() << "standard jobs = " << theQueue->countStandardJobs() << endl;
-  tracer() << "idle jobs = " << theQueue->countIdleJobs() << endl;
+  tracer() << "io subscriptions = "
+   << OTCEV_IOEvent::numSubscriptions() << endl;
+  tracer() << "max io subscriptions = "
+   << OTCEV_IOEvent::maxSubscriptions() << endl;
 
   if (++current_ >= count_)
     set();

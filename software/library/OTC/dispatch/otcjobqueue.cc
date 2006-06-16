@@ -482,7 +482,7 @@ void OTC_JobQueue::add(OTC_Job* theJob, int theType)
 }
 
 /* ------------------------------------------------------------------------- */
-u_int OTC_JobQueue::countPriorityJobs() const
+u_int OTC_JobQueue::numPriorityJobs() const
 {
   u_int theResult = 0;
 
@@ -501,7 +501,7 @@ u_int OTC_JobQueue::countPriorityJobs() const
 }
 
 /* ------------------------------------------------------------------------- */
-u_int OTC_JobQueue::countStandardJobs() const
+u_int OTC_JobQueue::numStandardJobs() const
 {
   u_int theResult = 0;
 
@@ -521,7 +521,7 @@ u_int OTC_JobQueue::countStandardJobs() const
 }
 
 /* ------------------------------------------------------------------------- */
-u_int OTC_JobQueue::countIdleJobs() const
+u_int OTC_JobQueue::numIdleJobs() const
 {
   u_int theResult = 0;
 
