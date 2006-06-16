@@ -11,7 +11,7 @@
 //     Graham Dumpleton
 // 
 // = COPYRIGHT
-//     Copyright 2000-2004 DUMPLETON SOFTWARE CONSULTING PTY LIMITED
+//     Copyright 2000-2005 DUMPLETON SOFTWARE CONSULTING PTY LIMITED
 //
 // ============================================================================
 */
@@ -150,6 +150,48 @@ void TST_FailService::handle(OTC_Event* theEvent)
   theEvent->destroy();
 }
 
+class TST_SleepService : public OTC_EVAgent
+{
+  public:
+
+    			TST_SleepService()
+			  : broker_(this,"sleep","*")
+			  	{ broker_.joinGroup("public"); }
+
+  protected:
+
+    void		handle(OTC_Event* theEvent);
+
+  private:
+
+    OTC_SVBroker	broker_;
+};
+
+void TST_SleepService::handle(OTC_Event* theEvent)
+{
+  OTC_Tracer tracer("TST_SleepService::handle(OTC_Event*)");
+
+  if (theEvent == 0)
+    return;
+
+  tracer() << *theEvent << endl;
+
+  if (theEvent->type() == OTCEV_Request::typeId())
+  {
+    sleep(5);
+
+    OTCEV_Request* theRequest;
+    theRequest = (OTCEV_Request*)theEvent;
+
+    OTC_SVPayload theObject;
+    theObject <<= OTC_Time::currentTime();
+
+    theRequest->sendResponse(theObject);
+  }
+
+  theEvent->destroy();
+}
+
 void test1()
 {
   OTC_Tracer tracer("void test1()");
@@ -161,6 +203,7 @@ void test1()
   TST_EchoService theService1;
   TST_TimeService theService2;
   TST_FailService theService3;
+  TST_SleepService theService4;
 
   OTC_HttpDaemon theDaemon(8000);
 
