@@ -482,6 +482,65 @@ void OTC_JobQueue::add(OTC_Job* theJob, int theType)
 }
 
 /* ------------------------------------------------------------------------- */
+u_int OTC_JobQueue::countPriorityJobs() const
+{
+  u_int theResult = 0;
+
+  qmutex_.lock();
+
+  OTC_MutexReaper<OTC_NRMutex> xxxMutex;
+  xxxMutex.grab(qmutex_);
+
+  theResult += priorityJobs_->count();
+
+  xxxMutex.release();
+
+  qmutex_.unlock();
+
+  return theResult;
+}
+
+/* ------------------------------------------------------------------------- */
+u_int OTC_JobQueue::countStandardJobs() const
+{
+  u_int theResult = 0;
+
+  qmutex_.lock();
+
+  OTC_MutexReaper<OTC_NRMutex> xxxMutex;
+  xxxMutex.grab(qmutex_);
+
+  theResult += standardJobs_->count();
+  theResult += pendingStandardJobs_->count();
+
+  xxxMutex.release();
+
+  qmutex_.unlock();
+
+  return theResult;
+}
+
+/* ------------------------------------------------------------------------- */
+u_int OTC_JobQueue::countIdleJobs() const
+{
+  u_int theResult = 0;
+
+  qmutex_.lock();
+
+  OTC_MutexReaper<OTC_NRMutex> xxxMutex;
+  xxxMutex.grab(qmutex_);
+
+  theResult += idleJobs_->count();
+  theResult += pendingIdleJobs_->count();
+
+  xxxMutex.release();
+
+  qmutex_.unlock();
+
+  return theResult;
+}
+
+/* ------------------------------------------------------------------------- */
 OTC_Job* OTC_JobQueue::next(int theActions, int)
 {
   OTCLIB_MARKBLOCK(MODULE,"OTC_JobQueue:next(int,int)");

@@ -12,7 +12,7 @@
 // 
 // = COPYRIGHT
 //     Copyright 1993 OTC LIMITED
-//     Copyright 1995-2004 DUMPLETON SOFTWARE CONSULTING PTY LIMITED
+//     Copyright 1995-2006 DUMPLETON SOFTWARE CONSULTING PTY LIMITED
 //
 // ============================================================================
 */
@@ -39,12 +39,6 @@ OTC_JobList::~OTC_JobList()
 }
 
 /* ------------------------------------------------------------------------- */
-bool OTC_JobList::isEmpty() const
-{
-  return jobs_.isEmpty();
-}
-
-/* ------------------------------------------------------------------------- */
 void OTC_JobList::add(OTC_Job* theJob)
 {
   OTCLIB_ENSURE_FN((theJob != 0),
@@ -55,17 +49,21 @@ void OTC_JobList::add(OTC_Job* theJob)
   theLink = new OTC_VLink((void*)theJob);
   OTCLIB_ASSERT_M(theLink != 0);
   jobs_.addLast(theLink);
+
+  count_++;
 }
 
 /* ------------------------------------------------------------------------- */
 OTC_Job* OTC_JobList::next()
 {
-  if (jobs_.isEmpty())
+  if (count_ == 0)
     return 0;
 
   OTC_Job* theJob;
   theJob = (OTC_Job*)((OTC_VLink*)jobs_.first())->item();
   jobs_.removeFirst();
+
+  count_--;
 
   return theJob;
 }

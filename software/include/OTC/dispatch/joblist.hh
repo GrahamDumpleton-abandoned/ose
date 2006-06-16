@@ -14,7 +14,7 @@
 // 
 // = COPYRIGHT
 //     Copyright 1993 OTC LIMITED
-//     Copyright 1994-2004 DUMPLETON SOFTWARE CONSULTING PTY LIMITED
+//     Copyright 1994-2006 DUMPLETON SOFTWARE CONSULTING PTY LIMITED
 //
 // ============================================================================
 */
@@ -48,7 +48,7 @@ class OSE_EXPORT OTC_JobList
 {
   public:
 
-			OTC_JobList() {}
+			OTC_JobList() : count_(0) {}
 
     // = DESTRUCTION
 
@@ -58,7 +58,12 @@ class OSE_EXPORT OTC_JobList
 
     // = QUEUEING
 
-    bool		isEmpty() const;
+    u_int               count() const
+                                { return count_; }
+                                // Returns the number of jobs in the list.
+
+    bool		isEmpty() const
+                                { return count_ == 0; }
 				// Returns <true> if there are no jobs in the
 				// queue.
 
@@ -80,6 +85,9 @@ class OSE_EXPORT OTC_JobList
 
     OTC_LinkList	jobs_;
 				// List of jobs.
+
+    u_int               count_;
+                                // Number of jobs in list.
 };
 
 /* ------------------------------------------------------------------------- */

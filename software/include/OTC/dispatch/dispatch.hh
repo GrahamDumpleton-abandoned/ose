@@ -14,7 +14,7 @@
 // 
 // = COPYRIGHT
 //     Copyright 1993 OTC LIMITED
-//     Copyright 1994-2004 DUMPLETON SOFTWARE CONSULTING PTY LIMITED
+//     Copyright 1994-2006 DUMPLETON SOFTWARE CONSULTING PTY LIMITED
 //
 // ============================================================================
 */
@@ -223,9 +223,7 @@ class OSE_EXPORT OTC_Dispatcher
     				// Disable logging of warnings about any
 				// undeliverable events.
 
-  public:
-
-    // Following is kept public for backwards compatability only.
+    // = QUEUE
 
     static OTC_JobQueue*	queue();
 				// Returns a pointer to the job queue.

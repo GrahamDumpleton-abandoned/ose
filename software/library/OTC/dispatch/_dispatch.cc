@@ -12,7 +12,7 @@
 // 
 // = COPYRIGHT
 //     Copyright 1993 OTC LIMITED
-//     Copyright 1994-2004 DUMPLETON SOFTWARE CONSULTING PTY LIMITED
+//     Copyright 1994-2006 DUMPLETON SOFTWARE CONSULTING PTY LIMITED
 //
 // ============================================================================
 */
@@ -269,6 +269,17 @@ class Condition1 : public OTC_Condition
 
 void Condition1::evaluate()
 {
+  OTC_Tracer tracer("Condition1::evaluate()");
+
+  tracer() << "count = " << current_ << endl;
+
+  OTC_JobQueue* theQueue;
+  theQueue = OTC_Dispatcher::queue();
+
+  tracer() << "priority jobs = " << theQueue->countPriorityJobs() << endl;
+  tracer() << "standard jobs = " << theQueue->countStandardJobs() << endl;
+  tracer() << "idle jobs = " << theQueue->countIdleJobs() << endl;
+
   if (++current_ >= count_)
     set();
 }

@@ -14,7 +14,7 @@
 // 
 // = COPYRIGHT
 //     Copyright 1993 OTC LIMITED
-//     Copyright 1994-2004 DUMPLETON SOFTWARE CONSULTING PTY LIMITED
+//     Copyright 1994-2006 DUMPLETON SOFTWARE CONSULTING PTY LIMITED
 //
 // ============================================================================
 */
@@ -152,6 +152,20 @@ class OSE_EXPORT OTC_JobQueue
 				// <OTCLIB_IDLE_JOB>, <OTCLIB_STANDARD_JOB>
 				// and <OTCLIB_PRIORITY_JOB>.
 
+    virtual u_int       countPriorityJobs() const;
+                                // Returns count of the number of priority
+                                // jobs waiting to be executed.
+
+    virtual u_int       countStandardJobs() const;
+                                // Returns count of the number of standard
+                                // jobs waiting to be executed.
+
+    virtual u_int       countIdleJobs() const;
+                                // Returns count of the number of idle
+                                // jobs waiting to be executed.
+
+    // = EXECUTION
+
     virtual OTC_Job*	next(int theActions, int theOptions);
 				// Returns a job to be executed. The type of
 				// job and whether the function blocks is
@@ -163,8 +177,6 @@ class OSE_EXPORT OTC_JobQueue
 				// by the enum <OTC_JobActions> as described
 				// above. <theOptions> is not used by this
 				// job queue and thus its value is ignored.
-
-    // = EXECUTION
 
     virtual int		dispatch(int theActions=0, int theOptions=0);
 				// Executes a single job. Note that this
