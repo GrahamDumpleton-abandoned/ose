@@ -31,11 +31,6 @@
 
 /* ------------------------------------------------------------------------- */
 
-void callback0(OTC_Event* theEvent, int)
-{
-  theEvent->destroy();
-}
-
 void callback1(OTC_Event* theEvent, int)
 {
   OTC_Tracer tracer("void callback1(OTC_Event*,int)");
@@ -126,6 +121,27 @@ void callback5(OTC_Event* theEvent, int)
   }
 
   theEvent->destroy();
+}
+
+void callback6(OTC_Event* theEvent, int)
+{
+  theEvent->destroy();
+}
+
+void callback7(OTC_Event* theEvent, int theType)
+{
+  static u_int COUNT = 0;
+
+  if (COUNT++ < 100000)
+  {
+    OTC_Receiver::queue("LOOPBACK",theEvent,theType);
+  }
+  else
+  {
+    OTC_Dispatcher::stop();
+
+    theEvent->destroy();
+  }
 }
 
 void test1()
@@ -276,16 +292,35 @@ void test6()
 {
   OTC_Tracer tracer("void test6()");
 
-  OTC_FNAgent fnAgent0(callback0);
+  OTC_FNAgent fnAgent0(callback6);
 
-  OTC_Receiver inBox0(&fnAgent0,"AGENT0");
+  OTC_Receiver inBox0(&fnAgent0,"AGENT1");
 
   OTCEV_Message* theMessage;
   theMessage = new OTCEV_Message("CONTENT","CONTENT-TYPE","EVENT-TYPE");
   OTCLIB_ASSERT_M(theMessage != 0);
 
   for (u_int i=0; i<1000000; i++)
-    OTC_Receiver::deliver("AGENT0",theMessage->clone());
+    OTC_Receiver::deliver("AGENT1",theMessage->clone());
+}
+
+void test7()
+{
+  OTC_Tracer tracer("void test7()");
+
+  OTC_Dispatcher::initialise();
+
+  OTC_FNAgent fnAgent0(callback7);
+
+  OTC_Receiver inBox0(&fnAgent0,"LOOPBACK");
+
+  OTCEV_Message* theMessage;
+  theMessage = new OTCEV_Message("CONTENT","CONTENT-TYPE","EVENT-TYPE");
+  OTCLIB_ASSERT_M(theMessage != 0);
+
+  OTC_Receiver::queue("LOOPBACK",theMessage,OTCLIB_STANDARD_JOB);
+
+  OTC_Dispatcher::run();
 }
 
 /* ------------------------------------------------------------------------- */
@@ -299,7 +334,8 @@ testFunc tests[] =
   test3,
   test4,
   test5,
-  test6
+  test6,
+  test7
 };
 
 /* ------------------------------------------------------------------------- */
