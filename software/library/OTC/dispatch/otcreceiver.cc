@@ -44,7 +44,7 @@ OTC_Receiver* OTC_Receiver::gAgentInBox_;
 OTC_Receiver* OTC_Receiver::gRelayInBox_;
 
 /* ------------------------------------------------------------------------- */
-struct OSE_EXPORT OTC_ReceiverTarget
+struct OSE_EXPORT OTC_ReceiverTarget : public OTC_MPObject
 {
   public:
 
