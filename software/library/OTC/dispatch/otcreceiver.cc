@@ -35,11 +35,62 @@
 /* ------------------------------------------------------------------------- */
 OTC_NRMutex OTC_Receiver::mutex_;
 OTC_NRMutex OTC_Receiver::receiverMutex_;
+bool OTC_Receiver::gIndexInitialised_ = false;
 OTC_HIndex<char const*>* OTC_Receiver::gIndex_ = 0;
+bool OTC_Receiver::gReceiversIntialised_ = false;
 OTC_Receiver* OTC_Receiver::gLocalReceiverInBox_;
 OTC_Receiver* OTC_Receiver::gReceiverInBox_;
 OTC_Receiver* OTC_Receiver::gAgentInBox_;
 OTC_Receiver* OTC_Receiver::gRelayInBox_;
+
+/* ------------------------------------------------------------------------- */
+struct OSE_EXPORT OTC_ReceiverTarget
+{
+  public:
+
+                        OTC_ReceiverTarget()
+                          : callback(0), agentId(0), next(0) {}
+
+    void                (*callback)(OTC_Event*);
+    int                 agentId;
+    OTC_ReceiverTarget* next;
+};
+
+/* ------------------------------------------------------------------------- */
+class OSE_EXPORT OTC_ReceiverJob : public OTC_Job
+{
+  public:
+
+			~OTC_ReceiverJob();
+
+			OTC_ReceiverJob(
+                         char const* theName,
+                         OTC_Event* theEvent
+                        )
+			  : name_(theName), event_(theEvent) {}
+
+    void		execute();
+
+  private:
+
+    OTC_String          name_;
+
+    OTC_Event*          event_;
+};
+
+OTC_ReceiverJob::~OTC_ReceiverJob()
+{
+  if (event_ != 0)
+    event_->destroy();
+}
+
+void OTC_ReceiverJob::execute()
+{
+  if (event_ != 0)
+    OTC_Receiver::deliver(name_,event_);
+
+  event_ = 0;
+}
 
 /* ------------------------------------------------------------------------- */
 OTC_Receiver::~OTC_Receiver()
@@ -49,43 +100,48 @@ OTC_Receiver::~OTC_Receiver()
 
 /* ------------------------------------------------------------------------- */
 OTC_Receiver::OTC_Receiver()
-  : agentId_(0), callback_(0), prev_(0), next_(0)
+  : agentId_(0), callback_(0), prev_(0), next_(0), count_(1)
 {
-  init_();
+  if (!gIndexInitialised_)
+    initIndex_();
 }
 
 /* ------------------------------------------------------------------------- */
 OTC_Receiver::OTC_Receiver(OTC_EVAgent* theAgent, char const* theName)
-  : agentId_(0), callback_(0), prev_(0), next_(0)
+  : agentId_(0), callback_(0), prev_(0), next_(0), count_(1)
 {
-  init_();
+  if (!gIndexInitialised_)
+    initIndex_();
 
   bind(theAgent,theName);
 }
 
 /* ------------------------------------------------------------------------- */
 OTC_Receiver::OTC_Receiver(OTC_EVAgent* theAgent)
-  : agentId_(0), callback_(0), prev_(0), next_(0)
+  : agentId_(0), callback_(0), prev_(0), next_(0), count_(1)
 {
-  init_();
+  if (!gIndexInitialised_)
+    initIndex_();
 
   bind(theAgent);
 }
 
 /* ------------------------------------------------------------------------- */
 OTC_Receiver::OTC_Receiver(void (*theCallback)(OTC_Event*), char const* theName)
-  : agentId_(0), callback_(0), prev_(0), next_(0)
+  : agentId_(0), callback_(0), prev_(0), next_(0), count_(1)
 {
-  init_();
+  if (!gIndexInitialised_)
+    initIndex_();
 
   bind(theCallback,theName);
 }
 
 /* ------------------------------------------------------------------------- */
 OTC_Receiver::OTC_Receiver(void (*theCallback)(OTC_Event*))
-  : agentId_(0), callback_(0), prev_(0), next_(0)
+  : agentId_(0), callback_(0), prev_(0), next_(0), count_(1)
 {
-  init_();
+  if (!gIndexInitialised_)
+    initIndex_();
 
   bind(theCallback);
 }
@@ -110,7 +166,10 @@ void OTC_Receiver::unbind()
       OTCLIB_ASSERT(theNode != 0);
 
       if (next_ != 0)
+      {
+        next_->count_ = count_ - 1;
 	theNode->setItem((void*)next_);
+      }
       else
 	theNode->removeEntry();
     }
@@ -156,7 +215,10 @@ void OTC_Receiver::bind(OTC_EVAgent* theAgent, char const* theName)
 
   next_ = (OTC_Receiver*)theNode->item();
   if (next_ != 0)
+  {
     next_->prev_ = this;
+    count_ = next_->count_ + 1;
+  }
 
   theNode->setItem((void*)this);
 
@@ -186,8 +248,7 @@ void OTC_Receiver::bind(OTC_EVAgent* theAgent)
 
   while (1)
   {
-    name_ = OTC_Symbol(OTC_Program::uniqueId(
-     "$O?",OTCLIB_ID_SHORT_FORMAT));
+    name_ = OTC_Symbol(OTC_Program::uniqueId("$O?",OTCLIB_ID_SHORT_FORMAT));
 
     agentId_ = theAgent->id();
     callback_ = 0;
@@ -236,7 +297,10 @@ void OTC_Receiver::bind(void (*theCallback)(OTC_Event*), char const* theName)
 
   next_ = (OTC_Receiver*)theNode->item();
   if (next_ != 0)
+  {
     next_->prev_ = this;
+    count_ = next_->count_ + 1;
+  }
 
   theNode->setItem((void*)this);
 
@@ -292,114 +356,93 @@ void OTC_Receiver::bind(void (*theCallback)(OTC_Event*))
 /* ------------------------------------------------------------------------- */
 void OTC_Receiver::deliver(char const* theName, OTC_Event* theEvent)
 {
-  OTC_JobList theJobList;
+  if (theEvent == 0)
+    return;
 
-  fill_(&theJobList,theName,theEvent);
-
-  OTC_Job* theJob;
-  theJob = theJobList.next();
-
-  while (theJob != 0)
+  if (theName == 0 || *theName == EOS)
   {
-    theJob->execute();
-    theJob->destroy();
+    theEvent->destroy();
 
-    theJob = theJobList.next();
+    return;
   }
 
-  theEvent->destroy();
+  u_int theCount;
+  OTC_ReceiverTarget theFirstRecipient;
+
+  theCount = retrieveTargets_(&theFirstRecipient,theName);
+
+  if (theCount == 1)
+  {
+    if (theFirstRecipient.callback != 0)
+      theEvent->deliver(theFirstRecipient.callback);
+    else
+      theEvent->deliver(theFirstRecipient.agentId);
+  }
+  else if (theCount > 1)
+  {
+    if (theFirstRecipient.callback != 0)
+      theEvent->clone()->deliver(theFirstRecipient.callback);
+    else
+      theEvent->clone()->deliver(theFirstRecipient.agentId);
+
+    OTC_ReceiverTarget* theNextRecipient;
+    OTC_ReceiverTarget* theLastRecipient;
+
+    theNextRecipient = theFirstRecipient.next;
+
+    while (theNextRecipient != 0)
+    {
+      if (theNextRecipient->callback != 0)
+        theEvent->clone()->deliver(theNextRecipient->callback);
+      else
+        theEvent->clone()->deliver(theNextRecipient->agentId);
+
+      theLastRecipient = theNextRecipient;
+      theNextRecipient = theNextRecipient->next;
+      delete theLastRecipient;
+    }
+
+    theEvent->destroy();
+  }
+  else
+    theEvent->destroy();
 }
 
 /* ------------------------------------------------------------------------- */
 void OTC_Receiver::queue(char const* theName, OTC_Event* theEvent, int theType)
 {
-  OTC_JobList theJobList;
+  if (theEvent == 0)
+    return;
 
-  fill_(&theJobList,theName,theEvent);
-
-  OTC_Job* theJob;
-  theJob = theJobList.next();
-
-  while (theJob != 0)
+  if (theName == 0 || *theName == EOS)
   {
-    OTC_Dispatcher::schedule(theJob,theType);
+    theEvent->destroy();
 
-    theJob = theJobList.next();
+    return;
   }
 
-  theEvent->destroy();
+  OTC_ReceiverJob* theJob;
+  theJob = new OTC_ReceiverJob(theName,theEvent);
+
+  OTC_Dispatcher::schedule(theJob,theType);
 }
 
 /* ------------------------------------------------------------------------- */
-void OTC_Receiver::fill_(
- OTC_JobList* theJobList,
- char const* theName,
- OTC_Event* theEvent
+u_int OTC_Receiver::retrieveTargets_(
+ OTC_ReceiverTarget* theRecipients,
+ char const* theName
 )
 {
-  if (theName == 0 || *theName == EOS)
-    return;
-
-  OTC_MutexReaper<OTC_NRMutex> xxxMutex;
-
-  // Create special receivers.
-
-  receiverMutex_.lock();
-
-  xxxMutex.grab(receiverMutex_);
-
-  if (gLocalReceiverInBox_ == 0)
-  {
-    gLocalReceiverInBox_ = new OTC_Receiver;
-    OTCLIB_ASSERT_M(gLocalReceiverInBox_ != 0);
-
-    gLocalReceiverInBox_->bind(proxy_,"$LOCAL-RECEIVER");
-  }
-
-  if (gReceiverInBox_ == 0)
-  {
-    gReceiverInBox_ = new OTC_Receiver;
-    OTCLIB_ASSERT_M(gReceiverInBox_ != 0);
-
-    gReceiverInBox_->bind(proxy_,"$RECEIVER");
-  }
-
-  if (gAgentInBox_ == 0)
-  {
-    gAgentInBox_ = new OTC_Receiver;
-    OTCLIB_ASSERT_M(gAgentInBox_ != 0);
-
-    gAgentInBox_->bind(proxy_,"$AGENT");
-  }
-
-  if (gRelayInBox_ == 0)
-  {
-    gRelayInBox_ = new OTC_Receiver;
-    OTCLIB_ASSERT_M(gRelayInBox_ != 0);
-
-    gRelayInBox_->bind(proxy_,"$RELAY");
-  }
-
-  xxxMutex.release();
-
-  receiverMutex_.unlock();
-
-  // Now do real work.
-
-  OTCLIB_ENSURE_FN((theJobList != 0),
-   "OTC_Receiver::fill(OTC_JobList*, char const*, OTC_Event*)",
-   "invalid job list");
-
-  OTCLIB_ENSURE_FN((theEvent != 0),
-   "OTC_Receiver::fill(OTC_JobList*, char const*, OTC_Event*)",
-   "invalid event");
+  if (!gReceiversIntialised_)
+    initReceivers_();
 
   mutex_.lock();
 
+  OTC_MutexReaper<OTC_NRMutex> xxxMutex;
   xxxMutex.grab(mutex_);
 
-  OTC_Receiver const* theReceiver;
-  theReceiver = 0;
+  OTC_Receiver const* theReceiver = 0;
+  u_int theCount = 0;
 
   if (gIndex_ != 0)
   {
@@ -407,38 +450,52 @@ void OTC_Receiver::fill_(
     theNode = gIndex_->entry(theName);
 
     if (theNode != 0)
+    {
       theReceiver = (OTC_Receiver*)theNode->item();
+      theCount = theReceiver->count_;
+    }
   }
 
-  while (theReceiver != 0)
+  if (theReceiver != 0)
   {
-    OTCLIB_ASSERT(theReceiver->agentId_ != 0 || theReceiver->callback_ != 0);
+    // The first target object should be on the
+    // parent stack so just populate it.
+    // Additional target objects need to be
+    // created on the free store.
 
-    OTC_Job* theJob;
-    OTC_Event* theClone;
+    theRecipients->agentId = theReceiver->agentId_;
+    theRecipients->callback = theReceiver->callback_;
 
-    theClone = theEvent->clone();
-    OTCLIB_ASSERT(theClone != 0);
+    // Only create additional target objects if
+    // more receivers. The additional target objects
+    // are created on the heap and must be deleted
+    // by the caller.
 
-    if (theReceiver->agentId_ != 0)
+    if (theCount > 1)
     {
-      theJob = new OTC_EventJob(theReceiver->agentId_,theClone);
-      OTCLIB_ASSERT_M(theJob != 0);
-    }
-    else
-    {
-      theJob = new OTC_EventJob(theReceiver->callback_,theClone);
-      OTCLIB_ASSERT_M(theJob != 0);
-    }
+      OTC_Receiver* theNextReceiver = theReceiver->next_;
+      OTC_ReceiverTarget* theRecipient = theRecipients;
 
-    theJobList->add(theJob);
+      while (theNextReceiver != 0)
+      {
+        theRecipient->next = new OTC_ReceiverTarget;
+        OTCLIB_ASSERT_M(theRecipient->next != 0);
 
-    theReceiver = theReceiver->next();
+        theRecipient = theRecipient->next;
+
+        theRecipient->agentId = theReceiver->agentId_;
+        theRecipient->callback = theReceiver->callback_;
+
+        theNextReceiver = theNextReceiver->next_;
+      }
+    }
   }
 
   xxxMutex.release();
 
   mutex_.unlock();
+
+  return theCount;
 }
 
 /* ------------------------------------------------------------------------- */
@@ -447,42 +504,8 @@ OTC_Receiver const* OTC_Receiver::lookup(char const* theName)
   if (theName == 0 || *theName == EOS)
     return 0;
 
-  // Create special receivers.
-
-  receiverMutex_.lock();
-
-  OTC_MutexReaper<OTC_NRMutex> xxxMutex;
-  xxxMutex.grab(receiverMutex_);
-
-  if (gLocalReceiverInBox_ == 0)
-  {
-    gLocalReceiverInBox_ = new OTC_Receiver;
-    OTCLIB_ASSERT_M(gLocalReceiverInBox_ != 0);
-
-    gLocalReceiverInBox_->bind(proxy_,"$LOCAL-RECEIVER");
-  }
-
-  if (gReceiverInBox_ == 0)
-  {
-    gReceiverInBox_ = new OTC_Receiver;
-    OTCLIB_ASSERT_M(gReceiverInBox_ != 0);
-
-    gReceiverInBox_->bind(proxy_,"$RECEIVER");
-  }
-
-  if (gAgentInBox_ == 0)
-  {
-    gAgentInBox_ = new OTC_Receiver;
-    OTCLIB_ASSERT_M(gAgentInBox_ != 0);
-
-    gAgentInBox_->bind(proxy_,"$AGENT");
-  }
-
-  xxxMutex.release();
-
-  receiverMutex_.unlock();
-
-  // Now do the lookup.
+  if (!gReceiversIntialised_)
+    initReceivers_();
 
   OTC_Receiver* theResult;
   theResult = 0;
@@ -504,26 +527,75 @@ OTC_Receiver const* OTC_Receiver::lookup(char const* theName)
 }
 
 /* ------------------------------------------------------------------------- */
-void OTC_Receiver::init_()
+void OTC_Receiver::initIndex_()
 {
   mutex_.lock();
 
+  OTC_MutexReaper<OTC_NRMutex> xxxMutex;
+  xxxMutex.grab(mutex_);
+
   if (gIndex_ == 0)
   {
-    OTC_MutexReaper<OTC_NRMutex> xxxMutex;
-    xxxMutex.grab(mutex_);
-
     gIndex_ = new OTC_HIndex<char const*>;
     OTCLIB_ASSERT_M(gIndex_ != 0);
-
-    xxxMutex.release();
   }
+
+  gIndexInitialised_ = true;
+
+  xxxMutex.release();
 
   mutex_.unlock();
 }
 
 /* ------------------------------------------------------------------------- */
-void OTC_Receiver::proxy_(OTC_Event* theEvent)
+void OTC_Receiver::initReceivers_()
+{
+  receiverMutex_.lock();
+
+  OTC_MutexReaper<OTC_NRMutex> xxxMutex;
+  xxxMutex.grab(receiverMutex_);
+
+  if (gLocalReceiverInBox_ == 0)
+  {
+    gLocalReceiverInBox_ = new OTC_Receiver;
+    OTCLIB_ASSERT_M(gLocalReceiverInBox_ != 0);
+
+    gLocalReceiverInBox_->bind(builtinReceiver_,"$LOCAL-RECEIVER");
+  }
+
+  if (gReceiverInBox_ == 0)
+  {
+    gReceiverInBox_ = new OTC_Receiver;
+    OTCLIB_ASSERT_M(gReceiverInBox_ != 0);
+
+    gReceiverInBox_->bind(builtinReceiver_,"$RECEIVER");
+  }
+
+  if (gAgentInBox_ == 0)
+  {
+    gAgentInBox_ = new OTC_Receiver;
+    OTCLIB_ASSERT_M(gAgentInBox_ != 0);
+
+    gAgentInBox_->bind(builtinReceiver_,"$AGENT");
+  }
+
+  if (gRelayInBox_ == 0)
+  {
+    gRelayInBox_ = new OTC_Receiver;
+    OTCLIB_ASSERT_M(gRelayInBox_ != 0);
+
+    gRelayInBox_->bind(builtinReceiver_,"$RELAY");
+  }
+
+  gReceiversIntialised_ = true;
+
+  xxxMutex.release();
+
+  receiverMutex_.unlock();
+}
+
+/* ------------------------------------------------------------------------- */
+void OTC_Receiver::builtinReceiver_(OTC_Event* theEvent)
 {
   if (theEvent == 0)
     return;

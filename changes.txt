@@ -9,8 +9,8 @@ Improvements
   instance of OTC_Receiver bound to it and the event is being delivered
   using the name of the receiver. This mechanism underlays the whole
   OTC_Envelope event delivery system and the higher level messaging
-  framework. At the unit level, the change delivered a 15% improvement
-  in speed.
+  framework so improvements here will positively affect these higher
+  level layers.
 
 New Features
 ------------

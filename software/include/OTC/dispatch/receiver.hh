@@ -35,6 +35,8 @@
 class OTC_Event;
 class OTC_EVAgent;
 
+class OTC_ReceiverTarget;
+
 class OSE_EXPORT OTC_Receiver
     // = TITLE
     //     Binds a name to an agent or function for event delivery.
@@ -194,21 +196,21 @@ class OSE_EXPORT OTC_Receiver
     OTC_Receiver&	operator=(OTC_Receiver const&);
 				//  Do not define an implementation for this.
 
-    static void		init_();
+    static void		initIndex_();
 				// Creates index onto receivers.
 
-    static void		fill_(
-			 OTC_JobList* theJobList,
-			 char const* theName,
-			 OTC_Event* theEvent
-			);
-				// Fills <theJobList> with individual
-				// jobs where each job sends <theEvent>
-				// to a different receiver with <theName>.
+    static void         initReceivers_();
+                                // Create default receiver objects.
 
-    static void		proxy_(OTC_Event* theEvent);
-				// Acts as proxy for messages, delivering
-				// message immediately onto next receiver.
+    static void		builtinReceiver_(OTC_Event* theEvent);
+				// Handler for special builtin receivers.
+
+    static u_int	retrieveTargets_(
+			 OTC_ReceiverTarget* theRecipients,
+			 char const* theName
+			);
+                                // Creates list of target receivers with
+                                // <theName>. The number found is returned.
 
     static OTC_NRMutex  mutex_;
                                 // Lock for threads.
@@ -217,8 +219,16 @@ class OSE_EXPORT OTC_Receiver
                                 // Special Lock for threads when creating
 				// special receivers.
 
+    static bool         gIndexInitialised_;
+                                // Flag recording fact index has been
+                                // initialised.
+
     static OTC_HIndex<char const*>*	gIndex_;
 				// Index onto receiver.
+
+    static bool         gReceiversIntialised_;
+                                // Flag recording fact builtin receivers
+                                // have been initialised.
 
     static OTC_Receiver*	gLocalReceiverInBox_;
 				// Special receiver for capturing messages
@@ -261,6 +271,12 @@ class OSE_EXPORT OTC_Receiver
 
     OTC_Receiver*	next_;
 				// Pointer to next receiver.
+
+    u_int               count_;
+                                // Count of number of receivers using
+                                // the same name. This is only valid
+                                // for the entry which is the head of
+                                // the list.
 };
 
 /* ------------------------------------------------------------------------- */
