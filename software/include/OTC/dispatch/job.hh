@@ -14,7 +14,7 @@
 // 
 // = COPYRIGHT
 //     Copyright 1993 OTC LIMITED
-//     Copyright 1994-2004 DUMPLETON SOFTWARE CONSULTING PTY LIMITED
+//     Copyright 1994-2006 DUMPLETON SOFTWARE CONSULTING PTY LIMITED
 //
 // ============================================================================
 */
@@ -113,7 +113,7 @@ class OSE_EXPORT OTC_Job
     static void*	typeId()
 				{ return &globTypeId_; }
 				// Returns a value which uniquely identifies
-				// this type of event.
+				// this type of job.
 
     // = SCHEDULING
 
