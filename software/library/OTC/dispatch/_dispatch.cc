@@ -45,11 +45,11 @@
 
 /* ------------------------------------------------------------------------- */
 
-class TestJob : public OTC_Job
+class TestJob1 : public OTC_Job
 {
   public:
 
-			TestJob(int theOptions)
+			TestJob1(int theOptions)
 			  : type_(theOptions)  {}
 
     void		execute();
@@ -60,9 +60,9 @@ class TestJob : public OTC_Job
     int			type_;
 };
 
-void TestJob::execute()
+void TestJob1::execute()
 {
-  OTC_Tracer tracer("TestJob::execute()");
+  OTC_Tracer tracer("TestJob1::execute()");
 
   tracer() << "type = " << type_ << endl;
 }
@@ -112,12 +112,12 @@ void Agent1::handle(OTC_Event* theEvent)
         exit(1);
     }
 
-    TestJob* testJob;
-    testJob = new TestJob(OTCLIB_IDLE_JOB);
+    TestJob1* testJob;
+    testJob = new TestJob1(OTCLIB_IDLE_JOB);
     OTC_Dispatcher::schedule(testJob,OTCLIB_IDLE_JOB);
-    testJob = new TestJob(OTCLIB_STANDARD_JOB);
+    testJob = new TestJob1(OTCLIB_STANDARD_JOB);
     OTC_Dispatcher::schedule(testJob,OTCLIB_STANDARD_JOB);
-    testJob = new TestJob(OTCLIB_PRIORITY_JOB);
+    testJob = new TestJob1(OTCLIB_PRIORITY_JOB);
     OTC_Dispatcher::schedule(testJob,OTCLIB_PRIORITY_JOB);
 
     OTCEV_Action::schedule(id());
@@ -183,12 +183,12 @@ void Agent2::handle(OTC_Event* theEvent)
         exit(1);
     }
 
-    TestJob* testJob;
-    testJob = new TestJob(OTCLIB_IDLE_JOB);
+    TestJob1* testJob;
+    testJob = new TestJob1(OTCLIB_IDLE_JOB);
     OTC_Dispatcher::schedule(testJob,OTCLIB_IDLE_JOB);
-    testJob = new TestJob(OTCLIB_STANDARD_JOB);
+    testJob = new TestJob1(OTCLIB_STANDARD_JOB);
     OTC_Dispatcher::schedule(testJob,OTCLIB_STANDARD_JOB);
-    testJob = new TestJob(OTCLIB_PRIORITY_JOB);
+    testJob = new TestJob1(OTCLIB_PRIORITY_JOB);
     OTC_Dispatcher::schedule(testJob,OTCLIB_PRIORITY_JOB);
 
     OTCEV_Action::schedule(id());
@@ -289,6 +289,40 @@ void Condition1::evaluate()
     set();
 }
 
+class TestJob2 : public OTC_Job
+{
+  public:
+
+			TestJob2(u_int theCount, int theType)
+                          : count_(theCount), current_(0), type_(theType) {}
+
+    void		execute();
+
+    void		destroy();
+
+  private:
+
+    u_int               count_;
+
+    u_int               current_;
+
+    int                 type_;
+};
+
+void TestJob2::execute()
+{
+  current_++;
+
+  if (current_ > count_)
+    OTC_Dispatcher::stop();
+  else
+    OTC_Dispatcher::schedule(this,type_);
+}
+
+void TestJob2::destroy()
+{
+}
+
 void test1()
 {
   OTC_Tracer tracer("test1()");
@@ -322,7 +356,7 @@ void test1()
   OTCEV_Alarm::set(agent.id(),theTime+3);
   OTCEV_Alarm::set(agent.id(),theTime+2);
 
-  TestJob* testJob = new TestJob(OTCLIB_IDLE_JOB);
+  TestJob1* testJob = new TestJob1(OTCLIB_IDLE_JOB);
   OTC_Dispatcher::schedule(testJob);
 
   OTC_Dispatcher::run();
@@ -359,7 +393,7 @@ void test2()
   OTCEV_Timeout::start(agent.id(),1);
   OTCEV_Timeout::start(agent.id(),1);
 
-  TestJob* testJob = new TestJob(OTCLIB_IDLE_JOB);
+  TestJob1* testJob = new TestJob1(OTCLIB_IDLE_JOB);
   OTC_Dispatcher::schedule(testJob);
 
   OTC_Dispatcher::run();
@@ -418,7 +452,7 @@ void test4()
   OTCEV_Alarm::set(agent.id(),theTime+3);
   OTCEV_Alarm::set(agent.id(),theTime+2);
 
-  TestJob* testJob = new TestJob(OTCLIB_IDLE_JOB);
+  TestJob1* testJob = new TestJob1(OTCLIB_IDLE_JOB);
   OTC_Dispatcher::schedule(testJob);
 
   Condition1 theCondition(100);
@@ -483,6 +517,18 @@ void test6()
   OTC_Dispatcher::task()->wait();
 }
 
+void test7()
+{
+  OTC_Tracer tracer("test7()");
+
+  OTC_Dispatcher::initialise();
+
+  TestJob2 theJob(100000,OTCLIB_STANDARD_JOB);
+  theJob.execute();
+  
+  OTC_Dispatcher::run();
+}
+
 /* ------------------------------------------------------------------------- */
 
 typedef void (*testFunc)();
@@ -494,7 +540,8 @@ testFunc tests[] =
   test3,
   test4,
   test5,
-  test6
+  test6,
+  test7
 };
 
 /* ------------------------------------------------------------------------- */

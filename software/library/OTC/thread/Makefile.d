@@ -50,7 +50,6 @@ $(MK)/otctask.d $(MK).pic/otctask$(OBJEXT) $(MK)/otctask$(OBJEXT) : ../../../inc
 $(MK)/otctask.d $(MK).pic/otctask$(OBJEXT) $(MK)/otctask$(OBJEXT) : ../../../include/OTC/debug/ensure.h
 $(MK)/otctask.d $(MK).pic/otctask$(OBJEXT) $(MK)/otctask$(OBJEXT) : ../../../include/OTC/debug/errors.h
 $(MK)/otctask.d $(MK).pic/otctask$(OBJEXT) $(MK)/otctask$(OBJEXT) : ../../../include/OTC/debug/excption.hh
-$(MK)/otctask.d $(MK).pic/otctask$(OBJEXT) $(MK)/otctask$(OBJEXT) : ../../../include/OTC/debug/newhndlr.hh
 $(MK)/otctask.d $(MK).pic/otctask$(OBJEXT) $(MK)/otctask$(OBJEXT) : ../../../include/OTC/debug/stophere.h
 $(MK)/otctask.d $(MK).pic/otctask$(OBJEXT) $(MK)/otctask$(OBJEXT) : ../../../include/OTC/debug/termfunc.hh
 $(MK)/otctask.d $(MK).pic/otctask$(OBJEXT) $(MK)/otctask$(OBJEXT) : ../../../include/OTC/debug/throwerr.hh
@@ -89,7 +88,6 @@ $(MK)/_task.d $(MK)/_task$(OBJEXT) $(MK)/_task$(BINEXT) : ../../../include/OTC/d
 $(MK)/_task.d $(MK)/_task$(OBJEXT) $(MK)/_task$(BINEXT) : ../../../include/OTC/debug/ensure.h
 $(MK)/_task.d $(MK)/_task$(OBJEXT) $(MK)/_task$(BINEXT) : ../../../include/OTC/debug/errors.h
 $(MK)/_task.d $(MK)/_task$(OBJEXT) $(MK)/_task$(BINEXT) : ../../../include/OTC/debug/excption.hh
-$(MK)/_task.d $(MK)/_task$(OBJEXT) $(MK)/_task$(BINEXT) : ../../../include/OTC/debug/newhndlr.hh
 $(MK)/_task.d $(MK)/_task$(OBJEXT) $(MK)/_task$(BINEXT) : ../../../include/OTC/debug/stophere.h
 $(MK)/_task.d $(MK)/_task$(OBJEXT) $(MK)/_task$(BINEXT) : ../../../include/OTC/debug/termfunc.hh
 $(MK)/_task.d $(MK)/_task$(OBJEXT) $(MK)/_task$(BINEXT) : ../../../include/OTC/debug/throwerr.hh

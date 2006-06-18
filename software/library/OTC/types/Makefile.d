@@ -25,7 +25,6 @@ $(MK)/otcdate.d $(MK).pic/otcdate$(OBJEXT) $(MK)/otcdate$(OBJEXT) : ../../../inc
 $(MK)/otcdate.d $(MK).pic/otcdate$(OBJEXT) $(MK)/otcdate$(OBJEXT) : ../../../include/OTC/debug/ensure.h
 $(MK)/otcdate.d $(MK).pic/otcdate$(OBJEXT) $(MK)/otcdate$(OBJEXT) : ../../../include/OTC/debug/errors.h
 $(MK)/otcdate.d $(MK).pic/otcdate$(OBJEXT) $(MK)/otcdate$(OBJEXT) : ../../../include/OTC/debug/excption.hh
-$(MK)/otcdate.d $(MK).pic/otcdate$(OBJEXT) $(MK)/otcdate$(OBJEXT) : ../../../include/OTC/debug/newhndlr.hh
 $(MK)/otcdate.d $(MK).pic/otcdate$(OBJEXT) $(MK)/otcdate$(OBJEXT) : ../../../include/OTC/debug/stophere.h
 $(MK)/otcdate.d $(MK).pic/otcdate$(OBJEXT) $(MK)/otcdate$(OBJEXT) : ../../../include/OTC/debug/termfunc.hh
 $(MK)/otcdate.d $(MK).pic/otcdate$(OBJEXT) $(MK)/otcdate$(OBJEXT) : ../../../include/OTC/debug/throwerr.hh
@@ -85,7 +84,6 @@ $(MK)/otcduration.d $(MK).pic/otcduration$(OBJEXT) $(MK)/otcduration$(OBJEXT) : 
 $(MK)/otcduration.d $(MK).pic/otcduration$(OBJEXT) $(MK)/otcduration$(OBJEXT) : ../../../include/OTC/debug/ensure.h
 $(MK)/otcduration.d $(MK).pic/otcduration$(OBJEXT) $(MK)/otcduration$(OBJEXT) : ../../../include/OTC/debug/errors.h
 $(MK)/otcduration.d $(MK).pic/otcduration$(OBJEXT) $(MK)/otcduration$(OBJEXT) : ../../../include/OTC/debug/excption.hh
-$(MK)/otcduration.d $(MK).pic/otcduration$(OBJEXT) $(MK)/otcduration$(OBJEXT) : ../../../include/OTC/debug/newhndlr.hh
 $(MK)/otcduration.d $(MK).pic/otcduration$(OBJEXT) $(MK)/otcduration$(OBJEXT) : ../../../include/OTC/debug/stophere.h
 $(MK)/otcduration.d $(MK).pic/otcduration$(OBJEXT) $(MK)/otcduration$(OBJEXT) : ../../../include/OTC/debug/termfunc.hh
 $(MK)/otcduration.d $(MK).pic/otcduration$(OBJEXT) $(MK)/otcduration$(OBJEXT) : ../../../include/OTC/debug/throwerr.hh
@@ -143,7 +141,6 @@ $(MK)/otctime.d $(MK).pic/otctime$(OBJEXT) $(MK)/otctime$(OBJEXT) : ../../../inc
 $(MK)/otctime.d $(MK).pic/otctime$(OBJEXT) $(MK)/otctime$(OBJEXT) : ../../../include/OTC/debug/ensure.h
 $(MK)/otctime.d $(MK).pic/otctime$(OBJEXT) $(MK)/otctime$(OBJEXT) : ../../../include/OTC/debug/errors.h
 $(MK)/otctime.d $(MK).pic/otctime$(OBJEXT) $(MK)/otctime$(OBJEXT) : ../../../include/OTC/debug/excption.hh
-$(MK)/otctime.d $(MK).pic/otctime$(OBJEXT) $(MK)/otctime$(OBJEXT) : ../../../include/OTC/debug/newhndlr.hh
 $(MK)/otctime.d $(MK).pic/otctime$(OBJEXT) $(MK)/otctime$(OBJEXT) : ../../../include/OTC/debug/stophere.h
 $(MK)/otctime.d $(MK).pic/otctime$(OBJEXT) $(MK)/otctime$(OBJEXT) : ../../../include/OTC/debug/termfunc.hh
 $(MK)/otctime.d $(MK).pic/otctime$(OBJEXT) $(MK)/otctime$(OBJEXT) : ../../../include/OTC/debug/throwerr.hh
@@ -203,7 +200,6 @@ $(MK)/_date.d $(MK)/_date$(OBJEXT) $(MK)/_date$(BINEXT) : ../../../include/OTC/d
 $(MK)/_date.d $(MK)/_date$(OBJEXT) $(MK)/_date$(BINEXT) : ../../../include/OTC/debug/ensure.h
 $(MK)/_date.d $(MK)/_date$(OBJEXT) $(MK)/_date$(BINEXT) : ../../../include/OTC/debug/errors.h
 $(MK)/_date.d $(MK)/_date$(OBJEXT) $(MK)/_date$(BINEXT) : ../../../include/OTC/debug/excption.hh
-$(MK)/_date.d $(MK)/_date$(OBJEXT) $(MK)/_date$(BINEXT) : ../../../include/OTC/debug/newhndlr.hh
 $(MK)/_date.d $(MK)/_date$(OBJEXT) $(MK)/_date$(BINEXT) : ../../../include/OTC/debug/stophere.h
 $(MK)/_date.d $(MK)/_date$(OBJEXT) $(MK)/_date$(BINEXT) : ../../../include/OTC/debug/termfunc.hh
 $(MK)/_date.d $(MK)/_date$(OBJEXT) $(MK)/_date$(BINEXT) : ../../../include/OTC/debug/throwerr.hh
@@ -268,7 +264,6 @@ $(MK)/_duration.d $(MK)/_duration$(OBJEXT) $(MK)/_duration$(BINEXT) : ../../../i
 $(MK)/_duration.d $(MK)/_duration$(OBJEXT) $(MK)/_duration$(BINEXT) : ../../../include/OTC/debug/ensure.h
 $(MK)/_duration.d $(MK)/_duration$(OBJEXT) $(MK)/_duration$(BINEXT) : ../../../include/OTC/debug/errors.h
 $(MK)/_duration.d $(MK)/_duration$(OBJEXT) $(MK)/_duration$(BINEXT) : ../../../include/OTC/debug/excption.hh
-$(MK)/_duration.d $(MK)/_duration$(OBJEXT) $(MK)/_duration$(BINEXT) : ../../../include/OTC/debug/newhndlr.hh
 $(MK)/_duration.d $(MK)/_duration$(OBJEXT) $(MK)/_duration$(BINEXT) : ../../../include/OTC/debug/stophere.h
 $(MK)/_duration.d $(MK)/_duration$(OBJEXT) $(MK)/_duration$(BINEXT) : ../../../include/OTC/debug/termfunc.hh
 $(MK)/_duration.d $(MK)/_duration$(OBJEXT) $(MK)/_duration$(BINEXT) : ../../../include/OTC/debug/throwerr.hh
@@ -332,7 +327,6 @@ $(MK)/_time.d $(MK)/_time$(OBJEXT) $(MK)/_time$(BINEXT) : ../../../include/OTC/d
 $(MK)/_time.d $(MK)/_time$(OBJEXT) $(MK)/_time$(BINEXT) : ../../../include/OTC/debug/ensure.h
 $(MK)/_time.d $(MK)/_time$(OBJEXT) $(MK)/_time$(BINEXT) : ../../../include/OTC/debug/errors.h
 $(MK)/_time.d $(MK)/_time$(OBJEXT) $(MK)/_time$(BINEXT) : ../../../include/OTC/debug/excption.hh
-$(MK)/_time.d $(MK)/_time$(OBJEXT) $(MK)/_time$(BINEXT) : ../../../include/OTC/debug/newhndlr.hh
 $(MK)/_time.d $(MK)/_time$(OBJEXT) $(MK)/_time$(BINEXT) : ../../../include/OTC/debug/stophere.h
 $(MK)/_time.d $(MK)/_time$(OBJEXT) $(MK)/_time$(BINEXT) : ../../../include/OTC/debug/termfunc.hh
 $(MK)/_time.d $(MK)/_time$(OBJEXT) $(MK)/_time$(BINEXT) : ../../../include/OTC/debug/throwerr.hh

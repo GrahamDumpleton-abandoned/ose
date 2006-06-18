@@ -32,13 +32,11 @@ $(MK)/otccongest.d $(MK).pic/otccongest$(OBJEXT) $(MK)/otccongest$(OBJEXT) : ../
 $(MK)/otccongest.d $(MK).pic/otccongest$(OBJEXT) $(MK)/otccongest$(OBJEXT) : ../../../include/OTC/collctn/rankactn.hh
 $(MK)/otccongest.d $(MK).pic/otccongest$(OBJEXT) $(MK)/otccongest$(OBJEXT) : ../../../include/OTC/collctn/strgactn.hh
 $(MK)/otccongest.d $(MK).pic/otccongest$(OBJEXT) $(MK)/otccongest$(OBJEXT) : ../../../include/OTC/collctn/visitor.hh
-$(MK)/otccongest.d $(MK).pic/otccongest$(OBJEXT) $(MK)/otccongest$(OBJEXT) : ../../../include/OTC/collctn/vlink.hh
 $(MK)/otccongest.d $(MK).pic/otccongest$(OBJEXT) $(MK)/otccongest$(OBJEXT) : ../../../include/OTC/collctn/worker.hh
 $(MK)/otccongest.d $(MK).pic/otccongest$(OBJEXT) $(MK)/otccongest$(OBJEXT) : ../../../include/OTC/debug/assert.h
 $(MK)/otccongest.d $(MK).pic/otccongest$(OBJEXT) $(MK)/otccongest$(OBJEXT) : ../../../include/OTC/debug/ensure.h
 $(MK)/otccongest.d $(MK).pic/otccongest$(OBJEXT) $(MK)/otccongest$(OBJEXT) : ../../../include/OTC/debug/errors.h
 $(MK)/otccongest.d $(MK).pic/otccongest$(OBJEXT) $(MK)/otccongest$(OBJEXT) : ../../../include/OTC/debug/excption.hh
-$(MK)/otccongest.d $(MK).pic/otccongest$(OBJEXT) $(MK)/otccongest$(OBJEXT) : ../../../include/OTC/debug/newhndlr.hh
 $(MK)/otccongest.d $(MK).pic/otccongest$(OBJEXT) $(MK)/otccongest$(OBJEXT) : ../../../include/OTC/debug/stophere.h
 $(MK)/otccongest.d $(MK).pic/otccongest$(OBJEXT) $(MK)/otccongest$(OBJEXT) : ../../../include/OTC/debug/termfunc.hh
 $(MK)/otccongest.d $(MK).pic/otccongest$(OBJEXT) $(MK)/otccongest$(OBJEXT) : ../../../include/OTC/debug/throwerr.hh
@@ -108,13 +106,11 @@ $(MK)/otcconnect.d $(MK).pic/otcconnect$(OBJEXT) $(MK)/otcconnect$(OBJEXT) : ../
 $(MK)/otcconnect.d $(MK).pic/otcconnect$(OBJEXT) $(MK)/otcconnect$(OBJEXT) : ../../../include/OTC/collctn/rankactn.hh
 $(MK)/otcconnect.d $(MK).pic/otcconnect$(OBJEXT) $(MK)/otcconnect$(OBJEXT) : ../../../include/OTC/collctn/strgactn.hh
 $(MK)/otcconnect.d $(MK).pic/otcconnect$(OBJEXT) $(MK)/otcconnect$(OBJEXT) : ../../../include/OTC/collctn/visitor.hh
-$(MK)/otcconnect.d $(MK).pic/otcconnect$(OBJEXT) $(MK)/otcconnect$(OBJEXT) : ../../../include/OTC/collctn/vlink.hh
 $(MK)/otcconnect.d $(MK).pic/otcconnect$(OBJEXT) $(MK)/otcconnect$(OBJEXT) : ../../../include/OTC/collctn/worker.hh
 $(MK)/otcconnect.d $(MK).pic/otcconnect$(OBJEXT) $(MK)/otcconnect$(OBJEXT) : ../../../include/OTC/debug/assert.h
 $(MK)/otcconnect.d $(MK).pic/otcconnect$(OBJEXT) $(MK)/otcconnect$(OBJEXT) : ../../../include/OTC/debug/ensure.h
 $(MK)/otcconnect.d $(MK).pic/otcconnect$(OBJEXT) $(MK)/otcconnect$(OBJEXT) : ../../../include/OTC/debug/errors.h
 $(MK)/otcconnect.d $(MK).pic/otcconnect$(OBJEXT) $(MK)/otcconnect$(OBJEXT) : ../../../include/OTC/debug/excption.hh
-$(MK)/otcconnect.d $(MK).pic/otcconnect$(OBJEXT) $(MK)/otcconnect$(OBJEXT) : ../../../include/OTC/debug/newhndlr.hh
 $(MK)/otcconnect.d $(MK).pic/otcconnect$(OBJEXT) $(MK)/otcconnect$(OBJEXT) : ../../../include/OTC/debug/stophere.h
 $(MK)/otcconnect.d $(MK).pic/otcconnect$(OBJEXT) $(MK)/otcconnect$(OBJEXT) : ../../../include/OTC/debug/termfunc.hh
 $(MK)/otcconnect.d $(MK).pic/otcconnect$(OBJEXT) $(MK)/otcconnect$(OBJEXT) : ../../../include/OTC/debug/throwerr.hh
@@ -217,13 +213,11 @@ $(MK)/otcendpoint.d $(MK).pic/otcendpoint$(OBJEXT) $(MK)/otcendpoint$(OBJEXT) : 
 $(MK)/otcendpoint.d $(MK).pic/otcendpoint$(OBJEXT) $(MK)/otcendpoint$(OBJEXT) : ../../../include/OTC/collctn/tmap.c
 $(MK)/otcendpoint.d $(MK).pic/otcendpoint$(OBJEXT) $(MK)/otcendpoint$(OBJEXT) : ../../../include/OTC/collctn/tmap.hh
 $(MK)/otcendpoint.d $(MK).pic/otcendpoint$(OBJEXT) $(MK)/otcendpoint$(OBJEXT) : ../../../include/OTC/collctn/visitor.hh
-$(MK)/otcendpoint.d $(MK).pic/otcendpoint$(OBJEXT) $(MK)/otcendpoint$(OBJEXT) : ../../../include/OTC/collctn/vlink.hh
 $(MK)/otcendpoint.d $(MK).pic/otcendpoint$(OBJEXT) $(MK)/otcendpoint$(OBJEXT) : ../../../include/OTC/collctn/worker.hh
 $(MK)/otcendpoint.d $(MK).pic/otcendpoint$(OBJEXT) $(MK)/otcendpoint$(OBJEXT) : ../../../include/OTC/debug/assert.h
 $(MK)/otcendpoint.d $(MK).pic/otcendpoint$(OBJEXT) $(MK)/otcendpoint$(OBJEXT) : ../../../include/OTC/debug/ensure.h
 $(MK)/otcendpoint.d $(MK).pic/otcendpoint$(OBJEXT) $(MK)/otcendpoint$(OBJEXT) : ../../../include/OTC/debug/errors.h
 $(MK)/otcendpoint.d $(MK).pic/otcendpoint$(OBJEXT) $(MK)/otcendpoint$(OBJEXT) : ../../../include/OTC/debug/excption.hh
-$(MK)/otcendpoint.d $(MK).pic/otcendpoint$(OBJEXT) $(MK)/otcendpoint$(OBJEXT) : ../../../include/OTC/debug/newhndlr.hh
 $(MK)/otcendpoint.d $(MK).pic/otcendpoint$(OBJEXT) $(MK)/otcendpoint$(OBJEXT) : ../../../include/OTC/debug/stophere.h
 $(MK)/otcendpoint.d $(MK).pic/otcendpoint$(OBJEXT) $(MK)/otcendpoint$(OBJEXT) : ../../../include/OTC/debug/taginfo.hh
 $(MK)/otcendpoint.d $(MK).pic/otcendpoint$(OBJEXT) $(MK)/otcendpoint$(OBJEXT) : ../../../include/OTC/debug/termfunc.hh
@@ -338,13 +332,11 @@ $(MK)/otcepclient.d $(MK).pic/otcepclient$(OBJEXT) $(MK)/otcepclient$(OBJEXT) : 
 $(MK)/otcepclient.d $(MK).pic/otcepclient$(OBJEXT) $(MK)/otcepclient$(OBJEXT) : ../../../include/OTC/collctn/shlwcopy.hh
 $(MK)/otcepclient.d $(MK).pic/otcepclient$(OBJEXT) $(MK)/otcepclient$(OBJEXT) : ../../../include/OTC/collctn/strgactn.hh
 $(MK)/otcepclient.d $(MK).pic/otcepclient$(OBJEXT) $(MK)/otcepclient$(OBJEXT) : ../../../include/OTC/collctn/visitor.hh
-$(MK)/otcepclient.d $(MK).pic/otcepclient$(OBJEXT) $(MK)/otcepclient$(OBJEXT) : ../../../include/OTC/collctn/vlink.hh
 $(MK)/otcepclient.d $(MK).pic/otcepclient$(OBJEXT) $(MK)/otcepclient$(OBJEXT) : ../../../include/OTC/collctn/worker.hh
 $(MK)/otcepclient.d $(MK).pic/otcepclient$(OBJEXT) $(MK)/otcepclient$(OBJEXT) : ../../../include/OTC/debug/assert.h
 $(MK)/otcepclient.d $(MK).pic/otcepclient$(OBJEXT) $(MK)/otcepclient$(OBJEXT) : ../../../include/OTC/debug/ensure.h
 $(MK)/otcepclient.d $(MK).pic/otcepclient$(OBJEXT) $(MK)/otcepclient$(OBJEXT) : ../../../include/OTC/debug/errors.h
 $(MK)/otcepclient.d $(MK).pic/otcepclient$(OBJEXT) $(MK)/otcepclient$(OBJEXT) : ../../../include/OTC/debug/excption.hh
-$(MK)/otcepclient.d $(MK).pic/otcepclient$(OBJEXT) $(MK)/otcepclient$(OBJEXT) : ../../../include/OTC/debug/newhndlr.hh
 $(MK)/otcepclient.d $(MK).pic/otcepclient$(OBJEXT) $(MK)/otcepclient$(OBJEXT) : ../../../include/OTC/debug/stophere.h
 $(MK)/otcepclient.d $(MK).pic/otcepclient$(OBJEXT) $(MK)/otcepclient$(OBJEXT) : ../../../include/OTC/debug/termfunc.hh
 $(MK)/otcepclient.d $(MK).pic/otcepclient$(OBJEXT) $(MK)/otcepclient$(OBJEXT) : ../../../include/OTC/debug/throwerr.hh
@@ -443,13 +435,11 @@ $(MK)/otcepintrfc.d $(MK).pic/otcepintrfc$(OBJEXT) $(MK)/otcepintrfc$(OBJEXT) : 
 $(MK)/otcepintrfc.d $(MK).pic/otcepintrfc$(OBJEXT) $(MK)/otcepintrfc$(OBJEXT) : ../../../include/OTC/collctn/shlwcopy.hh
 $(MK)/otcepintrfc.d $(MK).pic/otcepintrfc$(OBJEXT) $(MK)/otcepintrfc$(OBJEXT) : ../../../include/OTC/collctn/strgactn.hh
 $(MK)/otcepintrfc.d $(MK).pic/otcepintrfc$(OBJEXT) $(MK)/otcepintrfc$(OBJEXT) : ../../../include/OTC/collctn/visitor.hh
-$(MK)/otcepintrfc.d $(MK).pic/otcepintrfc$(OBJEXT) $(MK)/otcepintrfc$(OBJEXT) : ../../../include/OTC/collctn/vlink.hh
 $(MK)/otcepintrfc.d $(MK).pic/otcepintrfc$(OBJEXT) $(MK)/otcepintrfc$(OBJEXT) : ../../../include/OTC/collctn/worker.hh
 $(MK)/otcepintrfc.d $(MK).pic/otcepintrfc$(OBJEXT) $(MK)/otcepintrfc$(OBJEXT) : ../../../include/OTC/debug/assert.h
 $(MK)/otcepintrfc.d $(MK).pic/otcepintrfc$(OBJEXT) $(MK)/otcepintrfc$(OBJEXT) : ../../../include/OTC/debug/ensure.h
 $(MK)/otcepintrfc.d $(MK).pic/otcepintrfc$(OBJEXT) $(MK)/otcepintrfc$(OBJEXT) : ../../../include/OTC/debug/errors.h
 $(MK)/otcepintrfc.d $(MK).pic/otcepintrfc$(OBJEXT) $(MK)/otcepintrfc$(OBJEXT) : ../../../include/OTC/debug/excption.hh
-$(MK)/otcepintrfc.d $(MK).pic/otcepintrfc$(OBJEXT) $(MK)/otcepintrfc$(OBJEXT) : ../../../include/OTC/debug/newhndlr.hh
 $(MK)/otcepintrfc.d $(MK).pic/otcepintrfc$(OBJEXT) $(MK)/otcepintrfc$(OBJEXT) : ../../../include/OTC/debug/stophere.h
 $(MK)/otcepintrfc.d $(MK).pic/otcepintrfc$(OBJEXT) $(MK)/otcepintrfc$(OBJEXT) : ../../../include/OTC/debug/taginfo.hh
 $(MK)/otcepintrfc.d $(MK).pic/otcepintrfc$(OBJEXT) $(MK)/otcepintrfc$(OBJEXT) : ../../../include/OTC/debug/termfunc.hh
@@ -567,13 +557,14 @@ $(MK)/otcepismesg.d $(MK).pic/otcepismesg$(OBJEXT) $(MK)/otcepismesg$(OBJEXT) : 
 $(MK)/otcepismesg.d $(MK).pic/otcepismesg$(OBJEXT) $(MK)/otcepismesg$(OBJEXT) : ../../../include/OTC/collctn/tmap.c
 $(MK)/otcepismesg.d $(MK).pic/otcepismesg$(OBJEXT) $(MK)/otcepismesg$(OBJEXT) : ../../../include/OTC/collctn/tmap.hh
 $(MK)/otcepismesg.d $(MK).pic/otcepismesg$(OBJEXT) $(MK)/otcepismesg$(OBJEXT) : ../../../include/OTC/collctn/visitor.hh
-$(MK)/otcepismesg.d $(MK).pic/otcepismesg$(OBJEXT) $(MK)/otcepismesg$(OBJEXT) : ../../../include/OTC/collctn/vlink.hh
 $(MK)/otcepismesg.d $(MK).pic/otcepismesg$(OBJEXT) $(MK)/otcepismesg$(OBJEXT) : ../../../include/OTC/collctn/worker.hh
 $(MK)/otcepismesg.d $(MK).pic/otcepismesg$(OBJEXT) $(MK)/otcepismesg$(OBJEXT) : ../../../include/OTC/debug/assert.h
 $(MK)/otcepismesg.d $(MK).pic/otcepismesg$(OBJEXT) $(MK)/otcepismesg$(OBJEXT) : ../../../include/OTC/debug/ensure.h
 $(MK)/otcepismesg.d $(MK).pic/otcepismesg$(OBJEXT) $(MK)/otcepismesg$(OBJEXT) : ../../../include/OTC/debug/errors.h
 $(MK)/otcepismesg.d $(MK).pic/otcepismesg$(OBJEXT) $(MK)/otcepismesg$(OBJEXT) : ../../../include/OTC/debug/excption.hh
-$(MK)/otcepismesg.d $(MK).pic/otcepismesg$(OBJEXT) $(MK)/otcepismesg$(OBJEXT) : ../../../include/OTC/debug/newhndlr.hh
+$(MK)/otcepismesg.d $(MK).pic/otcepismesg$(OBJEXT) $(MK)/otcepismesg$(OBJEXT) : ../../../include/OTC/debug/logbuf.hh
+$(MK)/otcepismesg.d $(MK).pic/otcepismesg$(OBJEXT) $(MK)/otcepismesg$(OBJEXT) : ../../../include/OTC/debug/logger.hh
+$(MK)/otcepismesg.d $(MK).pic/otcepismesg$(OBJEXT) $(MK)/otcepismesg$(OBJEXT) : ../../../include/OTC/debug/logstrm.hh
 $(MK)/otcepismesg.d $(MK).pic/otcepismesg$(OBJEXT) $(MK)/otcepismesg$(OBJEXT) : ../../../include/OTC/debug/stophere.h
 $(MK)/otcepismesg.d $(MK).pic/otcepismesg$(OBJEXT) $(MK)/otcepismesg$(OBJEXT) : ../../../include/OTC/debug/taginfo.hh
 $(MK)/otcepismesg.d $(MK).pic/otcepismesg$(OBJEXT) $(MK)/otcepismesg$(OBJEXT) : ../../../include/OTC/debug/termfunc.hh
@@ -691,13 +682,11 @@ $(MK)/otcepisockt.d $(MK).pic/otcepisockt$(OBJEXT) $(MK)/otcepisockt$(OBJEXT) : 
 $(MK)/otcepisockt.d $(MK).pic/otcepisockt$(OBJEXT) $(MK)/otcepisockt$(OBJEXT) : ../../../include/OTC/collctn/shlwcopy.hh
 $(MK)/otcepisockt.d $(MK).pic/otcepisockt$(OBJEXT) $(MK)/otcepisockt$(OBJEXT) : ../../../include/OTC/collctn/strgactn.hh
 $(MK)/otcepisockt.d $(MK).pic/otcepisockt$(OBJEXT) $(MK)/otcepisockt$(OBJEXT) : ../../../include/OTC/collctn/visitor.hh
-$(MK)/otcepisockt.d $(MK).pic/otcepisockt$(OBJEXT) $(MK)/otcepisockt$(OBJEXT) : ../../../include/OTC/collctn/vlink.hh
 $(MK)/otcepisockt.d $(MK).pic/otcepisockt$(OBJEXT) $(MK)/otcepisockt$(OBJEXT) : ../../../include/OTC/collctn/worker.hh
 $(MK)/otcepisockt.d $(MK).pic/otcepisockt$(OBJEXT) $(MK)/otcepisockt$(OBJEXT) : ../../../include/OTC/debug/assert.h
 $(MK)/otcepisockt.d $(MK).pic/otcepisockt$(OBJEXT) $(MK)/otcepisockt$(OBJEXT) : ../../../include/OTC/debug/ensure.h
 $(MK)/otcepisockt.d $(MK).pic/otcepisockt$(OBJEXT) $(MK)/otcepisockt$(OBJEXT) : ../../../include/OTC/debug/errors.h
 $(MK)/otcepisockt.d $(MK).pic/otcepisockt$(OBJEXT) $(MK)/otcepisockt$(OBJEXT) : ../../../include/OTC/debug/excption.hh
-$(MK)/otcepisockt.d $(MK).pic/otcepisockt$(OBJEXT) $(MK)/otcepisockt$(OBJEXT) : ../../../include/OTC/debug/newhndlr.hh
 $(MK)/otcepisockt.d $(MK).pic/otcepisockt$(OBJEXT) $(MK)/otcepisockt$(OBJEXT) : ../../../include/OTC/debug/stophere.h
 $(MK)/otcepisockt.d $(MK).pic/otcepisockt$(OBJEXT) $(MK)/otcepisockt$(OBJEXT) : ../../../include/OTC/debug/termfunc.hh
 $(MK)/otcepisockt.d $(MK).pic/otcepisockt$(OBJEXT) $(MK)/otcepisockt$(OBJEXT) : ../../../include/OTC/debug/throwerr.hh
@@ -818,7 +807,6 @@ $(MK)/otcepisstrm.d $(MK).pic/otcepisstrm$(OBJEXT) $(MK)/otcepisstrm$(OBJEXT) : 
 $(MK)/otcepisstrm.d $(MK).pic/otcepisstrm$(OBJEXT) $(MK)/otcepisstrm$(OBJEXT) : ../../../include/OTC/debug/logbuf.hh
 $(MK)/otcepisstrm.d $(MK).pic/otcepisstrm$(OBJEXT) $(MK)/otcepisstrm$(OBJEXT) : ../../../include/OTC/debug/logger.hh
 $(MK)/otcepisstrm.d $(MK).pic/otcepisstrm$(OBJEXT) $(MK)/otcepisstrm$(OBJEXT) : ../../../include/OTC/debug/logstrm.hh
-$(MK)/otcepisstrm.d $(MK).pic/otcepisstrm$(OBJEXT) $(MK)/otcepisstrm$(OBJEXT) : ../../../include/OTC/debug/newhndlr.hh
 $(MK)/otcepisstrm.d $(MK).pic/otcepisstrm$(OBJEXT) $(MK)/otcepisstrm$(OBJEXT) : ../../../include/OTC/debug/stophere.h
 $(MK)/otcepisstrm.d $(MK).pic/otcepisstrm$(OBJEXT) $(MK)/otcepisstrm$(OBJEXT) : ../../../include/OTC/debug/taginfo.hh
 $(MK)/otcepisstrm.d $(MK).pic/otcepisstrm$(OBJEXT) $(MK)/otcepisstrm$(OBJEXT) : ../../../include/OTC/debug/termfunc.hh
@@ -956,7 +944,6 @@ $(MK)/otcepisxxxx.d $(MK).pic/otcepisxxxx$(OBJEXT) $(MK)/otcepisxxxx$(OBJEXT) : 
 $(MK)/otcepisxxxx.d $(MK).pic/otcepisxxxx$(OBJEXT) $(MK)/otcepisxxxx$(OBJEXT) : ../../../include/OTC/debug/logbuf.hh
 $(MK)/otcepisxxxx.d $(MK).pic/otcepisxxxx$(OBJEXT) $(MK)/otcepisxxxx$(OBJEXT) : ../../../include/OTC/debug/logger.hh
 $(MK)/otcepisxxxx.d $(MK).pic/otcepisxxxx$(OBJEXT) $(MK)/otcepisxxxx$(OBJEXT) : ../../../include/OTC/debug/logstrm.hh
-$(MK)/otcepisxxxx.d $(MK).pic/otcepisxxxx$(OBJEXT) $(MK)/otcepisxxxx$(OBJEXT) : ../../../include/OTC/debug/newhndlr.hh
 $(MK)/otcepisxxxx.d $(MK).pic/otcepisxxxx$(OBJEXT) $(MK)/otcepisxxxx$(OBJEXT) : ../../../include/OTC/debug/stophere.h
 $(MK)/otcepisxxxx.d $(MK).pic/otcepisxxxx$(OBJEXT) $(MK)/otcepisxxxx$(OBJEXT) : ../../../include/OTC/debug/taginfo.hh
 $(MK)/otcepisxxxx.d $(MK).pic/otcepisxxxx$(OBJEXT) $(MK)/otcepisxxxx$(OBJEXT) : ../../../include/OTC/debug/termfunc.hh
@@ -1083,7 +1070,6 @@ $(MK)/otceplisten.d $(MK).pic/otceplisten$(OBJEXT) $(MK)/otceplisten$(OBJEXT) : 
 $(MK)/otceplisten.d $(MK).pic/otceplisten$(OBJEXT) $(MK)/otceplisten$(OBJEXT) : ../../../include/OTC/debug/ensure.h
 $(MK)/otceplisten.d $(MK).pic/otceplisten$(OBJEXT) $(MK)/otceplisten$(OBJEXT) : ../../../include/OTC/debug/errors.h
 $(MK)/otceplisten.d $(MK).pic/otceplisten$(OBJEXT) $(MK)/otceplisten$(OBJEXT) : ../../../include/OTC/debug/excption.hh
-$(MK)/otceplisten.d $(MK).pic/otceplisten$(OBJEXT) $(MK)/otceplisten$(OBJEXT) : ../../../include/OTC/debug/newhndlr.hh
 $(MK)/otceplisten.d $(MK).pic/otceplisten$(OBJEXT) $(MK)/otceplisten$(OBJEXT) : ../../../include/OTC/debug/stophere.h
 $(MK)/otceplisten.d $(MK).pic/otceplisten$(OBJEXT) $(MK)/otceplisten$(OBJEXT) : ../../../include/OTC/debug/taginfo.hh
 $(MK)/otceplisten.d $(MK).pic/otceplisten$(OBJEXT) $(MK)/otceplisten$(OBJEXT) : ../../../include/OTC/debug/termfunc.hh
@@ -1221,7 +1207,6 @@ $(MK)/otceprgstry.d $(MK).pic/otceprgstry$(OBJEXT) $(MK)/otceprgstry$(OBJEXT) : 
 $(MK)/otceprgstry.d $(MK).pic/otceprgstry$(OBJEXT) $(MK)/otceprgstry$(OBJEXT) : ../../../include/OTC/debug/ensure.h
 $(MK)/otceprgstry.d $(MK).pic/otceprgstry$(OBJEXT) $(MK)/otceprgstry$(OBJEXT) : ../../../include/OTC/debug/errors.h
 $(MK)/otceprgstry.d $(MK).pic/otceprgstry$(OBJEXT) $(MK)/otceprgstry$(OBJEXT) : ../../../include/OTC/debug/excption.hh
-$(MK)/otceprgstry.d $(MK).pic/otceprgstry$(OBJEXT) $(MK)/otceprgstry$(OBJEXT) : ../../../include/OTC/debug/newhndlr.hh
 $(MK)/otceprgstry.d $(MK).pic/otceprgstry$(OBJEXT) $(MK)/otceprgstry$(OBJEXT) : ../../../include/OTC/debug/stophere.h
 $(MK)/otceprgstry.d $(MK).pic/otceprgstry$(OBJEXT) $(MK)/otceprgstry$(OBJEXT) : ../../../include/OTC/debug/taginfo.hh
 $(MK)/otceprgstry.d $(MK).pic/otceprgstry$(OBJEXT) $(MK)/otceprgstry$(OBJEXT) : ../../../include/OTC/debug/termfunc.hh
@@ -1371,7 +1356,6 @@ $(MK)/otcepserver.d $(MK).pic/otcepserver$(OBJEXT) $(MK)/otcepserver$(OBJEXT) : 
 $(MK)/otcepserver.d $(MK).pic/otcepserver$(OBJEXT) $(MK)/otcepserver$(OBJEXT) : ../../../include/OTC/debug/ensure.h
 $(MK)/otcepserver.d $(MK).pic/otcepserver$(OBJEXT) $(MK)/otcepserver$(OBJEXT) : ../../../include/OTC/debug/errors.h
 $(MK)/otcepserver.d $(MK).pic/otcepserver$(OBJEXT) $(MK)/otcepserver$(OBJEXT) : ../../../include/OTC/debug/excption.hh
-$(MK)/otcepserver.d $(MK).pic/otcepserver$(OBJEXT) $(MK)/otcepserver$(OBJEXT) : ../../../include/OTC/debug/newhndlr.hh
 $(MK)/otcepserver.d $(MK).pic/otcepserver$(OBJEXT) $(MK)/otcepserver$(OBJEXT) : ../../../include/OTC/debug/stophere.h
 $(MK)/otcepserver.d $(MK).pic/otcepserver$(OBJEXT) $(MK)/otcepserver$(OBJEXT) : ../../../include/OTC/debug/taginfo.hh
 $(MK)/otcepserver.d $(MK).pic/otcepserver$(OBJEXT) $(MK)/otcepserver$(OBJEXT) : ../../../include/OTC/debug/termfunc.hh
@@ -1512,7 +1496,6 @@ $(MK)/otcexchange.d $(MK).pic/otcexchange$(OBJEXT) $(MK)/otcexchange$(OBJEXT) : 
 $(MK)/otcexchange.d $(MK).pic/otcexchange$(OBJEXT) $(MK)/otcexchange$(OBJEXT) : ../../../include/OTC/debug/logbuf.hh
 $(MK)/otcexchange.d $(MK).pic/otcexchange$(OBJEXT) $(MK)/otcexchange$(OBJEXT) : ../../../include/OTC/debug/logger.hh
 $(MK)/otcexchange.d $(MK).pic/otcexchange$(OBJEXT) $(MK)/otcexchange$(OBJEXT) : ../../../include/OTC/debug/logstrm.hh
-$(MK)/otcexchange.d $(MK).pic/otcexchange$(OBJEXT) $(MK)/otcexchange$(OBJEXT) : ../../../include/OTC/debug/newhndlr.hh
 $(MK)/otcexchange.d $(MK).pic/otcexchange$(OBJEXT) $(MK)/otcexchange$(OBJEXT) : ../../../include/OTC/debug/stophere.h
 $(MK)/otcexchange.d $(MK).pic/otcexchange$(OBJEXT) $(MK)/otcexchange$(OBJEXT) : ../../../include/OTC/debug/taginfo.hh
 $(MK)/otcexchange.d $(MK).pic/otcexchange$(OBJEXT) $(MK)/otcexchange$(OBJEXT) : ../../../include/OTC/debug/termfunc.hh
@@ -1523,6 +1506,7 @@ $(MK)/otcexchange.d $(MK).pic/otcexchange$(OBJEXT) $(MK)/otcexchange$(OBJEXT) : 
 $(MK)/otcexchange.d $(MK).pic/otcexchange$(OBJEXT) $(MK)/otcexchange$(OBJEXT) : ../../../include/OTC/debug/trcestrm.hh
 $(MK)/otcexchange.d $(MK).pic/otcexchange$(OBJEXT) $(MK)/otcexchange$(OBJEXT) : ../../../include/OTC/debug/trcswtch.hh
 $(MK)/otcexchange.d $(MK).pic/otcexchange$(OBJEXT) $(MK)/otcexchange$(OBJEXT) : ../../../include/OTC/debug/warning.h
+$(MK)/otcexchange.d $(MK).pic/otcexchange$(OBJEXT) $(MK)/otcexchange$(OBJEXT) : ../../../include/OTC/dispatch/action.hh
 $(MK)/otcexchange.d $(MK).pic/otcexchange$(OBJEXT) $(MK)/otcexchange$(OBJEXT) : ../../../include/OTC/dispatch/condtion.hh
 $(MK)/otcexchange.d $(MK).pic/otcexchange$(OBJEXT) $(MK)/otcexchange$(OBJEXT) : ../../../include/OTC/dispatch/envelope.hh
 $(MK)/otcexchange.d $(MK).pic/otcexchange$(OBJEXT) $(MK)/otcexchange$(OBJEXT) : ../../../include/OTC/dispatch/evagent.hh
@@ -1694,7 +1678,6 @@ $(MK)/otcexchannc.d $(MK).pic/otcexchannc$(OBJEXT) $(MK)/otcexchannc$(OBJEXT) : 
 $(MK)/otcexchannc.d $(MK).pic/otcexchannc$(OBJEXT) $(MK)/otcexchannc$(OBJEXT) : ../../../include/OTC/debug/logbuf.hh
 $(MK)/otcexchannc.d $(MK).pic/otcexchannc$(OBJEXT) $(MK)/otcexchannc$(OBJEXT) : ../../../include/OTC/debug/logger.hh
 $(MK)/otcexchannc.d $(MK).pic/otcexchannc$(OBJEXT) $(MK)/otcexchannc$(OBJEXT) : ../../../include/OTC/debug/logstrm.hh
-$(MK)/otcexchannc.d $(MK).pic/otcexchannc$(OBJEXT) $(MK)/otcexchannc$(OBJEXT) : ../../../include/OTC/debug/newhndlr.hh
 $(MK)/otcexchannc.d $(MK).pic/otcexchannc$(OBJEXT) $(MK)/otcexchannc$(OBJEXT) : ../../../include/OTC/debug/stophere.h
 $(MK)/otcexchannc.d $(MK).pic/otcexchannc$(OBJEXT) $(MK)/otcexchannc$(OBJEXT) : ../../../include/OTC/debug/termfunc.hh
 $(MK)/otcexchannc.d $(MK).pic/otcexchannc$(OBJEXT) $(MK)/otcexchannc$(OBJEXT) : ../../../include/OTC/debug/throwerr.hh
@@ -1856,7 +1839,6 @@ $(MK)/otcexrgstry.d $(MK).pic/otcexrgstry$(OBJEXT) $(MK)/otcexrgstry$(OBJEXT) : 
 $(MK)/otcexrgstry.d $(MK).pic/otcexrgstry$(OBJEXT) $(MK)/otcexrgstry$(OBJEXT) : ../../../include/OTC/debug/ensure.h
 $(MK)/otcexrgstry.d $(MK).pic/otcexrgstry$(OBJEXT) $(MK)/otcexrgstry$(OBJEXT) : ../../../include/OTC/debug/errors.h
 $(MK)/otcexrgstry.d $(MK).pic/otcexrgstry$(OBJEXT) $(MK)/otcexrgstry$(OBJEXT) : ../../../include/OTC/debug/excption.hh
-$(MK)/otcexrgstry.d $(MK).pic/otcexrgstry$(OBJEXT) $(MK)/otcexrgstry$(OBJEXT) : ../../../include/OTC/debug/newhndlr.hh
 $(MK)/otcexrgstry.d $(MK).pic/otcexrgstry$(OBJEXT) $(MK)/otcexrgstry$(OBJEXT) : ../../../include/OTC/debug/stophere.h
 $(MK)/otcexrgstry.d $(MK).pic/otcexrgstry$(OBJEXT) $(MK)/otcexrgstry$(OBJEXT) : ../../../include/OTC/debug/termfunc.hh
 $(MK)/otcexrgstry.d $(MK).pic/otcexrgstry$(OBJEXT) $(MK)/otcexrgstry$(OBJEXT) : ../../../include/OTC/debug/throwerr.hh
@@ -1961,7 +1943,6 @@ $(MK)/otcinetaddr.d $(MK).pic/otcinetaddr$(OBJEXT) $(MK)/otcinetaddr$(OBJEXT) : 
 $(MK)/otcinetaddr.d $(MK).pic/otcinetaddr$(OBJEXT) $(MK)/otcinetaddr$(OBJEXT) : ../../../include/OTC/debug/ensure.h
 $(MK)/otcinetaddr.d $(MK).pic/otcinetaddr$(OBJEXT) $(MK)/otcinetaddr$(OBJEXT) : ../../../include/OTC/debug/errors.h
 $(MK)/otcinetaddr.d $(MK).pic/otcinetaddr$(OBJEXT) $(MK)/otcinetaddr$(OBJEXT) : ../../../include/OTC/debug/excption.hh
-$(MK)/otcinetaddr.d $(MK).pic/otcinetaddr$(OBJEXT) $(MK)/otcinetaddr$(OBJEXT) : ../../../include/OTC/debug/newhndlr.hh
 $(MK)/otcinetaddr.d $(MK).pic/otcinetaddr$(OBJEXT) $(MK)/otcinetaddr$(OBJEXT) : ../../../include/OTC/debug/stophere.h
 $(MK)/otcinetaddr.d $(MK).pic/otcinetaddr$(OBJEXT) $(MK)/otcinetaddr$(OBJEXT) : ../../../include/OTC/debug/termfunc.hh
 $(MK)/otcinetaddr.d $(MK).pic/otcinetaddr$(OBJEXT) $(MK)/otcinetaddr$(OBJEXT) : ../../../include/OTC/debug/throwerr.hh
@@ -2049,13 +2030,11 @@ $(MK)/otcinetclnt.d $(MK).pic/otcinetclnt$(OBJEXT) $(MK)/otcinetclnt$(OBJEXT) : 
 $(MK)/otcinetclnt.d $(MK).pic/otcinetclnt$(OBJEXT) $(MK)/otcinetclnt$(OBJEXT) : ../../../include/OTC/collctn/shlwcopy.hh
 $(MK)/otcinetclnt.d $(MK).pic/otcinetclnt$(OBJEXT) $(MK)/otcinetclnt$(OBJEXT) : ../../../include/OTC/collctn/strgactn.hh
 $(MK)/otcinetclnt.d $(MK).pic/otcinetclnt$(OBJEXT) $(MK)/otcinetclnt$(OBJEXT) : ../../../include/OTC/collctn/visitor.hh
-$(MK)/otcinetclnt.d $(MK).pic/otcinetclnt$(OBJEXT) $(MK)/otcinetclnt$(OBJEXT) : ../../../include/OTC/collctn/vlink.hh
 $(MK)/otcinetclnt.d $(MK).pic/otcinetclnt$(OBJEXT) $(MK)/otcinetclnt$(OBJEXT) : ../../../include/OTC/collctn/worker.hh
 $(MK)/otcinetclnt.d $(MK).pic/otcinetclnt$(OBJEXT) $(MK)/otcinetclnt$(OBJEXT) : ../../../include/OTC/debug/assert.h
 $(MK)/otcinetclnt.d $(MK).pic/otcinetclnt$(OBJEXT) $(MK)/otcinetclnt$(OBJEXT) : ../../../include/OTC/debug/ensure.h
 $(MK)/otcinetclnt.d $(MK).pic/otcinetclnt$(OBJEXT) $(MK)/otcinetclnt$(OBJEXT) : ../../../include/OTC/debug/errors.h
 $(MK)/otcinetclnt.d $(MK).pic/otcinetclnt$(OBJEXT) $(MK)/otcinetclnt$(OBJEXT) : ../../../include/OTC/debug/excption.hh
-$(MK)/otcinetclnt.d $(MK).pic/otcinetclnt$(OBJEXT) $(MK)/otcinetclnt$(OBJEXT) : ../../../include/OTC/debug/newhndlr.hh
 $(MK)/otcinetclnt.d $(MK).pic/otcinetclnt$(OBJEXT) $(MK)/otcinetclnt$(OBJEXT) : ../../../include/OTC/debug/stophere.h
 $(MK)/otcinetclnt.d $(MK).pic/otcinetclnt$(OBJEXT) $(MK)/otcinetclnt$(OBJEXT) : ../../../include/OTC/debug/taginfo.hh
 $(MK)/otcinetclnt.d $(MK).pic/otcinetclnt$(OBJEXT) $(MK)/otcinetclnt$(OBJEXT) : ../../../include/OTC/debug/termfunc.hh
@@ -2181,7 +2160,6 @@ $(MK)/otcinetlstn.d $(MK).pic/otcinetlstn$(OBJEXT) $(MK)/otcinetlstn$(OBJEXT) : 
 $(MK)/otcinetlstn.d $(MK).pic/otcinetlstn$(OBJEXT) $(MK)/otcinetlstn$(OBJEXT) : ../../../include/OTC/debug/logbuf.hh
 $(MK)/otcinetlstn.d $(MK).pic/otcinetlstn$(OBJEXT) $(MK)/otcinetlstn$(OBJEXT) : ../../../include/OTC/debug/logger.hh
 $(MK)/otcinetlstn.d $(MK).pic/otcinetlstn$(OBJEXT) $(MK)/otcinetlstn$(OBJEXT) : ../../../include/OTC/debug/logstrm.hh
-$(MK)/otcinetlstn.d $(MK).pic/otcinetlstn$(OBJEXT) $(MK)/otcinetlstn$(OBJEXT) : ../../../include/OTC/debug/newhndlr.hh
 $(MK)/otcinetlstn.d $(MK).pic/otcinetlstn$(OBJEXT) $(MK)/otcinetlstn$(OBJEXT) : ../../../include/OTC/debug/stophere.h
 $(MK)/otcinetlstn.d $(MK).pic/otcinetlstn$(OBJEXT) $(MK)/otcinetlstn$(OBJEXT) : ../../../include/OTC/debug/taginfo.hh
 $(MK)/otcinetlstn.d $(MK).pic/otcinetlstn$(OBJEXT) $(MK)/otcinetlstn$(OBJEXT) : ../../../include/OTC/debug/termfunc.hh
@@ -2306,7 +2284,6 @@ $(MK)/otcinetsrvr.d $(MK).pic/otcinetsrvr$(OBJEXT) $(MK)/otcinetsrvr$(OBJEXT) : 
 $(MK)/otcinetsrvr.d $(MK).pic/otcinetsrvr$(OBJEXT) $(MK)/otcinetsrvr$(OBJEXT) : ../../../include/OTC/debug/ensure.h
 $(MK)/otcinetsrvr.d $(MK).pic/otcinetsrvr$(OBJEXT) $(MK)/otcinetsrvr$(OBJEXT) : ../../../include/OTC/debug/errors.h
 $(MK)/otcinetsrvr.d $(MK).pic/otcinetsrvr$(OBJEXT) $(MK)/otcinetsrvr$(OBJEXT) : ../../../include/OTC/debug/excption.hh
-$(MK)/otcinetsrvr.d $(MK).pic/otcinetsrvr$(OBJEXT) $(MK)/otcinetsrvr$(OBJEXT) : ../../../include/OTC/debug/newhndlr.hh
 $(MK)/otcinetsrvr.d $(MK).pic/otcinetsrvr$(OBJEXT) $(MK)/otcinetsrvr$(OBJEXT) : ../../../include/OTC/debug/stophere.h
 $(MK)/otcinetsrvr.d $(MK).pic/otcinetsrvr$(OBJEXT) $(MK)/otcinetsrvr$(OBJEXT) : ../../../include/OTC/debug/taginfo.hh
 $(MK)/otcinetsrvr.d $(MK).pic/otcinetsrvr$(OBJEXT) $(MK)/otcinetsrvr$(OBJEXT) : ../../../include/OTC/debug/termfunc.hh
@@ -2390,7 +2367,6 @@ $(MK)/otcunixaddr.d $(MK).pic/otcunixaddr$(OBJEXT) $(MK)/otcunixaddr$(OBJEXT) : 
 $(MK)/otcunixaddr.d $(MK).pic/otcunixaddr$(OBJEXT) $(MK)/otcunixaddr$(OBJEXT) : ../../../include/OTC/debug/ensure.h
 $(MK)/otcunixaddr.d $(MK).pic/otcunixaddr$(OBJEXT) $(MK)/otcunixaddr$(OBJEXT) : ../../../include/OTC/debug/errors.h
 $(MK)/otcunixaddr.d $(MK).pic/otcunixaddr$(OBJEXT) $(MK)/otcunixaddr$(OBJEXT) : ../../../include/OTC/debug/excption.hh
-$(MK)/otcunixaddr.d $(MK).pic/otcunixaddr$(OBJEXT) $(MK)/otcunixaddr$(OBJEXT) : ../../../include/OTC/debug/newhndlr.hh
 $(MK)/otcunixaddr.d $(MK).pic/otcunixaddr$(OBJEXT) $(MK)/otcunixaddr$(OBJEXT) : ../../../include/OTC/debug/stophere.h
 $(MK)/otcunixaddr.d $(MK).pic/otcunixaddr$(OBJEXT) $(MK)/otcunixaddr$(OBJEXT) : ../../../include/OTC/debug/termfunc.hh
 $(MK)/otcunixaddr.d $(MK).pic/otcunixaddr$(OBJEXT) $(MK)/otcunixaddr$(OBJEXT) : ../../../include/OTC/debug/throwerr.hh
@@ -2478,13 +2454,11 @@ $(MK)/otcunixclnt.d $(MK).pic/otcunixclnt$(OBJEXT) $(MK)/otcunixclnt$(OBJEXT) : 
 $(MK)/otcunixclnt.d $(MK).pic/otcunixclnt$(OBJEXT) $(MK)/otcunixclnt$(OBJEXT) : ../../../include/OTC/collctn/shlwcopy.hh
 $(MK)/otcunixclnt.d $(MK).pic/otcunixclnt$(OBJEXT) $(MK)/otcunixclnt$(OBJEXT) : ../../../include/OTC/collctn/strgactn.hh
 $(MK)/otcunixclnt.d $(MK).pic/otcunixclnt$(OBJEXT) $(MK)/otcunixclnt$(OBJEXT) : ../../../include/OTC/collctn/visitor.hh
-$(MK)/otcunixclnt.d $(MK).pic/otcunixclnt$(OBJEXT) $(MK)/otcunixclnt$(OBJEXT) : ../../../include/OTC/collctn/vlink.hh
 $(MK)/otcunixclnt.d $(MK).pic/otcunixclnt$(OBJEXT) $(MK)/otcunixclnt$(OBJEXT) : ../../../include/OTC/collctn/worker.hh
 $(MK)/otcunixclnt.d $(MK).pic/otcunixclnt$(OBJEXT) $(MK)/otcunixclnt$(OBJEXT) : ../../../include/OTC/debug/assert.h
 $(MK)/otcunixclnt.d $(MK).pic/otcunixclnt$(OBJEXT) $(MK)/otcunixclnt$(OBJEXT) : ../../../include/OTC/debug/ensure.h
 $(MK)/otcunixclnt.d $(MK).pic/otcunixclnt$(OBJEXT) $(MK)/otcunixclnt$(OBJEXT) : ../../../include/OTC/debug/errors.h
 $(MK)/otcunixclnt.d $(MK).pic/otcunixclnt$(OBJEXT) $(MK)/otcunixclnt$(OBJEXT) : ../../../include/OTC/debug/excption.hh
-$(MK)/otcunixclnt.d $(MK).pic/otcunixclnt$(OBJEXT) $(MK)/otcunixclnt$(OBJEXT) : ../../../include/OTC/debug/newhndlr.hh
 $(MK)/otcunixclnt.d $(MK).pic/otcunixclnt$(OBJEXT) $(MK)/otcunixclnt$(OBJEXT) : ../../../include/OTC/debug/stophere.h
 $(MK)/otcunixclnt.d $(MK).pic/otcunixclnt$(OBJEXT) $(MK)/otcunixclnt$(OBJEXT) : ../../../include/OTC/debug/taginfo.hh
 $(MK)/otcunixclnt.d $(MK).pic/otcunixclnt$(OBJEXT) $(MK)/otcunixclnt$(OBJEXT) : ../../../include/OTC/debug/termfunc.hh
@@ -2610,7 +2584,6 @@ $(MK)/otcunixlstn.d $(MK).pic/otcunixlstn$(OBJEXT) $(MK)/otcunixlstn$(OBJEXT) : 
 $(MK)/otcunixlstn.d $(MK).pic/otcunixlstn$(OBJEXT) $(MK)/otcunixlstn$(OBJEXT) : ../../../include/OTC/debug/logbuf.hh
 $(MK)/otcunixlstn.d $(MK).pic/otcunixlstn$(OBJEXT) $(MK)/otcunixlstn$(OBJEXT) : ../../../include/OTC/debug/logger.hh
 $(MK)/otcunixlstn.d $(MK).pic/otcunixlstn$(OBJEXT) $(MK)/otcunixlstn$(OBJEXT) : ../../../include/OTC/debug/logstrm.hh
-$(MK)/otcunixlstn.d $(MK).pic/otcunixlstn$(OBJEXT) $(MK)/otcunixlstn$(OBJEXT) : ../../../include/OTC/debug/newhndlr.hh
 $(MK)/otcunixlstn.d $(MK).pic/otcunixlstn$(OBJEXT) $(MK)/otcunixlstn$(OBJEXT) : ../../../include/OTC/debug/stophere.h
 $(MK)/otcunixlstn.d $(MK).pic/otcunixlstn$(OBJEXT) $(MK)/otcunixlstn$(OBJEXT) : ../../../include/OTC/debug/taginfo.hh
 $(MK)/otcunixlstn.d $(MK).pic/otcunixlstn$(OBJEXT) $(MK)/otcunixlstn$(OBJEXT) : ../../../include/OTC/debug/termfunc.hh
@@ -2735,7 +2708,6 @@ $(MK)/otcunixsrvr.d $(MK).pic/otcunixsrvr$(OBJEXT) $(MK)/otcunixsrvr$(OBJEXT) : 
 $(MK)/otcunixsrvr.d $(MK).pic/otcunixsrvr$(OBJEXT) $(MK)/otcunixsrvr$(OBJEXT) : ../../../include/OTC/debug/ensure.h
 $(MK)/otcunixsrvr.d $(MK).pic/otcunixsrvr$(OBJEXT) $(MK)/otcunixsrvr$(OBJEXT) : ../../../include/OTC/debug/errors.h
 $(MK)/otcunixsrvr.d $(MK).pic/otcunixsrvr$(OBJEXT) $(MK)/otcunixsrvr$(OBJEXT) : ../../../include/OTC/debug/excption.hh
-$(MK)/otcunixsrvr.d $(MK).pic/otcunixsrvr$(OBJEXT) $(MK)/otcunixsrvr$(OBJEXT) : ../../../include/OTC/debug/newhndlr.hh
 $(MK)/otcunixsrvr.d $(MK).pic/otcunixsrvr$(OBJEXT) $(MK)/otcunixsrvr$(OBJEXT) : ../../../include/OTC/debug/stophere.h
 $(MK)/otcunixsrvr.d $(MK).pic/otcunixsrvr$(OBJEXT) $(MK)/otcunixsrvr$(OBJEXT) : ../../../include/OTC/debug/taginfo.hh
 $(MK)/otcunixsrvr.d $(MK).pic/otcunixsrvr$(OBJEXT) $(MK)/otcunixsrvr$(OBJEXT) : ../../../include/OTC/debug/termfunc.hh
@@ -2878,7 +2850,6 @@ $(MK)/_consumer.d $(MK)/_consumer$(OBJEXT) $(MK)/_consumer$(BINEXT) : ../../../i
 $(MK)/_consumer.d $(MK)/_consumer$(OBJEXT) $(MK)/_consumer$(BINEXT) : ../../../include/OTC/debug/logbuf.hh
 $(MK)/_consumer.d $(MK)/_consumer$(OBJEXT) $(MK)/_consumer$(BINEXT) : ../../../include/OTC/debug/logger.hh
 $(MK)/_consumer.d $(MK)/_consumer$(OBJEXT) $(MK)/_consumer$(BINEXT) : ../../../include/OTC/debug/logstrm.hh
-$(MK)/_consumer.d $(MK)/_consumer$(OBJEXT) $(MK)/_consumer$(BINEXT) : ../../../include/OTC/debug/newhndlr.hh
 $(MK)/_consumer.d $(MK)/_consumer$(OBJEXT) $(MK)/_consumer$(BINEXT) : ../../../include/OTC/debug/stophere.h
 $(MK)/_consumer.d $(MK)/_consumer$(OBJEXT) $(MK)/_consumer$(BINEXT) : ../../../include/OTC/debug/termfunc.hh
 $(MK)/_consumer.d $(MK)/_consumer$(OBJEXT) $(MK)/_consumer$(BINEXT) : ../../../include/OTC/debug/throwerr.hh
@@ -3055,7 +3026,6 @@ $(MK)/_exchange.d $(MK)/_exchange$(OBJEXT) $(MK)/_exchange$(BINEXT) : ../../../i
 $(MK)/_exchange.d $(MK)/_exchange$(OBJEXT) $(MK)/_exchange$(BINEXT) : ../../../include/OTC/debug/logbuf.hh
 $(MK)/_exchange.d $(MK)/_exchange$(OBJEXT) $(MK)/_exchange$(BINEXT) : ../../../include/OTC/debug/logger.hh
 $(MK)/_exchange.d $(MK)/_exchange$(OBJEXT) $(MK)/_exchange$(BINEXT) : ../../../include/OTC/debug/logstrm.hh
-$(MK)/_exchange.d $(MK)/_exchange$(OBJEXT) $(MK)/_exchange$(BINEXT) : ../../../include/OTC/debug/newhndlr.hh
 $(MK)/_exchange.d $(MK)/_exchange$(OBJEXT) $(MK)/_exchange$(BINEXT) : ../../../include/OTC/debug/stophere.h
 $(MK)/_exchange.d $(MK)/_exchange$(OBJEXT) $(MK)/_exchange$(BINEXT) : ../../../include/OTC/debug/termfunc.hh
 $(MK)/_exchange.d $(MK)/_exchange$(OBJEXT) $(MK)/_exchange$(BINEXT) : ../../../include/OTC/debug/throwerr.hh
@@ -3216,7 +3186,6 @@ $(MK)/_iclient.d $(MK)/_iclient$(OBJEXT) $(MK)/_iclient$(BINEXT) : ../../../incl
 $(MK)/_iclient.d $(MK)/_iclient$(OBJEXT) $(MK)/_iclient$(BINEXT) : ../../../include/OTC/collctn/tmap.c
 $(MK)/_iclient.d $(MK)/_iclient$(OBJEXT) $(MK)/_iclient$(BINEXT) : ../../../include/OTC/collctn/tmap.hh
 $(MK)/_iclient.d $(MK)/_iclient$(OBJEXT) $(MK)/_iclient$(BINEXT) : ../../../include/OTC/collctn/visitor.hh
-$(MK)/_iclient.d $(MK)/_iclient$(OBJEXT) $(MK)/_iclient$(BINEXT) : ../../../include/OTC/collctn/vlink.hh
 $(MK)/_iclient.d $(MK)/_iclient$(OBJEXT) $(MK)/_iclient$(BINEXT) : ../../../include/OTC/collctn/worker.hh
 $(MK)/_iclient.d $(MK)/_iclient$(OBJEXT) $(MK)/_iclient$(BINEXT) : ../../../include/OTC/debug/assert.h
 $(MK)/_iclient.d $(MK)/_iclient$(OBJEXT) $(MK)/_iclient$(BINEXT) : ../../../include/OTC/debug/ensure.h
@@ -3225,7 +3194,6 @@ $(MK)/_iclient.d $(MK)/_iclient$(OBJEXT) $(MK)/_iclient$(BINEXT) : ../../../incl
 $(MK)/_iclient.d $(MK)/_iclient$(OBJEXT) $(MK)/_iclient$(BINEXT) : ../../../include/OTC/debug/logbuf.hh
 $(MK)/_iclient.d $(MK)/_iclient$(OBJEXT) $(MK)/_iclient$(BINEXT) : ../../../include/OTC/debug/logger.hh
 $(MK)/_iclient.d $(MK)/_iclient$(OBJEXT) $(MK)/_iclient$(BINEXT) : ../../../include/OTC/debug/logstrm.hh
-$(MK)/_iclient.d $(MK)/_iclient$(OBJEXT) $(MK)/_iclient$(BINEXT) : ../../../include/OTC/debug/newhndlr.hh
 $(MK)/_iclient.d $(MK)/_iclient$(OBJEXT) $(MK)/_iclient$(BINEXT) : ../../../include/OTC/debug/stophere.h
 $(MK)/_iclient.d $(MK)/_iclient$(OBJEXT) $(MK)/_iclient$(BINEXT) : ../../../include/OTC/debug/termfunc.hh
 $(MK)/_iclient.d $(MK)/_iclient$(OBJEXT) $(MK)/_iclient$(BINEXT) : ../../../include/OTC/debug/throwerr.hh
@@ -3360,7 +3328,6 @@ $(MK)/_iserver.d $(MK)/_iserver$(OBJEXT) $(MK)/_iserver$(BINEXT) : ../../../incl
 $(MK)/_iserver.d $(MK)/_iserver$(OBJEXT) $(MK)/_iserver$(BINEXT) : ../../../include/OTC/debug/logbuf.hh
 $(MK)/_iserver.d $(MK)/_iserver$(OBJEXT) $(MK)/_iserver$(BINEXT) : ../../../include/OTC/debug/logger.hh
 $(MK)/_iserver.d $(MK)/_iserver$(OBJEXT) $(MK)/_iserver$(BINEXT) : ../../../include/OTC/debug/logstrm.hh
-$(MK)/_iserver.d $(MK)/_iserver$(OBJEXT) $(MK)/_iserver$(BINEXT) : ../../../include/OTC/debug/newhndlr.hh
 $(MK)/_iserver.d $(MK)/_iserver$(OBJEXT) $(MK)/_iserver$(BINEXT) : ../../../include/OTC/debug/stophere.h
 $(MK)/_iserver.d $(MK)/_iserver$(OBJEXT) $(MK)/_iserver$(BINEXT) : ../../../include/OTC/debug/termfunc.hh
 $(MK)/_iserver.d $(MK)/_iserver$(OBJEXT) $(MK)/_iserver$(BINEXT) : ../../../include/OTC/debug/throwerr.hh
@@ -3506,7 +3473,6 @@ $(MK)/_producer.d $(MK)/_producer$(OBJEXT) $(MK)/_producer$(BINEXT) : ../../../i
 $(MK)/_producer.d $(MK)/_producer$(OBJEXT) $(MK)/_producer$(BINEXT) : ../../../include/OTC/debug/logbuf.hh
 $(MK)/_producer.d $(MK)/_producer$(OBJEXT) $(MK)/_producer$(BINEXT) : ../../../include/OTC/debug/logger.hh
 $(MK)/_producer.d $(MK)/_producer$(OBJEXT) $(MK)/_producer$(BINEXT) : ../../../include/OTC/debug/logstrm.hh
-$(MK)/_producer.d $(MK)/_producer$(OBJEXT) $(MK)/_producer$(BINEXT) : ../../../include/OTC/debug/newhndlr.hh
 $(MK)/_producer.d $(MK)/_producer$(OBJEXT) $(MK)/_producer$(BINEXT) : ../../../include/OTC/debug/stophere.h
 $(MK)/_producer.d $(MK)/_producer$(OBJEXT) $(MK)/_producer$(BINEXT) : ../../../include/OTC/debug/termfunc.hh
 $(MK)/_producer.d $(MK)/_producer$(OBJEXT) $(MK)/_producer$(BINEXT) : ../../../include/OTC/debug/throwerr.hh
@@ -3683,7 +3649,6 @@ $(MK)/_publish.d $(MK)/_publish$(OBJEXT) $(MK)/_publish$(BINEXT) : ../../../incl
 $(MK)/_publish.d $(MK)/_publish$(OBJEXT) $(MK)/_publish$(BINEXT) : ../../../include/OTC/debug/logbuf.hh
 $(MK)/_publish.d $(MK)/_publish$(OBJEXT) $(MK)/_publish$(BINEXT) : ../../../include/OTC/debug/logger.hh
 $(MK)/_publish.d $(MK)/_publish$(OBJEXT) $(MK)/_publish$(BINEXT) : ../../../include/OTC/debug/logstrm.hh
-$(MK)/_publish.d $(MK)/_publish$(OBJEXT) $(MK)/_publish$(BINEXT) : ../../../include/OTC/debug/newhndlr.hh
 $(MK)/_publish.d $(MK)/_publish$(OBJEXT) $(MK)/_publish$(BINEXT) : ../../../include/OTC/debug/stophere.h
 $(MK)/_publish.d $(MK)/_publish$(OBJEXT) $(MK)/_publish$(BINEXT) : ../../../include/OTC/debug/termfunc.hh
 $(MK)/_publish.d $(MK)/_publish$(OBJEXT) $(MK)/_publish$(BINEXT) : ../../../include/OTC/debug/throwerr.hh
@@ -3842,7 +3807,6 @@ $(MK)/_siclient.d $(MK)/_siclient$(OBJEXT) $(MK)/_siclient$(BINEXT) : ../../../i
 $(MK)/_siclient.d $(MK)/_siclient$(OBJEXT) $(MK)/_siclient$(BINEXT) : ../../../include/OTC/collctn/tmap.c
 $(MK)/_siclient.d $(MK)/_siclient$(OBJEXT) $(MK)/_siclient$(BINEXT) : ../../../include/OTC/collctn/tmap.hh
 $(MK)/_siclient.d $(MK)/_siclient$(OBJEXT) $(MK)/_siclient$(BINEXT) : ../../../include/OTC/collctn/visitor.hh
-$(MK)/_siclient.d $(MK)/_siclient$(OBJEXT) $(MK)/_siclient$(BINEXT) : ../../../include/OTC/collctn/vlink.hh
 $(MK)/_siclient.d $(MK)/_siclient$(OBJEXT) $(MK)/_siclient$(BINEXT) : ../../../include/OTC/collctn/worker.hh
 $(MK)/_siclient.d $(MK)/_siclient$(OBJEXT) $(MK)/_siclient$(BINEXT) : ../../../include/OTC/debug/assert.h
 $(MK)/_siclient.d $(MK)/_siclient$(OBJEXT) $(MK)/_siclient$(BINEXT) : ../../../include/OTC/debug/ensure.h
@@ -3851,7 +3815,6 @@ $(MK)/_siclient.d $(MK)/_siclient$(OBJEXT) $(MK)/_siclient$(BINEXT) : ../../../i
 $(MK)/_siclient.d $(MK)/_siclient$(OBJEXT) $(MK)/_siclient$(BINEXT) : ../../../include/OTC/debug/logbuf.hh
 $(MK)/_siclient.d $(MK)/_siclient$(OBJEXT) $(MK)/_siclient$(BINEXT) : ../../../include/OTC/debug/logger.hh
 $(MK)/_siclient.d $(MK)/_siclient$(OBJEXT) $(MK)/_siclient$(BINEXT) : ../../../include/OTC/debug/logstrm.hh
-$(MK)/_siclient.d $(MK)/_siclient$(OBJEXT) $(MK)/_siclient$(BINEXT) : ../../../include/OTC/debug/newhndlr.hh
 $(MK)/_siclient.d $(MK)/_siclient$(OBJEXT) $(MK)/_siclient$(BINEXT) : ../../../include/OTC/debug/stophere.h
 $(MK)/_siclient.d $(MK)/_siclient$(OBJEXT) $(MK)/_siclient$(BINEXT) : ../../../include/OTC/debug/termfunc.hh
 $(MK)/_siclient.d $(MK)/_siclient$(OBJEXT) $(MK)/_siclient$(BINEXT) : ../../../include/OTC/debug/throwerr.hh
@@ -3988,7 +3951,6 @@ $(MK)/_siserver.d $(MK)/_siserver$(OBJEXT) $(MK)/_siserver$(BINEXT) : ../../../i
 $(MK)/_siserver.d $(MK)/_siserver$(OBJEXT) $(MK)/_siserver$(BINEXT) : ../../../include/OTC/debug/logbuf.hh
 $(MK)/_siserver.d $(MK)/_siserver$(OBJEXT) $(MK)/_siserver$(BINEXT) : ../../../include/OTC/debug/logger.hh
 $(MK)/_siserver.d $(MK)/_siserver$(OBJEXT) $(MK)/_siserver$(BINEXT) : ../../../include/OTC/debug/logstrm.hh
-$(MK)/_siserver.d $(MK)/_siserver$(OBJEXT) $(MK)/_siserver$(BINEXT) : ../../../include/OTC/debug/newhndlr.hh
 $(MK)/_siserver.d $(MK)/_siserver$(OBJEXT) $(MK)/_siserver$(BINEXT) : ../../../include/OTC/debug/stophere.h
 $(MK)/_siserver.d $(MK)/_siserver$(OBJEXT) $(MK)/_siserver$(BINEXT) : ../../../include/OTC/debug/termfunc.hh
 $(MK)/_siserver.d $(MK)/_siserver$(OBJEXT) $(MK)/_siserver$(BINEXT) : ../../../include/OTC/debug/throwerr.hh
@@ -4135,7 +4097,6 @@ $(MK)/_subscrbe.d $(MK)/_subscrbe$(OBJEXT) $(MK)/_subscrbe$(BINEXT) : ../../../i
 $(MK)/_subscrbe.d $(MK)/_subscrbe$(OBJEXT) $(MK)/_subscrbe$(BINEXT) : ../../../include/OTC/debug/logbuf.hh
 $(MK)/_subscrbe.d $(MK)/_subscrbe$(OBJEXT) $(MK)/_subscrbe$(BINEXT) : ../../../include/OTC/debug/logger.hh
 $(MK)/_subscrbe.d $(MK)/_subscrbe$(OBJEXT) $(MK)/_subscrbe$(BINEXT) : ../../../include/OTC/debug/logstrm.hh
-$(MK)/_subscrbe.d $(MK)/_subscrbe$(OBJEXT) $(MK)/_subscrbe$(BINEXT) : ../../../include/OTC/debug/newhndlr.hh
 $(MK)/_subscrbe.d $(MK)/_subscrbe$(OBJEXT) $(MK)/_subscrbe$(BINEXT) : ../../../include/OTC/debug/stophere.h
 $(MK)/_subscrbe.d $(MK)/_subscrbe$(OBJEXT) $(MK)/_subscrbe$(BINEXT) : ../../../include/OTC/debug/termfunc.hh
 $(MK)/_subscrbe.d $(MK)/_subscrbe$(OBJEXT) $(MK)/_subscrbe$(BINEXT) : ../../../include/OTC/debug/throwerr.hh

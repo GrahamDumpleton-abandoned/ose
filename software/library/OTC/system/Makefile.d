@@ -9,7 +9,6 @@ $(MK)/otcclckinfo.d $(MK).pic/otcclckinfo$(OBJEXT) $(MK)/otcclckinfo$(OBJEXT) : 
 $(MK)/otcclckinfo.d $(MK).pic/otcclckinfo$(OBJEXT) $(MK)/otcclckinfo$(OBJEXT) : ../../../include/OTC/debug/ensure.h
 $(MK)/otcclckinfo.d $(MK).pic/otcclckinfo$(OBJEXT) $(MK)/otcclckinfo$(OBJEXT) : ../../../include/OTC/debug/errors.h
 $(MK)/otcclckinfo.d $(MK).pic/otcclckinfo$(OBJEXT) $(MK)/otcclckinfo$(OBJEXT) : ../../../include/OTC/debug/excption.hh
-$(MK)/otcclckinfo.d $(MK).pic/otcclckinfo$(OBJEXT) $(MK)/otcclckinfo$(OBJEXT) : ../../../include/OTC/debug/newhndlr.hh
 $(MK)/otcclckinfo.d $(MK).pic/otcclckinfo$(OBJEXT) $(MK)/otcclckinfo$(OBJEXT) : ../../../include/OTC/debug/stophere.h
 $(MK)/otcclckinfo.d $(MK).pic/otcclckinfo$(OBJEXT) $(MK)/otcclckinfo$(OBJEXT) : ../../../include/OTC/debug/termfunc.hh
 $(MK)/otcclckinfo.d $(MK).pic/otcclckinfo$(OBJEXT) $(MK)/otcclckinfo$(OBJEXT) : ../../../include/OTC/debug/throwerr.hh
@@ -70,7 +69,6 @@ $(MK)/otcdirectry.d $(MK).pic/otcdirectry$(OBJEXT) $(MK)/otcdirectry$(OBJEXT) : 
 $(MK)/otcdirectry.d $(MK).pic/otcdirectry$(OBJEXT) $(MK)/otcdirectry$(OBJEXT) : ../../../include/OTC/debug/ensure.h
 $(MK)/otcdirectry.d $(MK).pic/otcdirectry$(OBJEXT) $(MK)/otcdirectry$(OBJEXT) : ../../../include/OTC/debug/errors.h
 $(MK)/otcdirectry.d $(MK).pic/otcdirectry$(OBJEXT) $(MK)/otcdirectry$(OBJEXT) : ../../../include/OTC/debug/excption.hh
-$(MK)/otcdirectry.d $(MK).pic/otcdirectry$(OBJEXT) $(MK)/otcdirectry$(OBJEXT) : ../../../include/OTC/debug/newhndlr.hh
 $(MK)/otcdirectry.d $(MK).pic/otcdirectry$(OBJEXT) $(MK)/otcdirectry$(OBJEXT) : ../../../include/OTC/debug/stophere.h
 $(MK)/otcdirectry.d $(MK).pic/otcdirectry$(OBJEXT) $(MK)/otcdirectry$(OBJEXT) : ../../../include/OTC/debug/termfunc.hh
 $(MK)/otcdirectry.d $(MK).pic/otcdirectry$(OBJEXT) $(MK)/otcdirectry$(OBJEXT) : ../../../include/OTC/debug/throwerr.hh
@@ -148,7 +146,6 @@ $(MK)/otcpathname.d $(MK).pic/otcpathname$(OBJEXT) $(MK)/otcpathname$(OBJEXT) : 
 $(MK)/otcpathname.d $(MK).pic/otcpathname$(OBJEXT) $(MK)/otcpathname$(OBJEXT) : ../../../include/OTC/debug/ensure.h
 $(MK)/otcpathname.d $(MK).pic/otcpathname$(OBJEXT) $(MK)/otcpathname$(OBJEXT) : ../../../include/OTC/debug/errors.h
 $(MK)/otcpathname.d $(MK).pic/otcpathname$(OBJEXT) $(MK)/otcpathname$(OBJEXT) : ../../../include/OTC/debug/excption.hh
-$(MK)/otcpathname.d $(MK).pic/otcpathname$(OBJEXT) $(MK)/otcpathname$(OBJEXT) : ../../../include/OTC/debug/newhndlr.hh
 $(MK)/otcpathname.d $(MK).pic/otcpathname$(OBJEXT) $(MK)/otcpathname$(OBJEXT) : ../../../include/OTC/debug/stophere.h
 $(MK)/otcpathname.d $(MK).pic/otcpathname$(OBJEXT) $(MK)/otcpathname$(OBJEXT) : ../../../include/OTC/debug/termfunc.hh
 $(MK)/otcpathname.d $(MK).pic/otcpathname$(OBJEXT) $(MK)/otcpathname$(OBJEXT) : ../../../include/OTC/debug/throwerr.hh
@@ -244,7 +241,6 @@ $(MK)/otcprogram.d $(MK).pic/otcprogram$(OBJEXT) $(MK)/otcprogram$(OBJEXT) : ../
 $(MK)/otcprogram.d $(MK).pic/otcprogram$(OBJEXT) $(MK)/otcprogram$(OBJEXT) : ../../../include/OTC/debug/ensure.h
 $(MK)/otcprogram.d $(MK).pic/otcprogram$(OBJEXT) $(MK)/otcprogram$(OBJEXT) : ../../../include/OTC/debug/errors.h
 $(MK)/otcprogram.d $(MK).pic/otcprogram$(OBJEXT) $(MK)/otcprogram$(OBJEXT) : ../../../include/OTC/debug/excption.hh
-$(MK)/otcprogram.d $(MK).pic/otcprogram$(OBJEXT) $(MK)/otcprogram$(OBJEXT) : ../../../include/OTC/debug/newhndlr.hh
 $(MK)/otcprogram.d $(MK).pic/otcprogram$(OBJEXT) $(MK)/otcprogram$(OBJEXT) : ../../../include/OTC/debug/stophere.h
 $(MK)/otcprogram.d $(MK).pic/otcprogram$(OBJEXT) $(MK)/otcprogram$(OBJEXT) : ../../../include/OTC/debug/termfunc.hh
 $(MK)/otcprogram.d $(MK).pic/otcprogram$(OBJEXT) $(MK)/otcprogram$(OBJEXT) : ../../../include/OTC/debug/throwerr.hh
@@ -292,7 +288,6 @@ $(MK)/otcsigblock.d $(MK).pic/otcsigblock$(OBJEXT) $(MK)/otcsigblock$(OBJEXT) : 
 $(MK)/otcsigblock.d $(MK).pic/otcsigblock$(OBJEXT) $(MK)/otcsigblock$(OBJEXT) : ../../../include/OTC/debug/ensure.h
 $(MK)/otcsigblock.d $(MK).pic/otcsigblock$(OBJEXT) $(MK)/otcsigblock$(OBJEXT) : ../../../include/OTC/debug/errors.h
 $(MK)/otcsigblock.d $(MK).pic/otcsigblock$(OBJEXT) $(MK)/otcsigblock$(OBJEXT) : ../../../include/OTC/debug/excption.hh
-$(MK)/otcsigblock.d $(MK).pic/otcsigblock$(OBJEXT) $(MK)/otcsigblock$(OBJEXT) : ../../../include/OTC/debug/newhndlr.hh
 $(MK)/otcsigblock.d $(MK).pic/otcsigblock$(OBJEXT) $(MK)/otcsigblock$(OBJEXT) : ../../../include/OTC/debug/stophere.h
 $(MK)/otcsigblock.d $(MK).pic/otcsigblock$(OBJEXT) $(MK)/otcsigblock$(OBJEXT) : ../../../include/OTC/debug/termfunc.hh
 $(MK)/otcsigblock.d $(MK).pic/otcsigblock$(OBJEXT) $(MK)/otcsigblock$(OBJEXT) : ../../../include/OTC/debug/throwerr.hh
@@ -320,7 +315,6 @@ $(MK)/otcsighndle.d $(MK).pic/otcsighndle$(OBJEXT) $(MK)/otcsighndle$(OBJEXT) : 
 $(MK)/otcsighndle.d $(MK).pic/otcsighndle$(OBJEXT) $(MK)/otcsighndle$(OBJEXT) : ../../../include/OTC/debug/ensure.h
 $(MK)/otcsighndle.d $(MK).pic/otcsighndle$(OBJEXT) $(MK)/otcsighndle$(OBJEXT) : ../../../include/OTC/debug/errors.h
 $(MK)/otcsighndle.d $(MK).pic/otcsighndle$(OBJEXT) $(MK)/otcsighndle$(OBJEXT) : ../../../include/OTC/debug/excption.hh
-$(MK)/otcsighndle.d $(MK).pic/otcsighndle$(OBJEXT) $(MK)/otcsighndle$(OBJEXT) : ../../../include/OTC/debug/newhndlr.hh
 $(MK)/otcsighndle.d $(MK).pic/otcsighndle$(OBJEXT) $(MK)/otcsighndle$(OBJEXT) : ../../../include/OTC/debug/stophere.h
 $(MK)/otcsighndle.d $(MK).pic/otcsighndle$(OBJEXT) $(MK)/otcsighndle$(OBJEXT) : ../../../include/OTC/debug/termfunc.hh
 $(MK)/otcsighndle.d $(MK).pic/otcsighndle$(OBJEXT) $(MK)/otcsighndle$(OBJEXT) : ../../../include/OTC/debug/throwerr.hh
@@ -348,7 +342,6 @@ $(MK)/otcstat.d $(MK).pic/otcstat$(OBJEXT) $(MK)/otcstat$(OBJEXT) : ../../../inc
 $(MK)/otcstat.d $(MK).pic/otcstat$(OBJEXT) $(MK)/otcstat$(OBJEXT) : ../../../include/OTC/debug/ensure.h
 $(MK)/otcstat.d $(MK).pic/otcstat$(OBJEXT) $(MK)/otcstat$(OBJEXT) : ../../../include/OTC/debug/errors.h
 $(MK)/otcstat.d $(MK).pic/otcstat$(OBJEXT) $(MK)/otcstat$(OBJEXT) : ../../../include/OTC/debug/excption.hh
-$(MK)/otcstat.d $(MK).pic/otcstat$(OBJEXT) $(MK)/otcstat$(OBJEXT) : ../../../include/OTC/debug/newhndlr.hh
 $(MK)/otcstat.d $(MK).pic/otcstat$(OBJEXT) $(MK)/otcstat$(OBJEXT) : ../../../include/OTC/debug/stophere.h
 $(MK)/otcstat.d $(MK).pic/otcstat$(OBJEXT) $(MK)/otcstat$(OBJEXT) : ../../../include/OTC/debug/termfunc.hh
 $(MK)/otcstat.d $(MK).pic/otcstat$(OBJEXT) $(MK)/otcstat$(OBJEXT) : ../../../include/OTC/debug/throwerr.hh
@@ -376,7 +369,6 @@ $(MK)/otcstopwtch.d $(MK).pic/otcstopwtch$(OBJEXT) $(MK)/otcstopwtch$(OBJEXT) : 
 $(MK)/otcstopwtch.d $(MK).pic/otcstopwtch$(OBJEXT) $(MK)/otcstopwtch$(OBJEXT) : ../../../include/OTC/debug/ensure.h
 $(MK)/otcstopwtch.d $(MK).pic/otcstopwtch$(OBJEXT) $(MK)/otcstopwtch$(OBJEXT) : ../../../include/OTC/debug/errors.h
 $(MK)/otcstopwtch.d $(MK).pic/otcstopwtch$(OBJEXT) $(MK)/otcstopwtch$(OBJEXT) : ../../../include/OTC/debug/excption.hh
-$(MK)/otcstopwtch.d $(MK).pic/otcstopwtch$(OBJEXT) $(MK)/otcstopwtch$(OBJEXT) : ../../../include/OTC/debug/newhndlr.hh
 $(MK)/otcstopwtch.d $(MK).pic/otcstopwtch$(OBJEXT) $(MK)/otcstopwtch$(OBJEXT) : ../../../include/OTC/debug/stophere.h
 $(MK)/otcstopwtch.d $(MK).pic/otcstopwtch$(OBJEXT) $(MK)/otcstopwtch$(OBJEXT) : ../../../include/OTC/debug/termfunc.hh
 $(MK)/otcstopwtch.d $(MK).pic/otcstopwtch$(OBJEXT) $(MK)/otcstopwtch$(OBJEXT) : ../../../include/OTC/debug/throwerr.hh
@@ -438,7 +430,6 @@ $(MK)/_directry.d $(MK)/_directry$(OBJEXT) $(MK)/_directry$(BINEXT) : ../../../i
 $(MK)/_directry.d $(MK)/_directry$(OBJEXT) $(MK)/_directry$(BINEXT) : ../../../include/OTC/debug/ensure.h
 $(MK)/_directry.d $(MK)/_directry$(OBJEXT) $(MK)/_directry$(BINEXT) : ../../../include/OTC/debug/errors.h
 $(MK)/_directry.d $(MK)/_directry$(OBJEXT) $(MK)/_directry$(BINEXT) : ../../../include/OTC/debug/excption.hh
-$(MK)/_directry.d $(MK)/_directry$(OBJEXT) $(MK)/_directry$(BINEXT) : ../../../include/OTC/debug/newhndlr.hh
 $(MK)/_directry.d $(MK)/_directry$(OBJEXT) $(MK)/_directry$(BINEXT) : ../../../include/OTC/debug/stophere.h
 $(MK)/_directry.d $(MK)/_directry$(OBJEXT) $(MK)/_directry$(BINEXT) : ../../../include/OTC/debug/termfunc.hh
 $(MK)/_directry.d $(MK)/_directry$(OBJEXT) $(MK)/_directry$(BINEXT) : ../../../include/OTC/debug/throwerr.hh
@@ -522,7 +513,6 @@ $(MK)/_pathname.d $(MK)/_pathname$(OBJEXT) $(MK)/_pathname$(BINEXT) : ../../../i
 $(MK)/_pathname.d $(MK)/_pathname$(OBJEXT) $(MK)/_pathname$(BINEXT) : ../../../include/OTC/debug/ensure.h
 $(MK)/_pathname.d $(MK)/_pathname$(OBJEXT) $(MK)/_pathname$(BINEXT) : ../../../include/OTC/debug/errors.h
 $(MK)/_pathname.d $(MK)/_pathname$(OBJEXT) $(MK)/_pathname$(BINEXT) : ../../../include/OTC/debug/excption.hh
-$(MK)/_pathname.d $(MK)/_pathname$(OBJEXT) $(MK)/_pathname$(BINEXT) : ../../../include/OTC/debug/newhndlr.hh
 $(MK)/_pathname.d $(MK)/_pathname$(OBJEXT) $(MK)/_pathname$(BINEXT) : ../../../include/OTC/debug/stophere.h
 $(MK)/_pathname.d $(MK)/_pathname$(OBJEXT) $(MK)/_pathname$(BINEXT) : ../../../include/OTC/debug/termfunc.hh
 $(MK)/_pathname.d $(MK)/_pathname$(OBJEXT) $(MK)/_pathname$(BINEXT) : ../../../include/OTC/debug/throwerr.hh
@@ -625,7 +615,6 @@ $(MK)/_program.d $(MK)/_program$(OBJEXT) $(MK)/_program$(BINEXT) : ../../../incl
 $(MK)/_program.d $(MK)/_program$(OBJEXT) $(MK)/_program$(BINEXT) : ../../../include/OTC/debug/ensure.h
 $(MK)/_program.d $(MK)/_program$(OBJEXT) $(MK)/_program$(BINEXT) : ../../../include/OTC/debug/errors.h
 $(MK)/_program.d $(MK)/_program$(OBJEXT) $(MK)/_program$(BINEXT) : ../../../include/OTC/debug/excption.hh
-$(MK)/_program.d $(MK)/_program$(OBJEXT) $(MK)/_program$(BINEXT) : ../../../include/OTC/debug/newhndlr.hh
 $(MK)/_program.d $(MK)/_program$(OBJEXT) $(MK)/_program$(BINEXT) : ../../../include/OTC/debug/stophere.h
 $(MK)/_program.d $(MK)/_program$(OBJEXT) $(MK)/_program$(BINEXT) : ../../../include/OTC/debug/termfunc.hh
 $(MK)/_program.d $(MK)/_program$(OBJEXT) $(MK)/_program$(BINEXT) : ../../../include/OTC/debug/throwerr.hh
@@ -676,7 +665,6 @@ $(MK)/_stat.d $(MK)/_stat$(OBJEXT) $(MK)/_stat$(BINEXT) : ../../../include/OTC/d
 $(MK)/_stat.d $(MK)/_stat$(OBJEXT) $(MK)/_stat$(BINEXT) : ../../../include/OTC/debug/ensure.h
 $(MK)/_stat.d $(MK)/_stat$(OBJEXT) $(MK)/_stat$(BINEXT) : ../../../include/OTC/debug/errors.h
 $(MK)/_stat.d $(MK)/_stat$(OBJEXT) $(MK)/_stat$(BINEXT) : ../../../include/OTC/debug/excption.hh
-$(MK)/_stat.d $(MK)/_stat$(OBJEXT) $(MK)/_stat$(BINEXT) : ../../../include/OTC/debug/newhndlr.hh
 $(MK)/_stat.d $(MK)/_stat$(OBJEXT) $(MK)/_stat$(BINEXT) : ../../../include/OTC/debug/stophere.h
 $(MK)/_stat.d $(MK)/_stat$(OBJEXT) $(MK)/_stat$(BINEXT) : ../../../include/OTC/debug/termfunc.hh
 $(MK)/_stat.d $(MK)/_stat$(OBJEXT) $(MK)/_stat$(BINEXT) : ../../../include/OTC/debug/throwerr.hh
@@ -712,7 +700,6 @@ $(MK)/_stopwtch.d $(MK)/_stopwtch$(OBJEXT) $(MK)/_stopwtch$(BINEXT) : ../../../i
 $(MK)/_stopwtch.d $(MK)/_stopwtch$(OBJEXT) $(MK)/_stopwtch$(BINEXT) : ../../../include/OTC/debug/ensure.h
 $(MK)/_stopwtch.d $(MK)/_stopwtch$(OBJEXT) $(MK)/_stopwtch$(BINEXT) : ../../../include/OTC/debug/errors.h
 $(MK)/_stopwtch.d $(MK)/_stopwtch$(OBJEXT) $(MK)/_stopwtch$(BINEXT) : ../../../include/OTC/debug/excption.hh
-$(MK)/_stopwtch.d $(MK)/_stopwtch$(OBJEXT) $(MK)/_stopwtch$(BINEXT) : ../../../include/OTC/debug/newhndlr.hh
 $(MK)/_stopwtch.d $(MK)/_stopwtch$(OBJEXT) $(MK)/_stopwtch$(BINEXT) : ../../../include/OTC/debug/stophere.h
 $(MK)/_stopwtch.d $(MK)/_stopwtch$(OBJEXT) $(MK)/_stopwtch$(BINEXT) : ../../../include/OTC/debug/termfunc.hh
 $(MK)/_stopwtch.d $(MK)/_stopwtch$(OBJEXT) $(MK)/_stopwtch$(BINEXT) : ../../../include/OTC/debug/throwerr.hh
@@ -749,7 +736,6 @@ $(MK)/_timeclck.d $(MK)/_timeclck$(OBJEXT) $(MK)/_timeclck$(BINEXT) : ../../../i
 $(MK)/_timeclck.d $(MK)/_timeclck$(OBJEXT) $(MK)/_timeclck$(BINEXT) : ../../../include/OTC/debug/ensure.h
 $(MK)/_timeclck.d $(MK)/_timeclck$(OBJEXT) $(MK)/_timeclck$(BINEXT) : ../../../include/OTC/debug/errors.h
 $(MK)/_timeclck.d $(MK)/_timeclck$(OBJEXT) $(MK)/_timeclck$(BINEXT) : ../../../include/OTC/debug/excption.hh
-$(MK)/_timeclck.d $(MK)/_timeclck$(OBJEXT) $(MK)/_timeclck$(BINEXT) : ../../../include/OTC/debug/newhndlr.hh
 $(MK)/_timeclck.d $(MK)/_timeclck$(OBJEXT) $(MK)/_timeclck$(BINEXT) : ../../../include/OTC/debug/stophere.h
 $(MK)/_timeclck.d $(MK)/_timeclck$(OBJEXT) $(MK)/_timeclck$(BINEXT) : ../../../include/OTC/debug/termfunc.hh
 $(MK)/_timeclck.d $(MK)/_timeclck$(OBJEXT) $(MK)/_timeclck$(BINEXT) : ../../../include/OTC/debug/throwerr.hh

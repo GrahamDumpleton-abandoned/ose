@@ -1697,21 +1697,9 @@ bool OTC_JobQueue::isPendingStandardJobsEmpty()
 /* ------------------------------------------------------------------------- */
 void OTC_JobQueue::updateStandardJobs()
 {
-  OTC_Job* theJob;
-
   qmutex_.lock();
 
-  OTC_MutexReaper<OTC_NRMutex> xxxMutex;
-  xxxMutex.grab(qmutex_);
-
-  theJob = pendingStandardJobs_->next();
-  while (theJob != 0)
-  {
-    standardJobs_->add(theJob);
-    theJob = pendingStandardJobs_->next();
-  }
-
-  xxxMutex.release();
+  standardJobs_->transfer(pendingStandardJobs_);
 
   qmutex_.unlock();
 }
@@ -1766,21 +1754,9 @@ bool OTC_JobQueue::isPendingIdleJobsEmpty()
 /* ------------------------------------------------------------------------- */
 void OTC_JobQueue::updateIdleJobs()
 {
-  OTC_Job* theJob;
-
   qmutex_.lock();
 
-  OTC_MutexReaper<OTC_NRMutex> xxxMutex;
-  xxxMutex.grab(qmutex_);
-
-  theJob = pendingIdleJobs_->next();
-  while (theJob != 0)
-  {
-    idleJobs_->add(theJob);
-    theJob = pendingIdleJobs_->next();
-  }
-
-  xxxMutex.release();
+  idleJobs_->transfer(pendingIdleJobs_);
 
   qmutex_.unlock();
 }

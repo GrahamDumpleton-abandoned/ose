@@ -20,8 +20,6 @@
 */
 
 #include <OTC/dispatch/job.hh>
-#include <OTC/collctn/linklist.hh>
-#include <OTC/collctn/vlink.hh>
 
 #ifdef __GNUG__
 #if (__GNUC__ < 3) && (__GNUC__MINOR__ < 95)
@@ -30,6 +28,8 @@
 #endif
 
 /* ------------------------------------------------------------------------- */
+
+class OTC_JobListItem;
 
 class OSE_EXPORT OTC_JobList
     // = TITLE
@@ -48,11 +48,12 @@ class OSE_EXPORT OTC_JobList
 {
   public:
 
-			OTC_JobList() : count_(0) {}
+			OTC_JobList()
+                          : start_(0), end_(0), count_(0) {}
 
     // = DESTRUCTION
 
-    virtual		~OTC_JobList();
+                        ~OTC_JobList();
 				// Goes through the job queue, destroying
 				// any jobs.
 
@@ -63,7 +64,7 @@ class OSE_EXPORT OTC_JobList
                                 // Returns the number of jobs in the list.
 
     bool		isEmpty() const
-                                { return count_ == 0; }
+                                { return start_ == 0; }
 				// Returns <true> if there are no jobs in the
 				// queue.
 
@@ -71,6 +72,10 @@ class OSE_EXPORT OTC_JobList
 				// Adds <theJob> to the end of the queue.
 				// Generates an exception if <theJob>
 				// is <0>.
+
+    void                transfer(OTC_JobList* theJobList);
+                                // Transfers jobs from <theJobList> to
+                                // the end of this list.
 
     OTC_Job*		next();
 				// Returns the job at the head of the queue.
@@ -83,8 +88,11 @@ class OSE_EXPORT OTC_JobList
     OTC_JobList&	operator=(OTC_JobList const&);
 				// Do not define an implementation for this.
 
-    OTC_LinkList	jobs_;
-				// List of jobs.
+    OTC_JobListItem*    start_;
+                                // Start of the list of job items.
+
+    OTC_JobListItem*    end_;
+                                // End of the list of job items.
 
     u_int               count_;
                                 // Number of jobs in list.
