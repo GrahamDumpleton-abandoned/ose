@@ -52,6 +52,10 @@ static OTC_TraceTag& MODULE_TRACETAG()
 #define MODULE MODULE_TRACETAG()
 
 /* ------------------------------------------------------------------------- */
+static char const* const HEX_CHARACTERS = "0123456789abcdef";
+#define HEX_DIGIT(x) (((x) <= '9') ? (x) - '0' : ((x) & 7) + 9)
+
+/* ------------------------------------------------------------------------- */
 OTC_JsonRpcServlet::~OTC_JsonRpcServlet()
 {
   cleanup_();
@@ -62,7 +66,7 @@ OTC_JsonRpcServlet::OTC_JsonRpcServlet(
  OTC_HttpSession* theSession,
  OTC_ServiceBinding* theBinding
 )
-  : OTC_HttpServlet(theSession), binding_(0), broker_(0)
+  : OTC_HttpServlet(theSession), binding_(0), broker_(0), requestId_("0")
 {
   OTCLIB_MARKBLOCK(MODULE,"OTC_JsonRpcServlet::OTC_JsonRpcServlet(...)");
 
@@ -235,9 +239,7 @@ void OTC_JsonRpcServlet::process(OTC_Event* theEvent)
       {
 	// Make a guess at the required capacity of
 	// the string for the payload when formatted
-	// as XML-RPC. Use NET-RPC encoding as a
-	// guide and add fifty percent since it can
-	// be a bit more verbose.
+	// as JSON-RPC.
 
 	OTCEV_Message* tmpMessage;
 	tmpMessage = theResponse->envelope()->message();
@@ -246,7 +248,7 @@ void OTC_JsonRpcServlet::process(OTC_Event* theEvent)
 
 	OTCLIB_TRACER(MODULE) << "content-length = " << tmpCapacity << endl;
 
-	tmpCapacity = size_t(1.5*tmpCapacity);
+	tmpCapacity = size_t(tmpCapacity);
 
 	OTC_Capacity theCapacity(tmpCapacity);
 	OTC_String theString(theCapacity);
@@ -284,29 +286,8 @@ void OTC_JsonRpcServlet::process(OTC_Event* theEvent)
 
     if (theFailure->conversationId() == conversationId_)
     {
-      OTC_Capacity theCapacity(1024);
-      OTC_String theString(theCapacity);
-
-      OTC_OSStream theStream(theString,OTCLIB_BUFFERED);
-
-      encodeFailure_(theStream,theFailure->error(),
-       theFailure->description(),theFailure->origin(),
-       theFailure->details());
-
-      theStream << flush;
-
-      sendResponse(200);
-
-      sendHeader("Content-Type","text/xml");
-      sendHeader("Content-Length",theString.length());
-
-      endHeaders();
-
-      sendContent(theString);
-
-      endContent();
-
-      cleanup_();
+      sendFailure_(theFailure->error(),theFailure->description(),
+       theFailure->origin(),theFailure->details());
     }
   }
   else if (theEvent->type() == OTCEV_ServiceAnnouncement::typeId())
@@ -354,13 +335,7 @@ bool OTC_JsonRpcServlet::decodeRequest_(
 
   theObject <<= OTC_ROPayload::nullArray();
 
-  // First find and skip xml document
-  // header.
-
-  theStream >> ws;
-
-  if (!skipProlog_(theStream))
-    return false;
+  // Skip leading whitespace.
 
   theStream >> ws;
 
@@ -370,308 +345,10 @@ bool OTC_JsonRpcServlet::decodeRequest_(
   OTC_Capacity theCapacity(63);
   OTC_String theString(theCapacity);
 
-  if (theStream.get() != '<')
+  if (theStream.peek() != '{')
     return false;
 
-  if (!readName_(theStream,theString))
-    return false;
-
-  if (theString != "methodCall")
-    return false;
-
-  theStream >> ws;
-
-  if (theStream.get() != '>')
-    return false;
-
-  theStream >> ws;
-
-  if (theStream.get() != '<')
-    return false;
-
-  if (!readName_(theStream,theString))
-    return false;
-
-  if (theString != "methodName")
-    return false;
-
-  theStream >> ws;
-
-  // Check for possibility of <methodName/>.
-
-  if (theStream.peek() == '/')
-  {
-    // Can only be <methodName/>.
-
-    theStream.ignore(1);
-
-    if (theStream.get() != '>')
-      return false;
-  }
-  else
-  {
-    // Can only be <methodName>.
-
-    if (theStream.get() != '>')
-      return false;
-
-    if (!decodeString_(theStream,'<',theMethod))
-      return false;
-
-    if (theStream.get() != '<')
-      return false;
-
-    if (theStream.get() != '/')
-      return false;
-
-    if (!readName_(theStream,theString))
-      return false;
-
-    if (theString != "methodName")
-      return false;
-
-    theStream >> ws;
-
-    if (theStream.get() != '>')
-      return false;
-  }
-
-  // We now have to decode the params.
-  // We have to cope with the fact that
-  // there may be no <params>, that it
-  // is empty and where it is empty that
-  // it may use either <params></params>
-  // or <params/> forms.
-
-  theStream >> ws;
-
-  if (theStream.get() != '<')
-    return false;
-
-  // Check here for possibility of having
-  // </methodCall>.
-
-  if (theStream.peek() == '/')
-  {
-    // No <params> possible, must be the
-    // </methodCall>.
-
-    theStream.ignore(1);
-
-    if (!readName_(theStream,theString))
-      return false;
-
-    if (theString != "methodCall")
-      return false;
-
-    theStream >> ws;
-
-    if (theStream.get() != '>')
-      return false;
-
-    theStream >> ws;
-
-    if (!theStream.eof())
-      return false;
-
-    return true;
-  }
-
-  // Can only be <params> or <params/>.
-
-  if (!readName_(theStream,theString))
-    return false;
-
-  if (theString != "params")
-    return false;
-
-  theStream >> ws;
-
-  // Now have to check for whether
-  // this might be <params/>.
-
-  if (theStream.peek() == '/')
-  {
-    // Only possibility is <params/>.
-
-    theStream.ignore(1);
-
-    if (theStream.get() != '>')
-      return false;
-  }
-  else
-  {
-    // Only possibility is <params>.
-
-    if (theStream.get() != '>')
-      return false;
-
-    theStream >> ws;
-
-    if (theStream.get() != '<')
-      return false;
-
-    // Now have to check whether this
-    // might be </params>.
-
-    if (theStream.peek() == '/')
-    {
-      // Only possibility is </params>.
-
-      theStream.ignore(1);
-
-      if (!readName_(theStream,theString))
-	return false;
-
-      if (theString != "params")
-	return false;
-
-      theStream >> ws;
-
-      if (theStream.get() != '>')
-	return false;
-    }
-    else
-    {
-      // Only possibility is <param>. Note that
-      // not accepting <param/> as being valid as
-      // should contain at least <value/>.
-
-      if (!readName_(theStream,theString))
-	return false;
-
-      if (theString != "param")
-	return false;
-
-      theStream >> ws;
-
-      if (theStream.get() != '>')
-	return false;
-
-      size_t theIndex = 0;
-
-      while (1)
-      {
-	theStream >> ws;
-
-	if (theStream.get() != '<')
-	  return false;
-
-	if (!readName_(theStream,theString))
-	  return false;
-
-	if (theString != "value")
-	  return false;
-
-	theStream >> ws;
-
-	// Have to check whether this might
-	// might be <value/>.
-
-	if (theStream.peek() == '/')
-	{
-	  // Can only be <value/>.
-
-	  theStream.ignore(1);
-
-	  if (theStream.get() != '>')
-	    return false;
-
-	  theObject[theIndex++] <<= "";
-	}
-	else
-	{
-	  // Can only be <value>.
-
-	  if (theStream.get() != '>')
-	    return false;
-
-	  if (!decodeValue_(theStream,theObject[theIndex++],theWorkarea))
-	    return false;
-	}
-
-	theStream >> ws;
-
-	if (theStream.get() != '<')
-	  return false;
-
-	if (theStream.get() != '/')
-	  return false;
-
-	if (!readName_(theStream,theString))
-	  return false;
-
-	if (theString != "param")
-	  return false;
-
-	theStream >> ws;
-
-	if (theStream.get() != '>')
-	  return false;
-
-	theStream >> ws;
-
-	if (theStream.get() != '<')
-	  return false;
-
-	if (theStream.peek() == '/')
-	  break;
-
-	if (!readName_(theStream,theString))
-	  return false;
-
-	if (theString != "param")
-	  return false;
-
-	theStream >> ws;
-
-	if (theStream.get() != '>')
-	  return false;
-      }
-
-      theStream.ignore(1);
-
-      if (!readName_(theStream,theString))
-	return false;
-
-      if (theString != "params")
-	return false;
-
-      theStream >> ws;
-
-      if (theStream.get() != '>')
-	return false;
-    }
-  }
-
-  // Make sure method call is closed
-  // off correctly.
-
-  theStream >> ws;
-
-  if (theStream.get() != '<')
-    return false;
-
-  if (theStream.peek() != '/')
-    return false;
-
-  theStream.ignore(1);
-
-  if (!readName_(theStream,theString))
-    return false;
-
-  if (theString != "methodCall")
-    return false;
-
-  theStream >> ws;
-
-  if (theStream.get() != '>')
-    return false;
-
-  theStream >> ws;
-
-  if (!theStream.eof())
-    return false;
+  // XXX Want to decode object from here.
 
   return true;
 }
@@ -679,47 +356,38 @@ bool OTC_JsonRpcServlet::decodeRequest_(
 /* ------------------------------------------------------------------------- */
 void OTC_JsonRpcServlet::encodeFailure_(
  ostream& theStream,
+ OTC_String const& theRequestId,
  int theError,
  char const* theDescription,
  char const* theOrigin,
  char const* theDetails
 )
 {
-  theStream << "<?xml version=\"1.0\"?>\n";
-  theStream << "<methodResponse>\n";
-  theStream << "<fault>\n";
-  theStream << "<value>\n";
-  theStream << "<struct>\n";
-  theStream << "<member>\n";
-  theStream << "<name>faultCode</name>\n";
-  theStream << "<value><int>";
+  theStream << "{ \"result\": null";
+
+  theStream << ", \"error\": ";
+  theStream << "{";
+
+  theStream << "\"error\": ";
   theStream << theError;
-  theStream << "</int></value>\n";
-  theStream << "</member>\n";
-  theStream << "<member>\n";
-  theStream << "<name>faultString</name>\n";
-  theStream << "<value>";
 
-  if (theOrigin != 0 && *theOrigin != EOS)
-  {
-    encodeString_(theStream,theOrigin);
-    theStream << " -- ";
-  }
-
+  theStream << ", \"description\": ";
   encodeString_(theStream,theDescription);
+  theStream << ", ";
 
-  if (theDetails != 0 && *theDetails != EOS)
-  {
-    theStream << "\n\n";
-    encodeString_(theStream,theDetails);
-  }
+  theStream << "\"origin\": ";
+  encodeString_(theStream,theOrigin);
+  theStream << ", ";
 
-  theStream << "</value>\n";
-  theStream << "</member>\n";
-  theStream << "</struct>\n";
-  theStream << "</value>\n";
-  theStream << "</fault>\n";
-  theStream << "</methodResponse>\n";
+  theStream << "\"details\": ";
+  encodeString_(theStream,theDetails);
+  theStream << ", ";
+
+  theStream << "}";
+  
+  theStream << ", \"id\": " << theRequestId;
+  theStream << "}";
+
   theStream << flush;
 }
 
@@ -736,7 +404,7 @@ void OTC_JsonRpcServlet::sendFailure_(
 
   OTC_OSStream theStream(theString,OTCLIB_BUFFERED);
 
-  encodeFailure_(theStream,theError,
+  encodeFailure_(theStream,requestId_,theError,
    theDescription,theOrigin,theDetails);
 
   theStream << flush;
@@ -753,42 +421,6 @@ void OTC_JsonRpcServlet::sendFailure_(
   endContent();
 
   cleanup_();
-}
-
-/* ------------------------------------------------------------------------- */
-bool OTC_JsonRpcServlet::encodeRequest_(
- ostream& theStream,
- char const* theMethod,
- OTC_ROPayload const& theObject
-)
-{
-  theStream << "<?xml version=\"1.0\"?>\n";
-  theStream << "<methodCall>\n";
-  theStream << "<params>\n";
-
-  if (theObject.nodeType() != "array")
-    return false;
-
-  OTC_ROPayload theReader;
-  theReader = theObject.firstChild();
-
-  while (theReader.isValid())
-  {
-    theStream << "<param>\n";
-
-    if (!encodeObject_(theStream,theReader))
-      return false;
-
-    theStream << "</param>\n";
-
-    theReader = theReader.nextSibling();
-  }
-
-  theStream << "</params>\n";
-  theStream << "</methodCall>\n";
-  theStream << flush;
-
-  return true;
 }
 
 /* ------------------------------------------------------------------------- */
@@ -831,7 +463,7 @@ bool OTC_JsonRpcServlet::encodeObject_(
      theObject.property("type") == "xsd:double" ||
      theObject.property("type") == "xsd:float")
     {
-      encodeString_(theStream,theObject.value().string(),
+      theStream.write(theObject.value().string(),
        theObject.value().length());
     }
     else if (theObject.property("type") == "xsd:boolean")
@@ -849,10 +481,8 @@ bool OTC_JsonRpcServlet::encodeObject_(
     }
     else
     {
-      theStream << "\"";
       encodeString_(theStream,theObject.value().string(),
        theObject.value().length());
-      theStream << "\"";
     }
   }
   else if (theObject.nodeType() == "array")
@@ -884,11 +514,9 @@ bool OTC_JsonRpcServlet::encodeObject_(
 
     while (theReader.isValid())
     {
-      theStream << "\"";
       encodeString_(theStream,
        theReader.nodeName().string(),
        theReader.nodeName().length());
-      theStream << "\":";
 
       if (!encodeObject_(theStream,theReader))
 	return false;
@@ -908,87 +536,6 @@ bool OTC_JsonRpcServlet::encodeObject_(
 }
 
 /* ------------------------------------------------------------------------- */
-bool OTC_JsonRpcServlet::skipProlog_(istream& theStream)
-{
-  theStream >> ws;
-
-  if (theStream.get() != '<')
-    return false;
-
-  if (theStream.get() != '?')
-    return false;
-
-  OTC_String tmpString;
-
-  if (!readName_(theStream,tmpString))
-    return false;
-
-  if (!tmpString.compare("xml",OTCLIB_IGNORECASE))
-    return false;
-
-  // XXX Should read all version info etc.
-
-#if 0
-  theStream >> ws;
-
-  while (theStream.peek() != '?')
-  {
-     if (skipProperty_(theStream) == false)
-       return false;
-
-     theStream >> ws;
-  }
-
-  theStream.ignore(1);
-
-  if (theStream.get() != '>')
-    return false;
-#endif
-
-  if (!readToString_(theStream,"?>",tmpString))
-    return false;
-
-  return true;
-}
-
-/* ------------------------------------------------------------------------- */
-bool OTC_JsonRpcServlet::skipProperty_(istream& theStream)
-{
-  OTC_Capacity theCapacity(63);
-  OTC_String theName(theCapacity);
-
-  theName.readToDelim(theStream,'=');
-
-  if (theStream.fail())
-    return false;
-
-  theStream >> ws;
-
-  OTC_String theValue(theCapacity);
-
-  if (theStream.peek() == '"')
-  {
-    theStream.ignore(1);
-
-    if (decodeString_(theStream,'"',theValue) == false)
-      return false;
-  }
-  else if (theStream.peek() == '\'')
-  {
-    theStream.ignore(1);
-
-    if (decodeString_(theStream,'\'',theValue) == false)
-      return false;
-  }
-  else
-    return false;
-
-  theStream.ignore(1);
-
-  return true;
-}
-
-/* ------------------------------------------------------------------------- */
 bool OTC_JsonRpcServlet::decodeValue_(
  istream& theStream,
  OTC_RWPayload theObject,
@@ -997,620 +544,298 @@ bool OTC_JsonRpcServlet::decodeValue_(
 {
   OTCLIB_MARKBLOCK(MODULE,"OTC_JsonRpcServlet::decodeValue_()");
 
-  // Have to deal with case whereby
-  // may be value with no type.
-
   OTC_Capacity theCapacity(63);
-
-  OTC_String theString(theCapacity);
-  OTC_String theElement(theCapacity);
 
   theWorkarea.truncate();
 
-  if (!decodeString_(theStream,'<',theWorkarea))
-    return false;
-
-  if (theStream.get() != '<')
-    return false;
-
-  // Check for possibility of </value>.
-
-  if (theStream.peek() == '/')
-  {
-    // Can only be </value>.
-
-    theStream.ignore(1);
-
-    if (!readName_(theStream,theString))
-      return false;
-
-    if (theString != "value")
-      return false;
-
-    theStream >> ws;
-
-    if (theStream.get() != '>')
-      return false;
-
-    theObject.assign(theWorkarea,theWorkarea.length());
-
-    return true;
-  }
-  else
-  {
-    if (!readName_(theStream,theElement))
-      return false;
-
-    theStream >> ws;
-
-    // Check for possibility of an empty
-    // tag.
-
-    if (theStream.peek() == '/')
-    {
-      // Must be an empty tag.
-
-      theStream.ignore(1);
-
-      if (theStream.get() != '>')
-	return false;
-
-      if (theElement == "struct")
-	theObject <<= OTC_ROPayload::nullIndex();
-      else if (theElement == "i4" || theElement == "int")
-	theObject.assign("","xsd:int");
-      else if (theElement == "boolean")
-	theObject.assign("","xsd:boolean");
-      else if (theElement == "double")
-	theObject.assign("","xsd:double");
-      else if (theElement == "dateTime.iso8601")
-	theObject.assign("","xsd:dateTime");
-      else if (theElement == "base64")
-	theObject.assign("","xsd:base64Binary");
-      else if (theElement == "string")
-	theObject.assign("","xsd:string");
-      // else if (theElement == "nil")
-      //   theObject <<= OTC_ROPayload::nullValue();
-      else
-	return false;
-    }
-    else
-    {
-      if (theStream.get() != '>')
-	return false;
-
-      if (theElement == "array")
-      {
-	theObject <<= OTC_ROPayload::nullArray();
-
-	theStream >> ws;
-
-	if (theStream.get() != '<')
-	  return false;
-
-	if (!readName_(theStream,theString))
-	  return false;
-
-	if (theString != "data")
-	  return false;
-
-	theStream >> ws;
-
-	// Check for possibility of <data/>.
-
-	if (theStream.peek() == '/')
-	{
-	  // Can only be <data/>
-
-	  theStream.ignore(1);
-
-	  if (theStream.get() != '>')
-	    return false;
-	}
-	else
-	{
-	  // Can only be <data>.
-
-	  if (theStream.get() != '>')
-	    return false;
-
-	  theStream >> ws;
-
-	  if (theStream.get() != '<')
-	    return false;
-
-	  while (1)
-	  {
-	    // Check for possibility of </data>.
-
-	    if (theStream.peek() == '/')
-	    {
-	      // Can only be </data>.
-
-	      theStream.ignore(1);
-
-	      if (!readName_(theStream,theString))
-		return false;
-
-	      if (theString != "data")
-		return false;
-
-	      theStream >> ws;
-
-	      if (theStream.get() != '>')
-		return false;
-
-	      break;
-	    }
-	    else
-	    {
-	      // Can only be <value> or <value/>.
-
-	      if (!readName_(theStream,theString))
-		return false;
-
-	      if (theString != "value")
-		return false;
-
-	      theStream >> ws;
-
-	      // Check for possibility of <value/>.
-
-	      if (theStream.peek() == '/')
-	      {
-		// Can only be <value/>.
-
-		theStream.ignore(1);
-
-		if (theStream.get() != '>')
-		  return false;
-
-		theObject[-1] <<= "";
-	      }
-	      else
-	      {
-		// Can only be <value>.
-
-		if (theStream.get() != '>')
-		  return false;
-
-		if (!decodeValue_(theStream,theObject[-1],theWorkarea))
-		  return false;
-	      }
-	    }
-
-	    theStream >> ws;
-
-	    if (theStream.get() != '<')
-	      return false;
-	  }
-	}
-
-	theStream >> ws;
-
-	if (theStream.get() != '<')
-	  return false;
-
-	theString.readToDelim(theStream,'>');
-	theString.rtrim();
-
-	if (theString != "/array")
-	  return false;
-      }
-      else if (theElement == "struct")
-      {
-	theObject <<= OTC_ROPayload::nullIndex();
-
-	theStream >> ws;
-
-	if (theStream.get() != '<')
-	  return false;
-
-	theString.readToDelim(theStream,'>');
-	theString.rtrim();
-
-	while (theString == "member")
-	{
-	  theStream >> ws;
-
-	  if (theStream.get() != '<')
-	    return false;
-
-	  if (!readName_(theStream,theString))
-	    return false;
-
-	  if (theString != "name")
-	    return false;
-
-	  theStream >> ws;
-
-	  OTC_String theMember(theCapacity);
-
-	  // Check for possibility of <name/>
-
-	  if (theStream.peek() == '/')
-	  {
-	    // Can only be <name/>.
-
-	    theStream.ignore(1);
-
-	    if (theStream.get() != '>')
-	      return false;
-	  }
-	  else
-	  {
-	    // Can only be <name>.
-
-	    if (theStream.get() != '>')
-	      return false;
-
-	    if (!decodeString_(theStream,'<',theMember))
-	      return false;
-
-	    theStream >> ws;
-
-	    if (theStream.get() != '<')
-	      return false;
-
-	    theString.readToDelim(theStream,'>');
-	    theString.rtrim();
-
-	    if (theString != "/name")
-	      return false;
-	  }
-
-	  theStream >> ws;
-
-	  if (theStream.get() != '<')
-	    return false;
-
-	  if (!readName_(theStream,theString))
-	    return false;
-
-	  if (theString != "value")
-	    return false;
-
-	  theStream >> ws;
-
-	  // Check for possibility of <value/>.
-
-	  if (theStream.peek() == '/')
-	  {
-	    // Can only be <value/>.
-
-	    theStream.ignore(1);
-
-	    if (theStream.get() != '>')
-	      return false;
-
-	    // theObject[theMember] <<= "";
-	    theObject.sibling(theMember) <<= "";
-	  }
-	  else
-	  {
-	    // Can only be <value>.
-
-	    if (theStream.get() != '>')
-	      return false;
-
-	    // if (!decodeValue_(theStream,theObject[theMember],theWorkarea))
-	    if (!decodeValue_(theStream,
-	     theObject.sibling(theMember),theWorkarea))
-	    {
-	      return false;
-	    }
-	  }
-
-	  theStream >> ws;
-
-	  if (theStream.get() != '<')
-	    return false;
-
-	  theString.readToDelim(theStream,'>');
-	  theString.rtrim();
-
-	  if (theString != "/member")
-	    return false;
-
-	  theStream >> ws;
-
-	  if (theStream.get() != '<')
-	    return false;
-
-	  theString.readToDelim(theStream,'>');
-	  theString.rtrim();
-	}
-
-	if (theString != "/struct")
-	  return false;
-      }
-      else
-      {
-	theWorkarea.truncate();
-
-	if (theElement == "base64")
-	{
-	  if (!decodeBinary_(theStream,'<',theWorkarea))
-	    return false;
-	}
-	else if (theElement == "dateTime.iso8601")
-	{
-	  if (!decodeString_(theStream,'<',theWorkarea))
-	    return false;
-
-	  u_int theYear;
-	  u_int theMonth;
-	  u_int theDay;
-	  u_int theHour;
-	  u_int theMin;
-	  u_int theSec;
-
-	  char theNext;
-
-	  if (theWorkarea.index(EOS) != -1)
-	    return false;
-
-	  if (sscanf(theWorkarea,"%4u%2u%2uT%2u:%2u:%2u%c",
-	   &theYear,&theMonth,&theDay,&theHour,&theMin,&theSec,&theNext) == 6
-	  )
-	  {
-	    char buf[64];
-
-	    sprintf(buf,"%04u-%02u-%02uT%02u:%02u:%02u",
-	     theYear,theMonth,theDay,theHour,theMin,theSec);
-
-	    theWorkarea.assign(buf);
-	  }
-	  else
-	    return false;
-	}
-	else
-	{
-	  if (!decodeString_(theStream,'<',theWorkarea))
-	    return false;
-	}
-
-	if (theElement == "boolean")
-	{
-	  if (theWorkarea == "0")
-	    theObject.assign("false");
-	  else
-	    theObject.assign("true");
-	}
-	else
-	  theObject.assign(theWorkarea,theWorkarea.length());
-
-	if (theElement == "i4" || theElement == "int")
-	  theObject.setProperty("type","xsd:int");
-	else if (theElement == "boolean")
-	  theObject.setProperty("type","xsd:boolean");
-	else if (theElement == "double")
-	  theObject.setProperty("type","xsd:double");
-	else if (theElement == "dateTime.iso8601")
-	  theObject.setProperty("type","xsd:dateTime");
-	else if (theElement == "base64")
-	  theObject.setProperty("type","xsd:base64Binary");
-	// else if (theElement == "nil")
-	//   theObject.setProperty("type","");
-	else if (theElement != "string")
-	  return false;
-
-	if (theStream.get() != '<')
-	  return false;
-
-	if (theStream.get() != '/')
-	  return false;
-
-	theString.readToDelim(theStream,'>');
-	theString.rtrim();
-
-	if (theString != theElement)
-	  return false;
-      }
-    }
-  }
-
   theStream >> ws;
 
-  if (theStream.get() != '<')
-    return false;
-
-  theString.readToDelim(theStream,'>');
-  theString.rtrim();
-
-  if (theString != "/value")
-    return false;
-
-  return true;
-}
-
-/* ------------------------------------------------------------------------- */
-bool OTC_JsonRpcServlet::readName_(
- istream& theStream,
- OTC_String& theResult
-)
-{
-  theResult.truncate();
-
-  int theInput;
-
-  // NameChar ::= Letter | Digit | '.' | '-' | '_' | ':'
-  // Name ::= (Letter | '_' | ':') (NameChar)*
-
-  theInput = theStream.peek();
-
-  if (theInput == EOF || (!isalpha(theInput) && !strchr("_:",theInput)))
-    return false;
-
-  theResult += theStream.get();
-
-  theInput = theStream.peek();
-
-  while (theInput != EOF && (isalnum(theInput) || strchr(".-_:",theInput)))
-  {
-    theResult += theStream.get();
-
-    theInput = theStream.peek();
-  }
-
-  return true;
-}
-
-/* ------------------------------------------------------------------------- */
-bool OTC_JsonRpcServlet::readDigits_(
- istream& theStream,
- OTC_String& theResult
-)
-{
-  theResult.truncate();
-
-  int theInput;
-
-  // Digits ::= [0-9]+
-
-  theInput = theStream.peek();
-
-  if (theInput == EOF || !isdigit(theInput))
-    return false;
-
-  theResult += theStream.get();
-
-  theInput = theStream.peek();
-
-  while (theInput != EOF && isdigit(theInput))
-  {
-    theResult += theStream.get();
-
-    theInput = theStream.peek();
-  }
-
-  return true;
-}
-
-/* ------------------------------------------------------------------------- */
-bool OTC_JsonRpcServlet::readHexDigits_(
- istream& theStream,
- OTC_String& theResult
-)
-{
-  theResult.truncate();
-
-  int theInput;
-
-  // HexDigits ::= [0-9][a-f][A-F]+
-
-  theInput = theStream.peek();
-
-  if (theInput == EOF || !isxdigit(theInput))
-    return false;
-
-  theResult += theStream.get();
-
-  theInput = theStream.peek();
-
-  while (theInput != EOF && isxdigit(theInput))
-  {
-    theResult += theStream.get();
-
-    theInput = theStream.peek();
-  }
-
-  return true;
-}
-
-/* ------------------------------------------------------------------------- */
-bool OTC_JsonRpcServlet::readToChar_(
- istream& theStream,
- char theChar,
- OTC_String& theResult
-)
-{
-  theResult.truncate();
-
   int theInput;
 
   theInput = theStream.peek();
 
-  while (theInput != EOF && theInput != theChar)
+  switch (theInput)
   {
-    theResult += theStream.get();
-
-    theInput = theStream.peek();
-  }
-
-  if (theInput == EOF)
-    return false;
-
-  return true;
-}
-
-/* ------------------------------------------------------------------------- */
-bool OTC_JsonRpcServlet::readToString_(
- istream& theStream,
- char const* theString,
- OTC_String& theResult
-)
-{
-  if (theString == 0 || *theString == EOS)
-    return false;
-
-  int theInput;
-  size_t theLength;
-  OTC_String tmpString;
-
-  theLength = strlen(theString);
-
-  if (theLength == 1)
-    return readToChar_(theStream,*theString,theResult);
-
-  theResult.truncate();
-
-  theInput = theStream.peek();
-
-  while (theInput != EOF)
-  {
-    if (theInput == *theString)
+    case '[':
     {
-      // We might have a match. If we
-      // don't match we have to cycle
-      // data through the temporary
-      // string while we still might
-      // have part of the data which
-      // constitutes the match.
+      theObject <<= OTC_ROPayload::nullArray();
 
-      tmpString.truncate();
-
-      OTC_String::read(tmpString,theStream,theLength);
-
-      if (tmpString.length() != theLength)
-	return false;
+      theStream.ignore(1);
+      theStream >> ws;
 
       while (1)
       {
-	if (tmpString == theString)
-	  return true;
+        if (!decodeValue_(theStream,theObject[-1],theWorkarea))
+          return false;
 
-	theResult += tmpString[size_t(0)];
-	tmpString.remove(0,1);
+        theStream >> ws;
 
-	while (!tmpString.isEmpty())
-	{
-	  theInput = tmpString[size_t(0)];
+        if (theStream.peek() == ']')
+        {
+          theStream.ignore(1);
 
-	  if (theInput == *theString)
-	    break;
+          break;
+        }
+        else if (theStream.peek() != ',')
+          return false;
 
-	  theResult += theInput;
-	  tmpString.remove(0,1);
-	}
+        theStream.ignore(1);
+      }
 
-	if (tmpString.isEmpty())
-	  break;
+      break;
+    }
 
-	OTC_String::read(tmpString,theStream,theLength-tmpString.length());
+    case '{':
+    {
+      theObject <<= OTC_ROPayload::nullIndex();
 
-	if (tmpString.length() != theLength)
-	  return false;
+      theStream >> ws;
+
+      while (theStream.get() != '}')
+      {
+        if (theStream.get() != '"')
+          return false;
+
+        OTC_String theMember(theCapacity);
+
+        if (!readString_(theStream,theMember))
+          return false;
+
+        theStream >> ws;
+
+        if (theStream.get() != ':')
+          return false;
+
+        theStream >> ws;
+
+        if (!decodeValue_(theStream,
+         theObject.sibling(theMember),theWorkarea))
+        {
+          return false;
+        }
+
+        theStream >> ws;
+
+        if (theStream.get() != '}')
+        {
+          if (theStream.get() != ',')
+            return false;
+
+          theStream.ignore(1);
+        }
+      }
+
+      theStream.ignore(1);
+
+      break;
+    }
+
+    case '"':
+    {
+      if (!readString_(theStream,theWorkarea))
+        return false;
+
+      theObject.assign(theWorkarea,theWorkarea.length());
+
+      break;
+    }
+
+    case 'n':
+    case 't':
+    case 'f':
+    {
+      theWorkarea.truncate();
+
+      theWorkarea += theStream.get();
+      theInput = theStream.peek();
+
+      while (isalpha(theInput))
+      {
+        theWorkarea += theStream.get();
+        theInput = theStream.peek();
+      }
+
+      if (theWorkarea == "true")
+      {
+        theObject.assign("true");
+        theObject.setProperty("type","xsd:boolean");
+      }
+      else if (theWorkarea == "false")
+      {
+        theObject.assign("false");
+        theObject.setProperty("type","xsd:boolean");
+      }
+      else if (theWorkarea == "null")
+      {
+        theObject.setProperty("type","");
+      }
+      else
+        return false;
+
+      break;
+    }
+
+#if 0
+  else
+  {
+    theWorkarea.truncate();
+
+    {
+//      if (!decodeString_(theStream,'<',theWorkarea))
+//        return false;
+    }
+
+    if (theElement == "boolean")
+    {
+      if (theWorkarea == "0")
+        theObject.assign("false");
+      else
+        theObject.assign("true");
+    }
+    else
+      theObject.assign(theWorkarea,theWorkarea.length());
+
+    if (theElement == "i4" || theElement == "int")
+      theObject.setProperty("type","xsd:int");
+    else if (theElement == "boolean")
+      theObject.setProperty("type","xsd:boolean");
+    else if (theElement == "double")
+      theObject.setProperty("type","xsd:double");
+    else if (theElement == "nil")
+      theObject.setProperty("type","");
+    else if (theElement != "string")
+      return false;
+#endif
+  }
+
+  return true;
+}
+
+/* ------------------------------------------------------------------------- */
+bool OTC_JsonRpcServlet::readString_(
+ istream& theStream,
+ OTC_String& theResult
+)
+{
+  theResult.truncate();
+
+  if (theStream.get() != '"')
+    return false;
+
+  int theInput;
+
+  theInput = theStream.peek();
+
+  while (theInput != EOF && theInput != '"')
+  {
+    if (theInput == '\\')
+    {
+      theStream.ignore(1);
+
+      theInput = theStream.get();
+
+      if (theInput == EOF)
+        return false;
+
+      switch (theInput)
+      {
+        case 'b':
+        {
+          theResult += '\b';
+
+          break;
+        }
+
+        case 'f':
+        {
+          theResult += '\f';
+
+          break;
+        }
+
+        case 'n':
+        {
+          theResult += '\n';
+
+          break;
+        }
+
+        case 'r':
+        {
+          theResult += '\r';
+
+          break;
+        }
+
+        case 't':
+        {
+          theResult += '\t';
+
+          break;
+        }
+
+        case 'u':
+        {
+          int d1, d2, d3, d4;
+
+          d1 = theStream.get();
+          d2 = theStream.get();
+          d3 = theStream.get();
+          d4 = theStream.get();
+
+          if (d4 == EOF)
+            return false;
+
+          if (!isxdigit(d1))
+            return false;
+          if (!isxdigit(d2))
+            return false;
+          if (!isxdigit(d3))
+            return false;
+          if (!isxdigit(d4))
+            return false;
+
+          d1 = HEX_DIGIT(d1);
+          d2 = HEX_DIGIT(d2);
+          d3 = HEX_DIGIT(d3);
+          d4 = HEX_DIGIT(d4);
+
+          d4 += (d3 << 4);
+          d4 += (d2 << 8);
+          d4 += (d1 << 12);
+
+          if (d4 < 0x80)
+          {
+            theResult += u_char(d4);
+          }
+          else if (d4 < 0x800)
+          {
+            theResult += u_char(0xc0 | (d4 >> 6));
+            theResult += u_char(0x80 | (d4 & 0x3f));
+          }
+          else
+          {
+            theResult += u_char(0xe0 | (d4 >> 12));
+            theResult += u_char(0x80 | ((d4 >> 6) & 0x3f));
+            theResult += u_char(0x80 | (d4 & 0x3f));
+          }
+
+          break;
+        }
+
+        case '"':
+        case '/':
+        case '\\':
+        {
+          theResult += theInput;
+
+          break;
+        }
+
+        default:
+        {
+          return false;
+        }
       }
     }
     else
@@ -1619,127 +844,7 @@ bool OTC_JsonRpcServlet::readToString_(
     theInput = theStream.peek();
   }
 
-  if (theInput == EOF)
-    return false;
-
-  return true;
-}
-
-/* ------------------------------------------------------------------------- */
-bool OTC_JsonRpcServlet::decodeToChar_(
- istream& theStream,
- char theChar,
- OTC_String& theResult
-)
-{
-  theResult.truncate();
-
-  int theInput;
-  OTC_String tmpString;
-
-  theInput = theStream.peek();
-
-  while (theInput != EOF && theInput != theChar)
-  {
-    theStream.ignore(1);
-
-    if (theInput == '&')
-    {
-      // This should be a character or
-      // entity reference.
-
-      // Reference ::= EntityRef | CharRef
-      // CharRef ::= '&#' [0-9]+ ';' | '&#x' [0-9a-fA-F]+ ';'
-      // EntityRef ::= '&' Name ';'
-
-      theInput = theStream.peek();
-
-      if (theInput == '#')
-      {
-	// Character reference.
-
-	theStream.ignore(1);
-
-	theInput = theStream.peek();
-
-	if (theInput == 'x')
-	{
-	  // Hexadecimal.
-
-	  if (!readHexDigits_(theStream,tmpString))
-	    return false;
-
-	  if (theStream.peek() != ';')
-	    return false;
-
-	  int v1 = 0;
-	  char v2 = 0;
-
-	  if (sscanf(tmpString,"%x%c",&v1,&v2) != 1)
-	    return false;
-
-	  if (v1 > 0xFF)
-	    return false;
-
-	  theResult += char(v1);
-	}
-	else if (isdigit(theInput))
-	{
-	  // Numeric.
-
-	  if (!readDigits_(theStream,tmpString))
-	    return false;
-
-	  if (theStream.peek() != ';')
-	    return false;
-
-	  int v1 = 0;
-	  char v2 = 0;
-
-	  if (sscanf(tmpString,"%u%c",&v1,&v2) != 1)
-	    return false;
-
-	  if (v1 > 0xFF)
-	    return false;
-
-	  theResult += char(v1);
-	}
-	else
-	  return false;
-      }
-      else
-      {
-	// Entity reference.
-
-	if (!readName_(theStream,tmpString))
-	  return false;
-
-	if (theStream.peek() != ';')
-	  return false;
-
-	if (tmpString == "amp")
-	  theResult += '&';
-	else if (tmpString == "lt")
-	  theResult += '<';
-	else if (tmpString == "gt")
-	  theResult += '>';
-	else if (tmpString == "apos")
-	  theResult += '\'';
-	else if (tmpString == "quot")
-	  theResult += '"';
-	else
-	  return false;
-
-	theStream.ignore(1);
-      }
-    }
-    else
-      theResult += theInput;
-
-    theInput = theStream.get();
-  }
-
-  if (theInput == EOF)
+  if (theStream.get() != '"')
     return false;
 
   return true;
@@ -1752,16 +857,83 @@ void OTC_JsonRpcServlet::encodeString_(
  size_t theLength
 )
 {
-  static int init = 0;
-  static OTC_CBitSet theChars;
+  char const* theStart;
+  size_t theActive = 0;
 
-  if (init == 0)
+  theStream << '"';
+
+  theStart = theString;
+
+  for (size_t i=0; i<theLength; i++)
   {
-    init = 1;
-    theChars.set(128,128);
+    char c = theString[i];
+
+    switch (c)
+    {
+      case '\b':
+      {
+	theStream << "\\b";
+
+        break;
+      }
+
+      case '\f':
+      {
+	theStream << "\\f";
+
+        break;
+      }
+
+      case '\n':
+      {
+	theStream << "\\n";
+
+        break;
+      }
+
+      case '\r':
+      {
+	theStream << "\\r";
+
+        break;
+      }
+
+      case '\t':
+      {
+	theStream << "\\t";
+
+        break;
+      }
+
+      case '"':
+      case '\\':
+      case '/':
+      {
+	theStream << "\\" << c;
+
+        break;
+      }
+
+      default:
+      {
+        if (iscntrl(c))
+        {
+          theStream << "\\u00";
+          theStream << HEX_CHARACTERS[u_char(c) >> 4];
+          theStream << HEX_CHARACTERS[u_char(c) & 0xf];
+        }
+        else
+          theStream << c;
+
+        break;
+      }
+    }
   }
 
-  xmlEncode(theStream,theString,theLength,theChars);
+  if (theActive != 0)
+    theStream.write(theStart,theActive);
+
+  theStream << '"';
 }
 
 /* ------------------------------------------------------------------------- */

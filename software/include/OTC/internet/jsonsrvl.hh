@@ -42,21 +42,8 @@ class OSE_EXPORT OTC_JsonRpcServlet
     //     gateway, translating RPC requests into service requests which
     //     are then delivered to a service. Any response form the service is
     //     subsequently translated back into the appropriate response for
-    //     the RPC and returned to the HTTP client. At this time only an
-    //     XML-RPC style request is implemented.
-    //
-    // = NOTES
-    //     In decoding the XML, it can't be known how much memory may need to
-    //     be preallocated in a buffer to hold the content of an XML element.
-    //     As a consequence, a initial buffer size of approximately 64K is
-    //     created into which XML content is decoded in order to determine
-    //     the actual length of the data. If an application consistently
-    //     handles requests where XML content can be larger than this, the
-    //     performance of the program will be suboptimal as it will be
-    //     necessary to resize the buffer in stages until all data is read.
-    //     If this is occuring you should set the environment variable
-    //     <OTCLIB_PAYLOADINPUT> to a larger value to encompass the largest
-    //     possible size of content in any one XML element.
+    //     the RPC and returned to the HTTP client. This servlet implements
+    //     a JSON-RPC type request.
 {
   public:
 
@@ -148,12 +135,13 @@ class OSE_EXPORT OTC_JsonRpcServlet
 
     static void		encodeFailure_(
 			 ostream& theStream,
+                         OTC_String const& theRequestId,
 			 int theError,
 			 char const* theDescription="",
 			 char const* theOrigin="",
 			 char const* theDetails=""
 			);
-    				// Encodes an XML-RPC failure response.
+    				// Encodes an JSON-RPC failure response.
 
     void		sendFailure_(
 			 int theError,
@@ -161,43 +149,30 @@ class OSE_EXPORT OTC_JsonRpcServlet
 			 char const* theOrigin="",
 			 char const* theDetails=""
 			);
-    				// Sends back an XML-RPC failure response.
-
-    static bool		encodeRequest_(
-			 ostream& theStream,
-			 char const* theMethod,
-			 OTC_ROPayload const& theObject
-			);
-    				// Encodes an XML-RPC request. Not used.
+    				// Sends back an JSON-RPC failure response.
 
     static bool		encodeResponse_(
 			 ostream& theStream,
                          OTC_String const& theRequestId,
 			 OTC_ROPayload const& theObject
 			);
-    				// Encodes an XML-RPC response.
+    				// Encodes an JSON-RPC response.
 
     static bool		encodeObject_(
 			 ostream& theStream,
 			 OTC_ROPayload const& theObject
 			);
     				// Converts a service response into an
-				// XML-RPC value.
+				// JSON value.
 
   private:
-
-    static bool		skipProlog_(istream& theStream);
-    				// Skips the XML document prolog.
-
-    static bool		skipProperty_(istream& theStream);
-    				// Skips an XML element attribute.
 
     static bool		decodeValue_(
 			 istream& theStream,
 			 OTC_RWPayload theObject,
 			 OTC_String& theWorkarea
 			);
-				// Decodes an XML-RPC value. <theWorkarea>
+				// Decodes an JSON value. <theWorkarea>
 				// should be a preallocated working buffer
 				// estimated to be large enough to hold the
 				// content of any element. If it isn't large
@@ -206,90 +181,14 @@ class OSE_EXPORT OTC_JsonRpcServlet
 				// start with can avoid reallocations and
 				// memory copying.
 
-    // All functions read from <theStream> with data returned via
-    // <theResult>. The function returns <true> if successful and <false>
-    // otherwise. A value of <false> will only be returned when an eof
-    // condition is encountered if the function was expecting to read up
-    // until some delimiter. The stream is not nessarily checked for failure
-    // conditions in all circumstances. If expecting to read up to a
-    // specified delimiter, a failure of the stream will be noticed and
-    // <false> returned. In the case where a delimiter is not specified, a
-    // failure of the stream will simply stop the reading but not result in
-    // <false> being returned.
-
-    static bool		readName_(
+    static bool		readString_(
 			 istream& theStream,
 			 OTC_String& theResult
 			);
-    				// Reads in a name.
-
-    static bool		readDigits_(
-			 istream& theStream,
-			 OTC_String& theResult
-			);
-    				// Reads in string of decimal digits.
-
-    static bool		readHexDigits_(
-			 istream& theStream,
-			 OTC_String& theResult
-			);
-    				// Reads in string of hexadecimal digits.
-
-    // When decoding input up until some delimiter, the delimiter is always
-    // left in the stream input.
-
-    static bool		readToChar_(
-			 istream& theStream,
-			 char theChar,
-			 OTC_String& theResult
-			);
-				// Reads in characters without any decoding
-				// until <theChar> is encountered in the
-				// input stream.
-
-    static bool		readToString_(
-			 istream& theStream,
-			 char const* theString,
-			 OTC_String& theResult
-			);
-				// Reads in characters without any decoding
-				// until <theString> is encountered in the
-				// input stream. Will immediately return
-				// <false> if <theString> is <0> or an empty
-				// string. It isn't possible for the
-				// delimiter string to contain a null
-				// character.
-
-    static bool		decodeToChar_(
-			 istream& theStream,
-			 char theChar,
-			 OTC_String& theResult
-			);
-				// Reads in characters until <theChar> is
-				// encountered, decoding character and
-				// entity references in the process. Note
-				// that only inbuilt entity references are
-				// supported.
-
-    // Following wrap up standard XML and b64 encoding/decoding functions.
-    // The functions for encoding strings will also ensure that any not
-    // ascii text is encoded as well.
-
-    static bool		decodeString_(
-			 istream& theStream,
-			 int theDelim,
-			 OTC_String& theResult
-			)
-      				{
-				  return xmlDecode(
-				   theStream,theDelim,theResult);
-				}
-				// Reads characters from <theStream> undoing
-				// any XML escapes using "&" escape sequence
-				// until <theDelim> is encountered.
-				// <theDelim> will be left in the stream. The
-				// result is appended to <theResult> with the
-				// function returning <true> if the
+				// Reads characters between double quotes
+                                // from <theStream> undoing any JSON escapes.
+				// The result is assigned to <theResult> with
+                                // the function returning <true> if the
 				// conversion was successful.
 
     static void		encodeString_(
@@ -299,10 +198,9 @@ class OSE_EXPORT OTC_JsonRpcServlet
 			);
 				// Outputs the first <theLength> characters
 				// of <theString> onto <theStream>. The
-				// characters are escaped as per the XML
-				// requirements for character data using
-				// "&" escape sequences. Also, any non
-				// ascii characters are also escaped.
+				// characters are escaped as per JSON
+				// requirements for characters and enclosed
+                                // in double quotes.
 
     static void		encodeString_(
 			 ostream& theStream,
@@ -312,37 +210,10 @@ class OSE_EXPORT OTC_JsonRpcServlet
 				  encodeString_(theStream,theString,
 				   theString?strlen(theString):0);
 				}
-				// Outputs <theString> onto <theStream>. The
-				// characters are escaped as per the XML
-				// requirements for character data using
-				// "&" escape sequences. Also, any non
-				// ascii characters are also escaped.
-
-    static bool		decodeBinary_(
-			 istream& theStream,
-			 int theDelim,
-			 OTC_String& theResult
-			)
-      				{
-				  return b64Decode(
-				   theStream,theDelim,theResult);
-				}
-				// Reads characters from <theStream> undoing
-				// any base64 encoding until <theDelim> is
-				// encountered. <theDelim> will be left in
-				// the stream. The result is appended to
-				// <theResult> with the function returning
-				// <true> if the conversion was successful.
-
-    static void		encodeBinary_(
-			 ostream& theStream,
-			 char const* theString,
-			 size_t theLength
-			)
-      				{ b64Encode(theStream,theString,theLength); }
-				// Outputs the first <theLength> characters
-				// of <theString> onto <theStream>. The
-				// characters are encoded in base64 format.
+				// Outputs the <theString> onto <theStream>.
+                                // The characters are escaped as per JSON
+				// requirements for characters and enclosed
+                                // in double quotes.
 
   private:
 
