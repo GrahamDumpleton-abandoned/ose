@@ -105,6 +105,8 @@ OBJECTS2 = \
  otchttpsrvl.obj \
  otchttpsrvr.obj \
  otchttpsssn.obj \
+ otcjsongtwy.obj \
+ otcjsonsrvl.obj \
  otcrpcgtway.obj \
  otcrpcsrvlt.obj \
  otcxmlrpcgw.obj \

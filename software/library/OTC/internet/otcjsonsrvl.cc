@@ -91,13 +91,6 @@ void OTC_JsonRpcServlet::processRequest()
 
   // Eliminate requests we can't handle.
 
-  if (contentType() != "text/xml")
-  {
-    sendError(400,"Servlet can only handle text/xml.");
-
-    return;
-  }
-
   if (requestMethod() != "POST")
   {
     sendError(405,"Only POST method supported by servlet.");
@@ -164,10 +157,11 @@ void OTC_JsonRpcServlet::processContent(OTC_String const& theContent)
 
   OTC_SVPayload theObject;
 
-  if (decodeRequest_(theStream,theMethod,
+  if (decodeRequest_(theStream,requestId_,theMethod,
    theObject,theWorkarea) == false)
   {
-    OTCLIB_TRACER(MODULE) << "method=" << theMethod << endl << endl;
+    OTCLIB_TRACER(MODULE) << "id = " << requestId_ << endl;
+    OTCLIB_TRACER(MODULE) << "method = " << theMethod << endl << endl;
     OTCLIB_TRACER(MODULE) << theObject << endl;
     OTCLIB_TRACER(MODULE) << OTC_String::get(theStream,EOF) << endl;
 
@@ -176,7 +170,8 @@ void OTC_JsonRpcServlet::processContent(OTC_String const& theContent)
     return;
   }
 
-  OTCLIB_TRACER(MODULE) << "method=" << theMethod << endl;
+  OTCLIB_TRACER(MODULE) << "id = " << requestId_ << endl;
+  OTCLIB_TRACER(MODULE) << "method = " << theMethod << endl;
   OTCLIB_TRACER(MODULE) << theObject << endl;
 
   // Store meta information about request in
@@ -261,7 +256,7 @@ void OTC_JsonRpcServlet::process(OTC_Event* theEvent)
 
 	  sendResponse(200);
 
-	  sendHeader("Content-Type","text/xml");
+	  sendHeader("Content-Type","text/plain");
 	  sendHeader("Content-Length",theString.length());
 
 	  endHeaders();
@@ -320,6 +315,7 @@ void OTC_JsonRpcServlet::handle(OTC_Event* theEvent)
 /* ------------------------------------------------------------------------- */
 bool OTC_JsonRpcServlet::decodeRequest_(
  istream& theStream,
+ OTC_String& theRequestId,
  OTC_String& theMethod,
  OTC_RWPayload& theObject,
  OTC_String& theWorkarea
@@ -348,7 +344,42 @@ bool OTC_JsonRpcServlet::decodeRequest_(
   if (theStream.peek() != '{')
     return false;
 
-  // XXX Want to decode object from here.
+  if (!decodeValue_(theStream,theObject,theWorkarea))
+    return false;
+
+  OTC_RWPayload tmpPayload;
+
+  tmpPayload = theObject.sibling("method");
+
+  if (!tmpPayload.isValid())
+    return false;
+
+  if (tmpPayload.valueType() != "xsd:string")
+    return false;
+
+  theMethod.assign(tmpPayload.value().string(),
+   tmpPayload.value().length());
+
+  tmpPayload = theObject.sibling("id");
+
+  if (!tmpPayload.isValid())
+    return false;
+
+  if (tmpPayload.valueType() != "xsd:int")
+    return false;
+
+  theRequestId.assign(tmpPayload.value().string(),
+   tmpPayload.value().length());
+
+  tmpPayload = theObject.sibling("params");
+
+  if (!tmpPayload.isValid())
+    return false;
+
+  if (tmpPayload.nodeType() != "array")
+    return false;
+
+  theObject = tmpPayload;
 
   return true;
 }
@@ -381,12 +412,12 @@ void OTC_JsonRpcServlet::encodeFailure_(
 
   theStream << "\"details\": ";
   encodeString_(theStream,theDetails);
-  theStream << ", ";
+  theStream << " ";
 
   theStream << "}";
   
   theStream << ", \"id\": " << theRequestId;
-  theStream << "}";
+  theStream << " }";
 
   theStream << flush;
 }
@@ -411,7 +442,7 @@ void OTC_JsonRpcServlet::sendFailure_(
 
   sendResponse(200);
 
-  sendHeader("Content-Type","text/xml");
+  sendHeader("Content-Type","text/plain");
   sendHeader("Content-Length",theString.length());
 
   endHeaders();
@@ -518,6 +549,8 @@ bool OTC_JsonRpcServlet::encodeObject_(
        theReader.nodeName().string(),
        theReader.nodeName().length());
 
+      theStream << ":";
+
       if (!encodeObject_(theStream,theReader))
 	return false;
 
@@ -563,24 +596,25 @@ bool OTC_JsonRpcServlet::decodeValue_(
       theStream.ignore(1);
       theStream >> ws;
 
-      while (1)
+      if (theStream.peek() != ']')
       {
-        if (!decodeValue_(theStream,theObject[-1],theWorkarea))
-          return false;
-
-        theStream >> ws;
-
-        if (theStream.peek() == ']')
+        while (1)
         {
+          if (!decodeValue_(theStream,theObject[-1],theWorkarea))
+            return false;
+
+          theStream >> ws;
+
+          if (theStream.peek() == ']')
+            break;
+          else if (theStream.peek() != ',')
+            return false;
+
           theStream.ignore(1);
-
-          break;
         }
-        else if (theStream.peek() != ',')
-          return false;
-
-        theStream.ignore(1);
       }
+
+      theStream.ignore(1);
 
       break;
     }
@@ -589,11 +623,12 @@ bool OTC_JsonRpcServlet::decodeValue_(
     {
       theObject <<= OTC_ROPayload::nullIndex();
 
+      theStream.ignore(1);
       theStream >> ws;
 
-      while (theStream.get() != '}')
+      while (theStream.peek() != '}')
       {
-        if (theStream.get() != '"')
+        if (theStream.peek() != '"')
           return false;
 
         OTC_String theMember(theCapacity);
@@ -616,12 +651,13 @@ bool OTC_JsonRpcServlet::decodeValue_(
 
         theStream >> ws;
 
-        if (theStream.get() != '}')
+        if (theStream.peek() != '}')
         {
-          if (theStream.get() != ',')
+          if (theStream.peek() != ',')
             return false;
 
           theStream.ignore(1);
+          theStream >> ws;
         }
       }
 
@@ -667,7 +703,7 @@ bool OTC_JsonRpcServlet::decodeValue_(
       }
       else if (theWorkarea == "null")
       {
-        theObject.setProperty("type","");
+        theObject <<= OTC_ROPayload::nullValue();
       }
       else
         return false;
@@ -675,37 +711,49 @@ bool OTC_JsonRpcServlet::decodeValue_(
       break;
     }
 
-#if 0
-  else
-  {
-    theWorkarea.truncate();
-
+    case '0':
+    case '1':
+    case '2':
+    case '3':
+    case '4':
+    case '5':
+    case '6':
+    case '7':
+    case '8':
+    case '9':
+    case '-':
     {
-//      if (!decodeString_(theStream,'<',theWorkarea))
-//        return false;
-    }
+      theWorkarea.truncate();
 
-    if (theElement == "boolean")
-    {
-      if (theWorkarea == "0")
-        theObject.assign("false");
-      else
-        theObject.assign("true");
-    }
-    else
+      theWorkarea += theStream.get();
+      theInput = theStream.peek();
+
+      OTC_Boolean theFloat = false;
+
+      while (isdigit(theInput) || (tolower(theInput) == 'e') ||
+       theInput == '.' || theInput == '-' || theInput == '+')
+      {
+        if (!isdigit(theInput))
+          theFloat = true;
+
+        theWorkarea += theStream.get();
+        theInput = theStream.peek();
+      }
+
       theObject.assign(theWorkarea,theWorkarea.length());
 
-    if (theElement == "i4" || theElement == "int")
-      theObject.setProperty("type","xsd:int");
-    else if (theElement == "boolean")
-      theObject.setProperty("type","xsd:boolean");
-    else if (theElement == "double")
-      theObject.setProperty("type","xsd:double");
-    else if (theElement == "nil")
-      theObject.setProperty("type","");
-    else if (theElement != "string")
+      if (theFloat)
+        theObject.setProperty("type","xsd:double");
+      else
+        theObject.setProperty("type","xsd:int");
+
+      break;
+    }
+
+    default:
+    {
       return false;
-#endif
+    }
   }
 
   return true;
@@ -907,7 +955,6 @@ void OTC_JsonRpcServlet::encodeString_(
 
       case '"':
       case '\\':
-      case '/':
       {
 	theStream << "\\" << c;
 

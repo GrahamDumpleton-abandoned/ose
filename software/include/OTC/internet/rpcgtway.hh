@@ -13,7 +13,7 @@
 //     Graham Dumpleton
 // 
 // = COPYRIGHT
-//     Copyright 2001-2004 DUMPLETON SOFTWARE CONSULTING PTY LIMITED
+//     Copyright 2001-2006 DUMPLETON SOFTWARE CONSULTING PTY LIMITED
 //
 // ============================================================================
 */
@@ -36,15 +36,16 @@ class OSE_EXPORT OTC_RpcGateway : public OTC_HttpServer, public OTC_EVAgent
     //     Factory for creation of HTTP servlets to handle RPC requests.
     //
     // = DESCRIPTION
-    //     The <OTC_RpcGateway> class is a HTTP server object factory for
-    //     creating HTTP servlets to handle NET-RPC requests. An instance
-    //     of this class monitors what services are available and dependent
-    //     on the selection criteria specified when the gateway is created
-    //     will deem some set of services as visible. If the gateway receives
-    //     an RPC request where the servlet path corresponds to the name of a
-    //     visible service, it will forward the RPC request to that service
-    //     and subsequently send back any response.
-    //     
+    //     The <OTC_RpcGateway> class is a HTTP server object factory
+    //     for creating HTTP servlets to handle XML-RPC, JSON-RPC and
+    //     native NET-RPC requests. An instance of this class monitors
+    //     what services are available and dependent on the selection
+    //     criteria specified when the gateway is created will deem some
+    //     set of services as visible. If the gateway receives an RPC
+    //     request where the servlet path corresponds to the name of a
+    //     visible service, it will forward the RPC request to that
+    //     service and subsequently send back any response.
+
     // = SEE ALSO
     //     <OTC_HttpDaemon>, <OTC_RpcServlet>, <OTC_HttpServer>
 {
@@ -120,6 +121,17 @@ class OSE_EXPORT OTC_RpcGateway : public OTC_HttpServer, public OTC_EVAgent
 
     OTC_RpcGateway&	operator=(OTC_RpcGateway const&);
 				// Do not define an implementation for this.
+
+    OTC_HttpServlet*	createServlet_(
+                         OTC_HttpSession* theSession,
+                         OTC_ServiceBinding* theBinding
+                        );
+				// Creates the HTTP servlet to process
+				// the current request being handled by
+				// <theSession> to service identified by
+				// <theBinding>. The type of servlet
+                                // created is determined based on the
+                                // inbound content type of the request.
 
     OTC_SVBroker	broker_;
     				// The service broker.

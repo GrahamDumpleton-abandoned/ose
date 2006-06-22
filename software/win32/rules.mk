@@ -304,6 +304,12 @@ otchttpsrvr.obj : ../library/OTC/internet/otchttpsrvr.cc
 otchttpsssn.obj : ../library/OTC/internet/otchttpsssn.cc
 	$(CC) -c $(CPPFLAGS) $(CFLAGS) -Tp ../library/OTC/internet/otchttpsssn.cc
 
+otcjsongtwy.obj : ../library/OTC/internet/otcjsongtwy.cc
+	$(CC) -c $(CPPFLAGS) $(CFLAGS) -Tp ../library/OTC/internet/otcjsongtwy.cc
+
+otcjsonsrvl.obj : ../library/OTC/internet/otcjsonsrvl.cc
+	$(CC) -c $(CPPFLAGS) $(CFLAGS) -Tp ../library/OTC/internet/otcjsonsrvl.cc
+
 otcrpcgtway.obj : ../library/OTC/internet/otcrpcgtway.cc
 	$(CC) -c $(CPPFLAGS) $(CFLAGS) -Tp ../library/OTC/internet/otcrpcgtway.cc
 

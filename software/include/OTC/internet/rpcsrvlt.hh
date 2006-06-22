@@ -31,17 +31,17 @@
 
 class OSE_EXPORT OTC_RpcServlet : public OTC_HttpServlet, public OTC_EVAgent
     // = TITLE
-    //      Servlet translating RPC requests into service requests.
+    //      Servlet translating NET-RPC requests into service requests.
     //
     // = CLASS TYPE
     //      Concrete
     //
     // = DESCRIPTION
     //     The <OTC_RpcServlet> class is a HTTP servlet which acts as a
-    //     gateway, translating RPC requests into service requests which
+    //     gateway, translating NET-RPC requests into service requests which
     //     are then delivered to a service. Any response form the service is
     //     subsequently translated back into the appropriate response for
-    //     the RPC and returned to the HTTP client.
+    //     the NET-RPC and returned to the HTTP client.
 {
   public:
 
@@ -54,7 +54,7 @@ class OSE_EXPORT OTC_RpcServlet : public OTC_HttpServlet, public OTC_EVAgent
 			 OTC_ServiceBinding* theBinding=0
 			);
 				// Creates a HTTP servlet to handle an
-				// RPC request. <theSession> is the HTTP
+				// NET-RPC request. <theSession> is the HTTP
 				// session object which has parsed the HTTP
 				// request. This must be supplied by the
 				// factory method contained in the HTTP
@@ -96,19 +96,20 @@ class OSE_EXPORT OTC_RpcServlet : public OTC_HttpServlet, public OTC_EVAgent
 				// that not all services may be able to
 				// respond to requests conforming to what
 				// can be represented in an RPC. The instance
-				// of <OTC_ServiceBinding> returned by a
-				// derived class must have no owner, or if it
-				// has, the derived method must call <clone()>
-				// on it. This is because <processRequest()>
-				// will call <destroy()> on the returned
-				// object when it has finished with it.
+                                // of <OTC_ServiceBinding> returned by a
+				// derived class must have no owner, or
+				// if it has, the derived method must
+				// call <clone()> on it. This is because
+				// <processRequest()> will call
+				// <destroy()> on the returned object
+				// when it has finished with it.
 
     // = EVENT HANDLING
 
     void		process(OTC_Event* theEvent);
     				// Deals with the response received from a
 				// service, translating it back into the
-				// appropriate RPC format and returning it.
+				// appropriate NET-RPC format and returning it.
 
     void		handle(OTC_Event* theEvent);
     				// Calls <process()> then destroys <theEvent>.

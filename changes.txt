@@ -37,3 +37,14 @@ New Features
   The instance OTC_JobQueue in use by the dispatcher is accessible using
   OTC_Dispatcher::queue().
 
+- Added the OTC_JsonRpcServlet and OTC_JsonRpcGateway C++ classes for
+  implementing a JSON-RPC gateway into the messaging system. Python
+  wrappers for these classes are provided under "netsvc.json".
+
+- Extended OTC_RpcGateway so that it will automatically determine whether
+  incoming request is either NET-RPC or XML-RPC and create appropriate
+  servlet to handle request as appropriate. Where request isn't one of
+  these types, the gateway will instead treat request as a JSON-RPC
+  request and create servlet for that instead. This change means that all
+  RPC protocol types can be hosted under the same URL. The change in
+  functionality also manifests in the Python wrapper for the class.

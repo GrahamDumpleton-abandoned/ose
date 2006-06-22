@@ -11,7 +11,7 @@
 //     Graham Dumpleton
 // 
 // = COPYRIGHT
-//     Copyright 2000-2004 DUMPLETON SOFTWARE CONSULTING PTY LIMITED
+//     Copyright 2000-2006 DUMPLETON SOFTWARE CONSULTING PTY LIMITED
 //
 // ============================================================================
 */
@@ -92,16 +92,16 @@ void OTC_RpcServlet::processRequest()
 
   // Eliminate requests we can't handle.
 
-  if (contentType() != "application/x-rpc")
+  if (requestMethod() != "POST")
   {
-    sendError(400,"Only support application/x-rpc requests.");
+    sendError(405,"Request must use POST.");
 
     return;
   }
 
-  if (requestMethod() != "POST")
+  if (contentType() != "application/x-rpc")
   {
-    sendError(405,"Request must use POST.");
+    sendError(400,"Only support application/x-rpc requests.");
 
     return;
   }

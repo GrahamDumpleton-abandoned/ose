@@ -11,7 +11,7 @@
 //     Graham Dumpleton
 // 
 // = COPYRIGHT
-//     Copyright 2000-2005 DUMPLETON SOFTWARE CONSULTING PTY LIMITED
+//     Copyright 2000-2006 DUMPLETON SOFTWARE CONSULTING PTY LIMITED
 //
 // ============================================================================
 */
@@ -87,16 +87,16 @@ void OTC_XmlRpcServlet::processRequest()
 
   // Eliminate requests we can't handle.
 
-  if (contentType() != "text/xml")
+  if (requestMethod() != "POST")
   {
-    sendError(400,"Servlet can only handle text/xml.");
+    sendError(405,"Only POST method supported by servlet.");
 
     return;
   }
 
-  if (requestMethod() != "POST")
+  if (contentType() != "text/xml")
   {
-    sendError(405,"Only POST method supported by servlet.");
+    sendError(400,"Servlet can only handle text/xml.");
 
     return;
   }

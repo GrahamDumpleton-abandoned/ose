@@ -8,7 +8,7 @@
 //     Graham Dumpleton
 //
 // = COPYRIGHT
-//     Copyright 2000-2005 DUMPLETON SOFTWARE CONSULTING PTY LIMITED
+//     Copyright 2000-2006 DUMPLETON SOFTWARE CONSULTING PTY LIMITED
 //
 // ============================================================================
 */
@@ -38,6 +38,8 @@
 #include "rpcsrvlt.hh"
 #include "xmlrpcgw.hh"
 #include "xmlrpcsl.hh"
+#include "jsongtwy.hh"
+#include "jsonsrvl.hh"
 #include "job.hh"
 
 /* ------------------------------------------------------------------------- */
@@ -58,9 +60,11 @@ static struct PyMethodDef otclib_module_methods[] = {
   { "new_FileServlet", OPY_FileServlet::create, 1 },
   { "new_RpcServlet", OPY_RpcServlet::create, 1 },
   { "new_XmlRpcServlet", OPY_XmlRpcServlet::create, 1 },
+  { "new_JsonRpcServlet", OPY_JsonRpcServlet::create, 1 },
   { "new_FileServer", OPY_FileServer::create, 1 },
   { "new_RpcGateway", OPY_RpcGateway::create, 1 },
   { "new_XmlRpcGateway", OPY_XmlRpcGateway::create, 1 },
+  { "new_JsonRpcGateway", OPY_JsonRpcGateway::create, 1 },
   { "Dispatcher", OPY_Dispatcher::instance, 1 },
   { "Program", OPY_Program::instance, 1 },
   { 0, 0 }

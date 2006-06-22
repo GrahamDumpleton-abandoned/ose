@@ -1443,8 +1443,10 @@ $(MK)/otcrpcgtway.d $(MK).pic/otcrpcgtway$(OBJEXT) $(MK)/otcrpcgtway$(OBJEXT) : 
 $(MK)/otcrpcgtway.d $(MK).pic/otcrpcgtway$(OBJEXT) $(MK)/otcrpcgtway$(OBJEXT) : ../../../include/OTC/internet/httpsrvl.hh
 $(MK)/otcrpcgtway.d $(MK).pic/otcrpcgtway$(OBJEXT) $(MK)/otcrpcgtway$(OBJEXT) : ../../../include/OTC/internet/httpsrvr.hh
 $(MK)/otcrpcgtway.d $(MK).pic/otcrpcgtway$(OBJEXT) $(MK)/otcrpcgtway$(OBJEXT) : ../../../include/OTC/internet/httpsssn.hh
+$(MK)/otcrpcgtway.d $(MK).pic/otcrpcgtway$(OBJEXT) $(MK)/otcrpcgtway$(OBJEXT) : ../../../include/OTC/internet/jsonsrvl.hh
 $(MK)/otcrpcgtway.d $(MK).pic/otcrpcgtway$(OBJEXT) $(MK)/otcrpcgtway$(OBJEXT) : ../../../include/OTC/internet/rpcgtway.hh
 $(MK)/otcrpcgtway.d $(MK).pic/otcrpcgtway$(OBJEXT) $(MK)/otcrpcgtway$(OBJEXT) : ../../../include/OTC/internet/rpcsrvlt.hh
+$(MK)/otcrpcgtway.d $(MK).pic/otcrpcgtway$(OBJEXT) $(MK)/otcrpcgtway$(OBJEXT) : ../../../include/OTC/internet/xmlrpcsl.hh
 $(MK)/otcrpcgtway.d $(MK).pic/otcrpcgtway$(OBJEXT) $(MK)/otcrpcgtway$(OBJEXT) : ../../../include/OTC/memory/align.hh
 $(MK)/otcrpcgtway.d $(MK).pic/otcrpcgtway$(OBJEXT) $(MK)/otcrpcgtway$(OBJEXT) : ../../../include/OTC/memory/arena.hh
 $(MK)/otcrpcgtway.d $(MK).pic/otcrpcgtway$(OBJEXT) $(MK)/otcrpcgtway$(OBJEXT) : ../../../include/OTC/memory/cluster.hh

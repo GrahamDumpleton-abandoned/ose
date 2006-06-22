@@ -11,7 +11,7 @@
 //     Graham Dumpleton
 // 
 // = COPYRIGHT
-//     Copyright 2001-2004 DUMPLETON SOFTWARE CONSULTING PTY LIMITED
+//     Copyright 2001-2006 DUMPLETON SOFTWARE CONSULTING PTY LIMITED
 //
 // ============================================================================
 */
@@ -24,6 +24,8 @@
 
 #include <OTC/internet/rpcgtway.hh>
 #include <OTC/internet/rpcsrvlt.hh>
+#include <OTC/internet/xmlrpcsl.hh>
+#include <OTC/internet/jsonsrvl.hh>
 
 #include <OTC/dispatch/svrgstry.hh>
 #include <OTC/dispatch/grpannc.hh>
@@ -100,13 +102,11 @@ OTC_HttpServlet* OTC_RpcGateway::servlet(OTC_HttpSession* theSession)
       OTC_ServiceBinding* theBinding;
       theBinding = visible_.pickItem();
 
-      theServlet = new OTC_RpcServlet(theSession,theBinding);
-      OTCLIB_ASSERT_M(theServlet != 0);
+      theServlet = createServlet_(theSession,theBinding);
     }
     else
     {
-      theServlet = new OTC_RpcServlet(theSession,0);
-      OTCLIB_ASSERT_M(theServlet != 0);
+      theServlet = createServlet_(theSession,0);
     }
   }
   else
@@ -116,12 +116,11 @@ OTC_HttpServlet* OTC_RpcGateway::servlet(OTC_HttpSession* theSession)
       OTC_ServiceBinding* theBinding;
       theBinding = visible_.item(theServiceName);
 
-      theServlet = new OTC_RpcServlet(theSession,theBinding);
-      OTCLIB_ASSERT_M(theServlet != 0);
+      theServlet = createServlet_(theSession,theBinding);
     }
     else
     {
-      theServlet = new OTC_RpcServlet(theSession,0);
+      theServlet = createServlet_(theSession,0);
       OTCLIB_ASSERT_M(theServlet != 0);
     }
   }
@@ -268,6 +267,33 @@ void OTC_RpcGateway::handle(OTC_Event* theEvent)
   }
 
   theEvent->destroy();
+}
+
+/* ------------------------------------------------------------------------- */
+OTC_HttpServlet* OTC_RpcGateway::createServlet_(
+ OTC_HttpSession* theSession,
+ OTC_ServiceBinding* theBinding
+)
+{
+  OTC_HttpServlet* theServlet;
+
+  if (theSession->contentType() == "application/x-rpc")
+  {
+    theServlet = new OTC_RpcServlet(theSession,theBinding);
+    OTCLIB_ASSERT_M(theServlet != 0);
+  }
+  else if (theSession->contentType() == "text/xml")
+  {
+    theServlet = new OTC_XmlRpcServlet(theSession,theBinding);
+    OTCLIB_ASSERT_M(theServlet != 0);
+  }
+  else
+  {
+    theServlet = new OTC_JsonRpcServlet(theSession,theBinding);
+    OTCLIB_ASSERT_M(theServlet != 0);
+  }
+
+  return theServlet;
 }
 
 /* ------------------------------------------------------------------------- */

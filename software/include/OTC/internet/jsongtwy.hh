@@ -37,7 +37,7 @@ class OSE_EXPORT OTC_JsonRpcGateway : public OTC_HttpServer, public OTC_EVAgent
     //
     // = DESCRIPTION
     //     The <OTC_JsonRpcGateway> class is a HTTP server object factory for
-    //     creating HTTP servlets to handle XML-RPC requests. An instance
+    //     creating HTTP servlets to handle JSON-RPC requests. An instance
     //     of this class monitors what services are available and dependent
     //     on the selection criteria specified when the gateway is created
     //     will deem some set of services as visible. If the gateway receives

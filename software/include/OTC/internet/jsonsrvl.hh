@@ -32,18 +32,18 @@
 class OSE_EXPORT OTC_JsonRpcServlet
  : public OTC_HttpServlet, public OTC_EVAgent
     // = TITLE
-    //      Servlet translating RPC requests into service requests.
+    //      Servlet translating JSON-RPC requests into service requests.
     //
     // = CLASS TYPE
     //      Concrete
     //
     // = DESCRIPTION
-    //     The <OTC_JsonRpcServlet> class is a HTTP servlet which acts as a
-    //     gateway, translating RPC requests into service requests which
-    //     are then delivered to a service. Any response form the service is
-    //     subsequently translated back into the appropriate response for
-    //     the RPC and returned to the HTTP client. This servlet implements
-    //     a JSON-RPC type request.
+    //     The <OTC_JsonRpcServlet> class is a HTTP servlet which acts
+    //     as a gateway, translating JSON-RPC requests into service
+    //     requests which are then delivered to a service. Any response
+    //     form the service is subsequently translated back into the
+    //     appropriate response for the JSON-RPC and returned to the
+    //     HTTP client.
 {
   public:
 
@@ -119,6 +119,7 @@ class OSE_EXPORT OTC_JsonRpcServlet
 
     static bool		decodeRequest_(
 			 istream& theStream,
+			 OTC_String& theRequestId,
 			 OTC_String& theMethod,
 			 OTC_RWPayload& theObject,
 			 OTC_String& theWorkarea

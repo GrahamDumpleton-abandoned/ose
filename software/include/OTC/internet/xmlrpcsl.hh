@@ -13,7 +13,7 @@
 //     Graham Dumpleton
 // 
 // = COPYRIGHT
-//     Copyright 2000-2004 DUMPLETON SOFTWARE CONSULTING PTY LIMITED
+//     Copyright 2000-2006 DUMPLETON SOFTWARE CONSULTING PTY LIMITED
 //
 // ============================================================================
 */
@@ -32,18 +32,17 @@
 class OSE_EXPORT OTC_XmlRpcServlet
  : public OTC_HttpServlet, public OTC_EVAgent
     // = TITLE
-    //      Servlet translating RPC requests into service requests.
+    //      Servlet translating XML-RPC requests into service requests.
     //
     // = CLASS TYPE
     //      Concrete
     //
     // = DESCRIPTION
     //     The <OTC_XmlRpcServlet> class is a HTTP servlet which acts as a
-    //     gateway, translating RPC requests into service requests which
+    //     gateway, translating XML-RPC requests into service requests which
     //     are then delivered to a service. Any response form the service is
     //     subsequently translated back into the appropriate response for
-    //     the RPC and returned to the HTTP client. At this time only an
-    //     XML-RPC style request is implemented.
+    //     the RPC and returned to the HTTP client.
     //
     // = NOTES
     //     In decoding the XML, it can't be known how much memory may need to
@@ -69,7 +68,7 @@ class OSE_EXPORT OTC_XmlRpcServlet
 			 OTC_ServiceBinding* theBinding=0
 			);
 				// Creates a HTTP servlet to handle an
-				// RPC request. <theSession> is the HTTP
+				// XML-RPC request. <theSession> is the HTTP
 				// session object which has parsed the HTTP
 				// request. This must be supplied by the
 				// factory method contained in the HTTP

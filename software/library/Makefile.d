@@ -5844,8 +5844,8 @@ $(MK)/otchash.d $(MK).pic/otchash$(OBJEXT) $(MK)/otchash$(OBJEXT) : ../include/O
 $(MK)/otchash.d $(MK).pic/otchash$(OBJEXT) $(MK)/otchash$(OBJEXT) : ../include/OSE/version.h
 $(MK)/otchash.d $(MK).pic/otchash$(OBJEXT) $(MK)/otchash$(OBJEXT) : ../include/OTC/misc/hash.hh
 $(MK)/otchash.d $(MK).pic/otchash$(OBJEXT) $(MK)/otchash$(OBJEXT) : ../include/OTC/misc/types.h
-$(MK)/otchash.d $(MK).pic/otchash$(OBJEXT) $(MK)/otchash$(OBJEXT) : OTC/misc/../hash/fnv.h
-$(MK)/otchash.d $(MK).pic/otchash$(OBJEXT) $(MK)/otchash$(OBJEXT) : OTC/misc/../hash/longlong.h
+$(MK)/otchash.d $(MK).pic/otchash$(OBJEXT) $(MK)/otchash$(OBJEXT) : OTC/hash/fnv.h
+$(MK)/otchash.d $(MK).pic/otchash$(OBJEXT) $(MK)/otchash$(OBJEXT) : OTC/hash/longlong.h
 $(MK)/otchash.d $(MK).pic/otchash$(OBJEXT) $(MK)/otchash$(OBJEXT) : OTC/misc/otchash.cc
 $(MK)/otchashntry.d $(MK).pic/otchashntry$(OBJEXT) $(MK)/otchashntry$(OBJEXT) : ../include/OSE/OSE.h
 $(MK)/otchashntry.d $(MK).pic/otchashntry$(OBJEXT) $(MK)/otchashntry$(OBJEXT) : ../include/OSE/compile.h
@@ -8723,8 +8723,8 @@ $(MK)/otcpattern.d $(MK).pic/otcpattern$(OBJEXT) $(MK)/otcpattern$(OBJEXT) : ../
 $(MK)/otcpattern.d $(MK).pic/otcpattern$(OBJEXT) $(MK)/otcpattern$(OBJEXT) : ../include/OTC/thread/atomic.hh
 $(MK)/otcpattern.d $(MK).pic/otcpattern$(OBJEXT) $(MK)/otcpattern$(OBJEXT) : ../include/OTC/thread/nrmutex.hh
 $(MK)/otcpattern.d $(MK).pic/otcpattern$(OBJEXT) $(MK)/otcpattern$(OBJEXT) : ../include/OTC/thread/thread.hh
-$(MK)/otcpattern.d $(MK).pic/otcpattern$(OBJEXT) $(MK)/otcpattern$(OBJEXT) : OTC/text/../regex/regex.h
-$(MK)/otcpattern.d $(MK).pic/otcpattern$(OBJEXT) $(MK)/otcpattern$(OBJEXT) : OTC/text/../regex/regex1.h
+$(MK)/otcpattern.d $(MK).pic/otcpattern$(OBJEXT) $(MK)/otcpattern$(OBJEXT) : OTC/regex/regex.h
+$(MK)/otcpattern.d $(MK).pic/otcpattern$(OBJEXT) $(MK)/otcpattern$(OBJEXT) : OTC/regex/regex1.h
 $(MK)/otcpattern.d $(MK).pic/otcpattern$(OBJEXT) $(MK)/otcpattern$(OBJEXT) : OTC/text/otcpattern.cc
 $(MK)/otcpbntftcn.d $(MK).pic/otcpbntftcn$(OBJEXT) $(MK)/otcpbntftcn$(OBJEXT) : ../include/OSE/OSE.h
 $(MK)/otcpbntftcn.d $(MK).pic/otcpbntftcn$(OBJEXT) $(MK)/otcpbntftcn$(OBJEXT) : ../include/OSE/compile.h
@@ -10296,8 +10296,10 @@ $(MK)/otcrpcgtway.d $(MK).pic/otcrpcgtway$(OBJEXT) $(MK)/otcrpcgtway$(OBJEXT) : 
 $(MK)/otcrpcgtway.d $(MK).pic/otcrpcgtway$(OBJEXT) $(MK)/otcrpcgtway$(OBJEXT) : ../include/OTC/internet/httpsrvl.hh
 $(MK)/otcrpcgtway.d $(MK).pic/otcrpcgtway$(OBJEXT) $(MK)/otcrpcgtway$(OBJEXT) : ../include/OTC/internet/httpsrvr.hh
 $(MK)/otcrpcgtway.d $(MK).pic/otcrpcgtway$(OBJEXT) $(MK)/otcrpcgtway$(OBJEXT) : ../include/OTC/internet/httpsssn.hh
+$(MK)/otcrpcgtway.d $(MK).pic/otcrpcgtway$(OBJEXT) $(MK)/otcrpcgtway$(OBJEXT) : ../include/OTC/internet/jsonsrvl.hh
 $(MK)/otcrpcgtway.d $(MK).pic/otcrpcgtway$(OBJEXT) $(MK)/otcrpcgtway$(OBJEXT) : ../include/OTC/internet/rpcgtway.hh
 $(MK)/otcrpcgtway.d $(MK).pic/otcrpcgtway$(OBJEXT) $(MK)/otcrpcgtway$(OBJEXT) : ../include/OTC/internet/rpcsrvlt.hh
+$(MK)/otcrpcgtway.d $(MK).pic/otcrpcgtway$(OBJEXT) $(MK)/otcrpcgtway$(OBJEXT) : ../include/OTC/internet/xmlrpcsl.hh
 $(MK)/otcrpcgtway.d $(MK).pic/otcrpcgtway$(OBJEXT) $(MK)/otcrpcgtway$(OBJEXT) : ../include/OTC/memory/align.hh
 $(MK)/otcrpcgtway.d $(MK).pic/otcrpcgtway$(OBJEXT) $(MK)/otcrpcgtway$(OBJEXT) : ../include/OTC/memory/arena.hh
 $(MK)/otcrpcgtway.d $(MK).pic/otcrpcgtway$(OBJEXT) $(MK)/otcrpcgtway$(OBJEXT) : ../include/OTC/memory/cluster.hh

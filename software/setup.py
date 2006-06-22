@@ -139,7 +139,7 @@ else:
   )
 
   packages=['netrpc', 'zsirpc', 'netsvc', 'netsvc.xmlrpc',
-      'netsvc.soap', 'netsvc.client', 'netsvc.cache' ]
+      'netsvc.soap', 'netsvc.json', 'netsvc.client', 'netsvc.cache' ]
 
   core.setup(
    name="netsvc",

@@ -52,7 +52,7 @@ CPPFLAGS += -I$(SRCROOT)/include
 # Rather than start at 1.0, versioning has started
 # at 2.0 with version 8.0 of OSE.
 
-LIBVERSION = 2.0
+LIBVERSION = 3.0
 
 ifneq "$(filter with_threads,$(OSE_OPTIONS))" ""
 ifneq "$(VARIANT)" ""
