@@ -48,3 +48,10 @@ New Features
   request and create servlet for that instead. This change means that all
   RPC protocol types can be hosted under the same URL. The change in
   functionality also manifests in the Python wrapper for the class.
+
+Features Removed
+----------------
+
+- The support for using SOAP style RPCs in the Python wrappers is no
+  longer installed. This is because limitations in SOAP meant it never
+  would work as well as plain XML-RPC.
