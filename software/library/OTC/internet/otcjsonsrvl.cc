@@ -365,11 +365,31 @@ bool OTC_JsonRpcServlet::decodeRequest_(
   if (!tmpPayload.isValid())
     return false;
 
-  if (tmpPayload.valueType() != "xsd:int")
+  if (tmpPayload.nodeType() != "scalar")
     return false;
 
-  theRequestId.assign(tmpPayload.value().string(),
-   tmpPayload.value().length());
+  if (tmpPayload.valueType() == "xsd:string")
+  {
+    // The jsolait package uses a string for the ID,
+    // so need to encode it back into a quoted string.
+
+    theRequestId.truncate();
+    OTC_OSStream tmpStream(theRequestId,OTCLIB_BUFFERED);
+    encodeString_(tmpStream,tmpPayload.value().string(),
+     tmpPayload.value().length());
+    tmpStream << flush;
+  }
+  else
+  {
+    theRequestId.assign(tmpPayload.value().string(),
+     tmpPayload.value().length());
+
+    // If request ID is empty, assume it was null and
+    // explicitly set it to that so it will be returned.
+
+    if (theRequestId.isEmpty())
+      theRequestId = "null";
+  }
 
   tmpPayload = theObject.sibling("params");
 
