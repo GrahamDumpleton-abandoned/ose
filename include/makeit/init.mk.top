@@ -1,0 +1,45 @@
+## Copyright 1993 OTC LIMITED
+## Copyright 1994 TELSTRA CORPORATION LIMITED
+## Copyright 1994-1996 DUMPLETON SOFTWARE CONSULTING PTY LIMITED
+
+## Stop uneccessary checks on how to build %.mk files.
+
+%.mk :
+
+## GNU make switched from using $(C++) to $(CXX) in version 3.63.
+## Add following definition so that latter versions of GNU make
+## can still be used with makefiles prior to OSE version 3.0.
+
+CXX = $(C++)
+
+## Set default version if user hasn't specified version.
+
+ifeq "$(OSE_VERSION)" ""
+OSE_VERSION := $(OSE_RELEASE_DIRECTORY)
+endif
+
+## Set target to compilation host if target isn't defined.
+
+ifeq "$(OSE_TARGET)" ""
+override OSE_TARGET := $(OSE_HOST)
+endif
+
+## Set name of directory holding makefiles for specific version.
+## Must use '=' and not ':=' to allow for OSE_VERSION being changed
+## in local init.mk file.
+
+OSE_MAKEIT = $(OSE_ROOT)/$(OSE_VERSION)/include/makeit
+OSE_HOST_MAKEIT = $(OSE_ROOT)/$(OSE_VERSION)/$(OSE_HOST)/include/makeit
+OSE_TARGET_MAKEIT = $(OSE_ROOT)/$(OSE_VERSION)/$(OSE_TARGET)/include/makeit
+
+## Include appropriate init.mk.
+ 
+ifneq "$(OSE_LOCAL_MAKEIT)" ""
+
+include $(OSE_LOCAL_MAKEIT)/init.mk
+
+else
+
+include $(OSE_MAKEIT)/init.mk
+
+endif

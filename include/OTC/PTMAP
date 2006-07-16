@@ -1,0 +1,480 @@
+@dec OTCEV_Action
+<OTC/dispatch/action.hh>
+@dec OTCEV_Alarm
+<OTC/dispatch/alarm.hh>
+@dec OTC_Array
+<OTC/collctn/array.hh>
+@def OTC_Array
+<OTC/collctn/array.c>
+@dec OTC_Arena
+<OTC/memory/arena.hh>
+@dec OTC_AVLHashTableNode
+<OTC/collctn/avlhnode.hh>
+@dec OTC_AVLLinkNode
+<OTC/collctn/avllnode.hh>
+@dec OTC_AVLNode
+<OTC/collctn/avlnode.hh>
+@dec OTC_AVLTree
+<OTC/collctn/avltree.hh>
+@dec OTC_AVLTreeNode
+<OTC/collctn/avltnode.hh>
+@dec OTC_Anchor
+<OTC/collctn/anchor.hh>
+@dec OTC_AscendingQueue
+<OTC/collctn/ascqueue.hh>
+@def OTC_AscendingQueue
+<OTC/collctn/ascqueue.c>
+@dec OTC_BaseActions
+<OTC/collctn/baseactn.hh>
+@dec OTC_BasicCounter
+<OTC/refcnt/basiccnt.hh>
+@dec OTC_BitSet
+<OTC/collctn/bitset.hh>
+@dec OTC_BoundedQueue
+<OTC/collctn/bndqueue.hh>
+@def OTC_BoundedQueue
+<OTC/collctn/bndqueue.c>
+@dec OTC_BoundedStack
+<OTC/collctn/bndstack.hh>
+@def OTC_BoundedStack
+<OTC/collctn/bndstack.c>
+@dec OTC_Bucket
+<OTC/collctn/bucket.hh>
+@def OTC_Bucket
+<OTC/collctn/bucket.c>
+@dec OTC_Capacity
+<OTC/text/string.hh>
+@dec OTC_CBitSet
+<OTC/collctn/cbitset.hh>
+@dec OTC_CCtrPtr
+<OTC/refcnt/cctrptr.hh>
+@def OTC_CCtrPtr
+<OTC/refcnt/cctrptr.c>
+@dec OTC_CCtrVecPtr
+<OTC/refcnt/cctrvptr.hh>
+@def OTC_CCtrVecPtr
+<OTC/refcnt/cctrvptr.c>
+@dec OTC_Cluster
+<OTC/memory/cluster.hh>
+@dec OTC_CmpType
+<OTC/text/cmptype.hh>
+@dec OTC_CommonPool
+<OTC/memory/cmmnpool.hh>
+@dec OTCEV_Connection
+<OTC/message/connect.hh>
+@dec OTC_CopyActions
+<OTC/collctn/copyactn.hh>
+@def OTC_CopyActions
+<OTC/collctn/copyactn.c>
+@dec OTC_CopyActions__pt__2_c
+<OTC/collctn/strgactn.hh>
+@dec OTC_CResPtr
+<OTC/refcnt/cresptr.hh>
+@def OTC_CResPtrI
+<OTC/refcnt/cresptr.c>
+@dec OTC_CString
+<OTC/text/cstring.hh>
+@dec OTC_CtrPtr
+<OTC/refcnt/ctrptr.hh>
+@dec OTC_CtrVecPtr
+<OTC/refcnt/ctrvptr.hh>
+@dec OTC_Cursor
+<OTC/collctn/cursor.hh>
+@def OTC_Cursor
+<OTC/collctn/cursor.c>
+@dec OTC_Date
+<OTC/types/date.hh>
+@dec OTC_Deque
+<OTC/collctn/deque.hh>
+@def OTC_Deque
+<OTC/collctn/deque.c>
+@dec OTC_DequeI
+<OTC/collctn/dequei.hh>
+@dec OTC_DescendingQueue
+<OTC/collctn/dscqueue.hh>
+@def OTC_DescendingQueue
+<OTC/collctn/dscqueue.c>
+@dec OTC_Direction
+<OTC/collctn/dirction.hh>
+@dec OTC_Directory
+<OTC/file/directry.hh>
+@dec OTC_Duration
+<OTC/types/duration.hh>
+@dec OTC_EndPoint
+<OTC/message/endpoint.hh>
+@dec OTC_EPClient
+<OTC/message/epclient.hh>
+@dec OTC_EPListener
+<OTC/message/eplisten.hh>
+@dec OTC_EPServer
+<OTC/message/epserver.hh>
+@dec OTC_Envelope
+<OTC/dispatch/envelope.hh>
+@dec OTC_EnvelopeJob
+<OTC/dispatch/envlpjob.hh>
+@dec OTC_EVAgent
+<OTC/dispatch/evagent.hh>
+@dec OTC_Event
+<OTC/dispatch/event.hh>
+@dec OTC_EventJob
+<OTC/dispatch/eventjob.hh>
+@dec OTC_Exception
+<OTC/debug/excption.hh>
+@dec OTC_Exchange
+<OTC/message/exchange.hh>
+@dec OTC_FNAgent
+<OTC/dispatch/fnagent.hh>
+@dec OTC_FuncStream
+<OTC/text/funcstrm.hh>
+@dec OTC_Globex
+<OTC/text/globex.hh>
+@dec OTC_HashActions
+<OTC/collctn/hashactn.hh>
+@dec OTC_HashActions__pt__3_Pc
+<OTC/collctn/hashactn.hh>
+@dec OTC_HashActions__pt__4_PCc
+<OTC/collctn/hashactn.hh>
+@dec OTC_HashActions__pt__14_11OTC_BitSetC
+<OTC/collctn/bitsetc.hh>
+@dec OTC_HashActions__pt__13_10OTC_String
+<OTC/collctn/hashactn.hh>
+@dec OTC_HashActions__pt__13_10OTC_Symbol
+<OTC/text/symbol.hh>
+@dec OTC_HashActions__pt__15_12OTC_Pathname
+<OTC/system/pathname.hh>
+@dec OTC_HBag
+<OTC/collctn/hbag.hh>
+@def OTC_HBag
+<OTC/collctn/hbag.c>
+@dec OTC_Heap
+<OTC/memory/heap.hh>
+@dec OTC_HIndex
+<OTC/collctn/hindex.hh>
+@def OTC_HIndex
+<OTC/collctn/hindex.c>
+@dec OTC_HIndexEntry
+<OTC/collctn/hindexen.hh>
+@def OTC_HIndexEntry
+<OTC/collctn/hindexen.c>
+@dec OTC_Holder
+<OTC/collctn/holder.hh>
+@def OTC_Holder
+<OTC/collctn/holder.c>
+@dec OTC_HMap
+<OTC/collctn/hmap.hh>
+@def OTC_HMap
+<OTC/collctn/hmap.c>
+@dec OTC_HSet
+<OTC/collctn/hset.hh>
+@def OTC_HSet
+<OTC/collctn/hset.c>
+@dec OTC_HUniqMap
+<OTC/collctn/huniqmap.hh>
+@def OTC_HUniqMap
+<OTC/collctn/huniqmap.c>
+@dec OTC_IHMap
+<OTC/collctn/ihmap.hh>
+@def OTC_IHMap
+<OTC/collctn/ihmap.c>
+@dec OTC_ILink
+<OTC/collctn/ilink.hh>
+@dec OTC_IILink
+<OTC/collctn/iilink.hh>
+@dec OTC_IList
+<OTC/collctn/ilist.hh>
+@def OTC_IList
+<OTC/collctn/ilist.c>
+@dec OTC_InetAddress
+<OTC/message/inetaddr.hh>
+@dec OTC_InetClient
+<OTC/message/inetclnt.hh>
+@dec OTC_InetListener
+<OTC/message/inetlstn.hh>
+@dec OTC_InetServer
+<OTC/message/inetsrvr.hh>
+@dec OTC_ITMap
+<OTC/collctn/itmap.hh>
+@def OTC_ITMap
+<OTC/collctn/itmap.c>
+@dec OTCEV_IOEvent
+<OTC/dispatch/ioevent.hh>
+@dec OTC_IVLink
+<OTC/collctn/ivlink.hh>
+@dec OTC_Linkable
+<OTC/collctn/linkable.hh>
+@dec OTC_ItemCursor
+<OTC/collctn/icursor.hh>
+@def OTC_ItemCursor
+<OTC/collctn/icursor.c>
+@dec OTC_Iterator
+<OTC/collctn/iterator.hh>
+@dec OTC_Job
+<OTC/dispatch/job.hh>
+@dec OTC_JobQueue
+<OTC/dispatch/jobqueue.hh>
+@dec OTC_KeyCursor
+<OTC/collctn/kcursor.hh>
+@def OTC_KeyCursor
+<OTC/collctn/kcursor.c>
+@dec OTC_KeyItemCursor
+<OTC/collctn/kicursor.hh>
+@def OTC_KeyItemCursor
+<OTC/collctn/kicursor.c>
+@dec OTC_Length
+<OTC/text/string.hh>
+@dec OTC_Link
+<OTC/collctn/link.hh>
+@dec OTC_LinkCursor
+<OTC/collctn/linkcurs.hh>
+@dec OTC_LinkIterator
+<OTC/collctn/linkiter.hh>
+@dec OTC_LinkList
+<OTC/collctn/linklist.hh>
+@dec OTC_List
+<OTC/collctn/list.hh>
+@def OTC_List
+<OTC/collctn/list.c>
+@dec OTC_ListI
+<OTC/collctn/listi.hh>
+@dec OTC_Logger
+<OTC/debug/logger.hh>
+@dec OTC_LString
+<OTC/debug/lstring.hh>
+@dec OTC_MailBox
+<OTC/dispatch/mailbox.hh>
+@dec OTC_MallocReaper
+<OTC/memory/mcreaper.hh>
+@dec OTC_Message
+<OTC/dispatch/message.hh>
+@dec OTC_MCObject
+<OTC/memory/mcobject.hh>
+@dec OTC_MList
+<OTC/collctn/mlist.hh>
+@dec OTC_MListIterator
+<OTC/collctn/mlstiter.hh>
+@dec OTC_MListModifier
+<OTC/collctn/mlstmdfr.hh>
+@dec OTC_Modifier
+<OTC/collctn/modifier.hh>
+@dec OTC_MPObject
+<OTC/memory/mpobject.hh>
+@dec OTC_Options
+<OTC/text/options.hh>
+@dec OTC_OrderedList
+<OTC/collctn/ordlist.hh>
+@def OTC_OrderedList
+<OTC/collctn/ordlist.c>
+@dec OTC_Pair
+<OTC/collctn/pair.hh>
+@dec OTC_PairBucket
+<OTC/collctn/prbucket.hh>
+@def OTC_PairBucket
+<OTC/collctn/prbucket.c>
+@dec OTC_PairCursor
+<OTC/collctn/prcursor.hh>
+@def OTC_PairCursor
+<OTC/collctn/prcursor.c>
+@dec OTC_PairIterator
+<OTC/collctn/pritertr.hh>
+@dec OTC_PairModifier
+<OTC/collctn/prmodifr.hh>
+@dec OTC_PairVisitor
+<OTC/collctn/prvisitr.hh>
+@dec OTC_PairWorker
+<OTC/collctn/prworker.hh>
+@dec OTC_Pathname
+<OTC/system/pathname.hh>
+@dec OTC_Pattern
+<OTC/text/pattern.hh>
+@dec OTC_Pool
+<OTC/memory/pool.hh>
+@dec OTC_PriorityQueue
+<OTC/collctn/priqueue.hh>
+@def OTC_PriorityQueue
+<OTC/collctn/priqueue.c>
+@dec OTC_Program
+<OTC/system/program.hh>
+@dec OTC_Protection
+<OTC/collctn/prtction.hh>
+@dec OTC_Ptr
+<OTC/memory/ptr.hh>
+@dec OTC_Queue
+<OTC/collctn/queue.hh>
+@def OTC_Queue
+<OTC/collctn/queue.c>
+@dec OTC_Range
+<OTC/collctn/range.hh>
+@dec OTC_RangeCursor
+<OTC/collctn/rngecurs.hh>
+@dec OTC_RankActions
+<OTC/collctn/rankactn.hh>
+@dec OTC_RankActions__pt__4_PCc
+<OTC/collctn/rankactn.hh>
+@dec OTC_RankActions__pt__3_Pc
+<OTC/collctn/rankactn.hh>
+@dec OTC_RankActions__pt__14_11OTC_BitSetC
+<OTC/collctn/bitsetc.hh>
+@dec OTC_RankActions__pt__13_10OTC_String
+<OTC/text/string.hh>
+@dec OTC_RankActions__pt__13_10OTC_Symbol
+<OTC/text/symbol.hh>
+@dec OTC_RCount
+<OTC/refcnt/rcount.hh>
+@dec OTC_Reaper
+<OTC/memory/reaper.hh>
+@dec OTC_Record
+<OTC/text/record.hh>
+@dec OTC_Regex
+<OTC/text/regex.hh>
+@dec OTC_Regexp
+<OTC/text/regexp.hh>
+@dec OTC_ResPtr
+<OTC/refcnt/resptr.hh>
+@dec OTC_Resource
+<OTC/refcnt/resource.hh>
+@dec OTC_RLink
+<OTC/collctn/rlink.hh>
+@dec OTC_RString
+<OTC/text/rstring.hh>
+@dec OTC_ShallowCopy
+<OTC/collctn/shlwcopy.hh>
+@dec OTC_Single
+<OTC/collctn/single.hh>
+@dec OTC_SLink
+<OTC/text/slink.hh>
+@dec OTC_SObject
+<OTC/text/sobject.hh>
+@dec OTC_Stack
+<OTC/collctn/stack.hh>
+@def OTC_Stack
+<OTC/collctn/stack.c>
+@dec OTC_Stat
+<OTC/system/stat.hh>
+@dec OTC_String
+<OTC/text/string.hh>
+@dec OTC_Subject
+<OTC/dispatch/subject.hh>
+@dec OTC_SVLink
+<OTC/dispatch/svlink.hh>
+@dec OTC_Symbol
+<OTC/text/symbol.hh>
+@dec OTC_SymbolData
+<OTC/text/symbol.hh>
+@dec OTC_TBag
+<OTC/collctn/tbag.hh>
+@def OTC_TBag
+<OTC/collctn/tbag.c>
+@dec OTC_TcpStream
+<OTC/message/tcpstrm.hh>
+@dec OTC_TDualMap
+<OTC/collctn/tdualmap.hh>
+@def OTC_TDualMap
+<OTC/collctn/tdualmap.c>
+@dec OTC_Time
+<OTC/types/time.hh>
+@dec OTCEV_Timeout
+<OTC/debug/timeout.hh>
+@dec OTC_TIndex
+<OTC/collctn/tindex.hh>
+@def OTC_TIndex
+<OTC/collctn/tindex.c>
+@dec OTC_TIndexEntry
+<OTC/collctn/tindexen.hh>
+@def OTC_TIndexEntry
+<OTC/collctn/hindexen.c>
+@dec OTC_TObject
+<OTC/debug/tobject.hh>
+@dec OTC_TManyMap
+<OTC/collctn/tmanymap.hh>
+@def OTC_TManyMap
+<OTC/collctn/tmanymap.c>
+@dec OTC_TManyMap
+<OTC/collctn/tmap.hh>
+@def OTC_TMap
+<OTC/collctn/tmap.c>
+@dec OTC_TSet
+<OTC/collctn/tset.hh>
+@def OTC_TSet
+<OTC/collctn/tset.c>
+@dec OTC_TUniqMap
+<OTC/collctn/tuniqmap.hh>
+@def OTC_TUniqMap
+<OTC/collctn/tuniqmap.c>
+@dec OTC_Tracer
+<OTC/debug/tracer.hh>
+@dec OTC_TraceBuf
+<OTC/debug/trcebuf.hh>
+@dec OTC_TraceStream
+<OTC/debug/trcestrm.hh>
+@dec OTC_TraceSwitch
+<OTC/debug/trcswtch.hh>
+@dec OTC_TraceTag
+<OTC/debug/tracetag.hh>
+@dec OTC_TracePattern
+<OTC/text/tracepat.hh>
+@dec OTC_Triple
+<OTC/collctn/triple.hh>
+@dec OTC_TString
+<OTC/text/tstring.hh>
+@dec OTC_TypeSpec
+<OTC/ostore/typespec.hh>
+@def OTC_TypeSpec
+<OTC/ostore/typespec.c>
+@dec OTC_TypeSpec__pt__3_Pc
+<OTC/ostore/typespec.hh>
+@dec OTC_TypeSpec__pt__3_Pd
+<OTC/ostore/typespec.hh>
+@dec OTC_TypeSpec__pt__3_Pf
+<OTC/ostore/typespec.hh>
+@dec OTC_TypeSpec__pt__3_Pi
+<OTC/ostore/typespec.hh>
+@dec OTC_TypeSpec__pt__3_Pl
+<OTC/ostore/typespec.hh>
+@dec OTC_TypeSpec__pt__3_Ps
+<OTC/ostore/typespec.hh>
+@dec OTC_TypeSpec__pt__3_Pv
+<OTC/ostore/typespec.hh>
+@dec OTC_TypeSpec__pt__2_c
+<OTC/ostore/typespec.hh>
+@dec OTC_TypeSpec__pt__2_d
+<OTC/ostore/typespec.hh>
+@dec OTC_TypeSpec__pt__2_f
+<OTC/ostore/typespec.hh>
+@dec OTC_TypeSpec__pt__2_i
+<OTC/ostore/typespec.hh>
+@dec OTC_TypeSpec__pt__2_l
+<OTC/ostore/typespec.hh>
+@dec OTC_TypeSpec__pt__2_s
+<OTC/ostore/typespec.hh>
+@dec OTC_TypeSpec__pt__2_s
+<OTC/ostore/typespec.hh>
+@dec OTC_TypeSpec__pt__3_Ui
+<OTC/ostore/typespec.hh>
+@dec OTC_TypeSpec__pt__3_Ul
+<OTC/ostore/typespec.hh>
+@dec OTC_TypeSpec__pt__3_Us
+<OTC/ostore/typespec.hh>
+@dec OTC_TypeSpec__pt__4_PCc
+<OTC/ostore/typespec.hh>
+@dec OTC_TypeSpec__pt__4_PCd
+<OTC/ostore/typespec.hh>
+@dec OTC_TypeSpec__pt__4_PCf
+<OTC/ostore/typespec.hh>
+@dec OTC_TypeSpec__pt__4_PCi
+<OTC/ostore/typespec.hh>
+@dec OTC_TypeSpec__pt__4_PCl
+<OTC/ostore/typespec.hh>
+@dec OTC_TypeSpec__pt__4_PCs
+<OTC/ostore/typespec.hh>
+@dec OTC_TypeSpec__pt__4_PCv
+<OTC/ostore/typespec.hh>
+@dec OTC_VecPtr
+<OTC/memory/vecptr.hh>
+@dec OTC_VecReaper
+<OTC/memory/vcreaper.hh>
+@dec OTC_Visitor
+<OTC/collctn/visitor.hh>
+@dec OTC_VLink
+<OTC/collctn/vlink.hh>
+@dec OTC_Worker
+<OTC/collctn/worker.hh>

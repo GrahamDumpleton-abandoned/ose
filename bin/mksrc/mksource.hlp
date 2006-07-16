@@ -1,0 +1,62 @@
+
+Usage:
+
+  mksrc [ -DNAME -DNAME=VALUE ] filename
+
+Generator:
+
+  mksource
+
+Variables:
+
+  AUTHOR
+
+    Defaults to that defined by mksrc through the MKSRC_AUTHOR environment
+    variable. Used in the AUTHOR comment field.
+
+  ORGANISATION
+  
+    Defaults to "CHANGE ME QUICK SOFTWARE". Used in the COPYRIGHT
+    comment field.
+
+  YEAR
+  
+    Defaults to the current year. Used in the COPYRIGHT comment field.
+
+  LIBNAME
+  
+    Defaults to nothing. If defined it will be encoded into the file guard,
+    if generated, and will also be used in the LIBRARY comment field.
+
+  DIRNAME
+
+    Defaults to nothing. If defined it will be encoded into the file guard,
+    if generated, and will also be used in the FILENAME comment field.
+
+  GUARD
+
+    If defined, a guard, like that used in header files will be placed
+    around the file.
+
+  RCSID
+
+    If defined, RCS ID field is added to the comment header.
+
+  SCCSID
+
+    If defined, SCCS ID field is added to the comment header.
+
+  MAIN
+
+    If defined the file will be filled out with a main() routine.
+
+  TEST
+
+    If defined the file will be filled out with a test harness.
+
+  CLASS2SRC
+
+    If defined class2src will be run with the value of CLASS2SRC used
+    as the argument to class2src. The output of class2src will then
+    appear in the file.
+

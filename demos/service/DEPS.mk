@@ -1,0 +1,12 @@
+$(MK)/exchange-network.d $(MK)/exchange-network$(OBJEXT) $(MK)/exchange-network$(BINEXT) : exchange-network.cc
+$(MK)/exchange.d $(MK)/exchange$(OBJEXT) $(MK)/exchange$(BINEXT) : exchange.cc
+$(MK)/publish-backend.d $(MK)/publish-backend$(OBJEXT) $(MK)/publish-backend$(BINEXT) : publish-backend.cc
+$(MK)/publish-frontend.d $(MK)/publish-frontend$(OBJEXT) $(MK)/publish-frontend$(BINEXT) : publish-frontend.cc
+$(MK)/publish-subscribe.d $(MK)/publish-subscribe$(OBJEXT) $(MK)/publish-subscribe$(BINEXT) : publish-subscribe.cc
+$(MK)/publish.d $(MK)/publish$(OBJEXT) $(MK)/publish$(BINEXT) : publish.cc
+$(MK)/reply.d $(MK)/reply$(OBJEXT) $(MK)/reply$(BINEXT) : reply.cc
+$(MK)/request-multiply.d $(MK)/request-multiply$(OBJEXT) $(MK)/request-multiply$(BINEXT) : request-multiply.cc
+$(MK)/request-reply.d $(MK)/request-reply$(OBJEXT) $(MK)/request-reply$(BINEXT) : request-reply.cc
+$(MK)/request-uptime.d $(MK)/request-uptime$(OBJEXT) $(MK)/request-uptime$(BINEXT) : request-uptime.cc
+$(MK)/subscribe.d $(MK)/subscribe$(OBJEXT) $(MK)/subscribe$(BINEXT) : subscribe.cc
+$(MK)/xmlrpcgw.d $(MK)/xmlrpcgw$(OBJEXT) $(MK)/xmlrpcgw$(BINEXT) : xmlrpcgw.cc

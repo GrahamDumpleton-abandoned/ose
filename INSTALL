@@ -1,0 +1,971 @@
+This file describes how to install OSE using the build environment which is
+a part of OSE. All the available documentation for OSE can be found at:
+
+    http://ose.sourceforge.net
+
+If you have questions, or believe you have found a bug, use the web based
+discussion forums available at the SourceForge project area for OSE given
+above.
+
+To build OSE using native makefiles for Win32 with either of Microsoft C++,
+Borland C++ or Watcom C++, follow the instructions in "win32/INSTALL.MS",
+"win32/INSTALL.BC" or "win32/INSTALL.WC" as appropriate. If you want to
+build a DLL including the OSE library and Python wrappers for Win32, follow
+the instructions in "win32/INSTALL.MS-PYTHON". Note that the Python
+wrappers can also be built for Win32 when using the Cygwin toolkit and
+Microsoft C++ using the normal build environment. The latter will allow you
+to more easily create your own C++ based modules for Python which require
+OSE.
+
+If wishing to install OSE on a Win32 platform using the build environment,
+you will need to have available the MKS Toolkit (http://www.mks.ca).
+Alternatively, you can use the freely available Cygnus Win32 Toolkit
+(http://sourceware.cygnus.com/cygwin). If this latter link no longer works,
+go looking for Cygwin at Red Hat's website.
+
+When using the MKS Toolkit under Win32, only Microsoft C++ is supported.
+When using the Cygnus Win32 Toolkit, you can use either Microsoft C++
+or the Cygnus version of GNU C++ which is provided with the Toolkit.
+
+To build OSE on MAC OS X using the Project Builder application instead of
+with the OSE build environment, follow the instructions in "macosx/INSTALL".
+This will create a framework bundle in the MAC style.
+
+
+Part 1: Obtain GNU make
+=======================
+
+To install OSE using the build environment you will need GNU make. If you
+do not have a binary for GNU make already, you will have to obtain the
+source code and compile it yourself. Note that GNU make version 3.77 has
+some problem in it on Solaris platform resulting it in failing to sometimes
+install OSE. Don't use this version if you experience problems with it, use
+a different version.
+
+On the Win32 platform, if you are using the MKS Toolkit, you will need to
+compile GNU Make with the Microsoft compiler. You cannot use GNU Make from
+the Cygnus Toolkit if using the MKS Toolkit. When using the Cygnus Toolkit,
+you should use the version of GNU Make it provides.
+
+Prior to OSE 5.0, the source for GNU make was supplied with OSE. This
+source code had however been modified so that "makeit.mk" and "Makeit.mk"
+could be used as makefile names. If you still want to be able to use these
+names for makefiles, you will need to modify the GNU make source code. The
+change should be made to the file "read.c". Search for "GNUmakefile" and
+add "makeit.mk" and "Makeit.mk" at the start of the list of makefile names.
+
+
+Part 2: Configuring OSE
+=======================
+
+Specifying the platform name
+----------------------------
+
+Platforms for which OSE comes preconfigured include:
+
+    ALPHA_DIGITAL       Alpha Workstation - Digital Unix, Tru64 etc
+    HPPA_HPUX           Hewlett Packard Workstation - HPUX
+    MIPS_IRIX           Silicon Graphics Mips Workstation - IRIX
+    MIPS_RELIANT        Reliant Unix - MIPS
+    POWER_AIX           AIX (Power PC)
+    POWER_LYNX          LynxOS (Power PC) - [On POWER_AIX]
+    POWER_MACOSX        Macintosh OS X (Power PC)
+    RS6000_AIX          AIX (RS6000)
+    SPARC_SOLARIS       Sun Sparcstation - Solaris 2.X, 7.X etc
+    X86_CYGWIN32        Cygnus Win32 (80x86 architecture)
+    X86_FREEBSD         BSD (80x86 architecture) - FREEBSD
+    X86_NETBSD          BSD (80x86 architecture) - NETBSD
+    X86_LINUX           Linux (80x86 architecture)
+    X86_BSDI            BSD (80x86 architecture) - BSDI
+    X86_SCO             SCO (80x86 architecture)
+    X86_SOLARIS         Sun (80x86 architecture) - Solaris 2.X, 7.X etc
+    X86_UNIXWARE        UNIXWARE (80x86 architecture)
+    X86_WIN32           Win32 (80x86 architecture)
+
+Check the "config" directory for the complete list of platforms for which
+support is included.
+
+Define the "OSE_HOST" environment variable in your user environment to
+the appropriate value. For example, if running Solaris 2.X on a Sparcstation
+and you are using a Bourne Shell use:
+
+    OSE_HOST=SPARC_SOLARIS
+    export OSE_HOST
+
+If using a C-Shell use:
+
+    setenv OSE_HOST SPARC_SOLARIS
+
+The environment variable needs to be permanently defined in the environment
+of anyone who is going to use the build environment after it is installed.
+
+If you are using Microsoft C++ with either the MKS Toolkit or Cygnus Win32
+Toolkit, use "X86_WIN32" for "OSE_HOST" environment variable. If you are
+using the Cygnus version of GNU C++ and the Cygnus Win32 Toolkit, use
+"X86_CYGWIN32" for the "OSE_HOST" environment variable.
+
+The description below will list names including "$OSE_HOST". When reading
+these, read them as if replaced with what you have used to set the "OSE_HOST"
+environment variable.
+
+If your host is not in the above list, select a value to identify the
+host, set the "OSE_HOST" environment variable, and then run the script
+"config/configure". You will need to be in the "config" directory when you
+run the script and you must have a C compiler available. The script expects
+the C compiler to be called "cc". The script is similar to the "configure"
+scripts which come with GNU software. If you have problems read the
+installation instructions included with any GNU software about how to
+override the name of the C compiler when running autoconf generated
+configure scripts.
+
+The configuration files
+-----------------------
+
+Configuration files for each platform are contained in subdirectories of
+the "config" directory. There are three configuration files.
+
+    config/$OSE_HOST/OSE-CONFIG.h
+    config/$OSE_HOST/$OSE_HOST.mk
+    config/$OSE_HOST/$OSE_HOST-SAMPLE.mk
+
+The "OSE-CONFIG.h" file contains definitions about what features the
+platforms operating system libraries and header files provide. You should
+not need to change this file.
+
+The "$OSE_HOST-SAMPLE.mk" file contains definitions about where you want
+OSE to be installed, what C++ compilers you have and what variants of
+the OSE libraries you wish to have installed.
+
+It is recommended that you make a copy of the "$OSE_HOST-SAMPLE.mk" file
+and make changes to the copy, thus leaving the original file intact. It
+is probably a good idea to delete any compiler entries in your copy which
+are not relevant to your environment.
+
+To do this change to the "config/$OSE_HOST" directory and run:
+
+   cp $OSE_HOST-SAMPLE.mk $OSE_HOST-CONFIG.mk
+
+You should now edit the file "$OSE_HOST.mk" and change the value of the
+"OSE_CONFIGURATION" variable from "SAMPLE" to "CONFIG". This will ensure
+that your copy of the sample file will be used and not the original.
+
+Defining where OSE is installed
+-------------------------------
+
+OSE will be installed under the directory "/usr/local/ose". If you want OSE
+to be installed in a different location, modify the "$OSE_HOST-CONFIG.mk"
+file, uncommenting and setting the variable "OSE_ROOT_DIRECTORY" to the
+location where you want OSE to be installed.
+
+Before commencing installation of OSE, you will need to ensure that the
+default directory or the directory you have specified exists. The
+installation procedure will not automatically create the directory.
+
+Note that if you are using the MKS Toolkit on the Win32 platform, you
+should include the drive letter in "OSE_ROOT_DIRECTORY" in the standard DOS
+form, ie., "C:". This will allow you to use OSE from a different drive than
+that which you installed it. If you are using the Cygnus Win32 Toolkit
+(prior to B20) and Microsoft C++, also include the drive letter, but don't
+use the standard DOS form, instead use the Cygnus Toolkit form, ie., "//C".
+This way of indicating the drive will be automatically changed to the DOS
+form when it is needed to pass it to the Microsoft C++ compiler if that
+compiler is being used. If using the Cygnus Win32 Toolkit (prior to B20)
+and Cygnus GNU C++, don't use a drive letter at all, instead, rely on the
+mount feature of the Cygnus Win32 Toolkit. If using the Cygnus Win32
+Toolkit (B20 or later), it appears you can quite happily use DOS form of
+defining drive, ie., "C:". A bug in GNU make actually causes problems when
+installing if you use "//C" with these versions of Cygnus Win32 Toolkit, so
+use DOS form of drive specifier if not relying on mount command.
+
+This particular version of OSE will be installed into a subdirectory of
+that described above. The name of this subdirectory will be a combination
+of the version number and patch revision of OSE. Example path names
+given in this installation file may not include patchlevel information,
+so you will need to adjust them as appropriate.
+
+If you only want to install the OSE documentation tools, you can skip the
+remainder of the configuration section and go direct to the installation
+phase.
+
+Defining what variants are installed
+------------------------------------
+
+For each C++ compiler, multiple variants of the OSE libraries will be
+installed. Four standard variants are defined. These are:
+
+    dbg                 Compiled with support for debuggers.
+    opt                 Compiled with optimisation.
+    prf                 Compiled with support for profilers.
+    std                 Compiled with no special support.
+
+By default, a version of the OSE libraries for each variant will be
+installed. If this is the first time you have attempted to install OSE, it
+is recommended that you first try installing OSE for only one variant,
+in particular the "std" variant. You may also want to restrict the number
+of variants to install if you are short on disk space.
+
+To specify for which variants the OSE libraries will be installed, edit
+"$OSE_HOST-CONFIG.mk" and change the value of the "VARIANTS" variable.
+Note that this only defines the maximal set of variants for which the OSE
+libraries will be installed. If for a particular C++ compiler it is defined
+that one or more variants cannot be built using that compiler, then no
+attempt will be made to build those variants for that C++ compiler, no
+matter what the "VARIANTS" variable defines.
+
+When using the build environment, the variant used if you do not explicitly
+define one will be "dbg". If you have changed "VARIANTS", or if you wish
+some other variant to be the default variant, edit "$OSE_HOST-CONFIG.mk"
+and change the value of "DEFAULTVARIANT". If the value of "DEFAULTVARIANT"
+isn't listed in the "VARIANTS" variable, the "DEFAULTVARIANT" will be
+forced to be the first variant listed in the "VARIANTS" variable.
+
+Defining C++ compilers available
+--------------------------------
+
+OSE can handle you wanting to be able to use more than one C++ compiler
+on the one platform. Further, it is possible to define more than one
+compilation environment for a specific C++ compiler. For example, you may
+define a compilation environment for the C++ compiler in its standard form,
+another for when support for an OODBMS is required and yet another for when
+support for multithreading is required.
+
+Each configuration is identified by a tag which lists the C++ compiler
+vendor, the version of the C++ compiler and optionally a name for the
+compilation environment. OSE uses the following prefixes to identify C++
+compilers from different vendors.
+
+    ATT                 AT&T/USL C++
+    CDS			Reliant CDS C++
+    CL                  CenterLine C++
+    CYG                 Cygnus GNU C++
+    DEC                 DEC/Compaq C++
+    EGCS                GNU EGCS C++
+    GNU                 GNU C++
+    HP                  HP-UX C++
+    AHP                 HP-UX aC++
+    KAI                 KAI C++
+    MS                  Microsoft C++
+    NOV                 Novell C++
+    SG                  SGI C++
+    SGD                 SGI Delta C++
+    SUN                 Sun C++
+    UDK                 SCO UDK C++
+    XL                  IBM XL C/Set++
+
+To this is appended the version number of the C++ compiler in order to
+arrive at the C++ compiler tag component of the configuration tag. This is
+what identifies the compiler to the build environment. It is important to
+ensure that you get the version number correct as the build environment may
+do different things for different versions of the same C++ compiler. An
+example of a valid compiler tag is "SUN4.1".
+
+Note that not all versions of the above C++ compilers can be used. Older
+versions of the C++ compilers which did not support templates cannot be
+used. If you want to be able to build OSE with a C++ compiler which does
+not support templates, you should obtain OSE version 4.3. This version of
+OSE contained a template preprocessor and thus could be used with most
+C++ compilers which did not support templates.
+
+Normally, you would have a default compilation environment. This would
+specify the C++ compiler in its standard form, ie., without any extensions.
+This default compilation environment would not have a compilation
+environment name associated with it. The complete configuration tag
+in this case would be just the C++ compiler tag. For example, "SUN4.1".
+
+When specifying additional compilation environments for a specific C++
+compiler, the compilation environment is given a name. This name is added
+as a prefix to the C++ compiler tag. For example, a compilation environment
+which results in support for the ObjectStore OODBMS being included in the
+OSE libraries, might be called "OSTORE". A compilation environment which
+results in support for POSIX threads being included in the OSE libraries
+might be called "PTHREAD". When added to the compiler tag "SUN4.1", these
+would yield configuration tags of "OSTORE-SUN4.1" and "PTHREAD-SUN4.1".
+
+The name you use for a compilation environment is arbitrary as you will
+also be specifying exactly what that compilation environment means. The
+build environment does not recognise certain compilation environment names
+as meaning something special. Thus you could define a compilation environment
+name as being something associated with the name of your project. You might
+for example with that project need to mix both ObjectStore and POSIX thread
+support together.
+
+The tags for each of the configurations for which you want a version of the
+OSE libraries installed must be listed in the "C++COMPILERS" variable in
+the file "$OSE_HOST-CONFIG.mk". If there is more than one, separate each by
+a space. One of the configurations must be selected as the default. That
+is, it will be the configuration which will be used if a user of the build
+environment does not explicitly select one. This configuration should be
+listed in the "DEFAULTC++COMPILER" variable.
+
+If this is the first time you have installed OSE, it is recommended that
+you start by not creating additional compilation environments and just try
+and install the compiler in its standard configuration. Further, only try
+and install OSE for one C++ compiler at a time.
+
+Defining the compiler attributes
+--------------------------------
+
+After having specified the configurations you want the OSE libraries
+installed for, you need to provide information about the C++ compiler for
+each configuration. This information includes where the compiler is located
+and what flags should be used for each variant etc. This configuration
+information should be placed in the "$OSE_HOST-CONFIG.mk" file. Each entry
+should at least include the following, although, the compiler prefix will
+need to match the tag for the C++ compiler.
+
+    ifeq "$(C++COMPILERENV)" ""
+
+    SUN4.1_VARIANTS = dbg opt prf std
+    SUN4.1_PIC_VARIANTS = opt std
+
+    SUN4.1_ENV_OODBMS =
+
+    SUN4.1_OPT_LIBRARIES =
+
+    SUN4.1_C++ = /opt/SUNWspro/SC4.0/bin/CC
+    SUN4.1_CC = /opt/SUNWspro/SC4.0/bin/cc
+    SUN4.1_LD = /usr/ccs/bin/ld
+    SUN4.1_AR = /usr/ccs/bin/ar
+
+    SUN4.1_CPPFLAGS =
+    SUN4.1_CFLAGS =
+    SUN4.1_C++FLAGS = +p
+    SUN4.1_LDFLAGS =
+    SUN4.1_LDLIBS = -lsocket -lnsl
+
+    SUN4.1_PIC_CFLAGS = -K pic
+    SUN4.1_PIC_C++FLAGS = -G
+    SUN4.1_PIC_LDFLAGS =
+    SUN4.1_PIC_LDLIBS = -lC
+
+    SUN4.1_CPPFLAGS_dbg =
+    SUN4.1_CFLAGS_dbg = -g
+    SUN4.1_C++FLAGS_dbg = -g
+    SUN4.1_LDFLAGS_dbg =
+    SUN4.1_LDLIBS_dbg =
+
+    SUN4.1_CPPFLAGS_opt = -DNDEBUG
+    SUN4.1_CFLAGS_opt = -O
+    SUN4.1_C++FLAGS_opt = -O
+    SUN4.1_LDFLAGS_opt =
+    SUN4.1_LDLIBS_opt =
+
+    SUN4.1_CPPFLAGS_prf =
+    SUN4.1_CFLAGS_prf = -pg
+    SUN4.1_C++FLAGS_prf = -pg
+    SUN4.1_LDFLAGS_prf =
+    SUN4.1_LDLIBS_prf =
+
+    SUN4.1_CPPFLAGS_std =
+    SUN4.1_CFLAGS_std =
+    SUN4.1_C++FLAGS_std =
+    SUN4.1_LDFLAGS_std =
+    SUN4.1_LDLIBS_std =
+
+    # ... library management overrides - see below
+
+    endif
+
+When the build environment is run the user will set the "C++COMPILER"
+variable to indicate which configuration they wish to use. If they do not
+set this variable, the configuration listed in "DEFAULTC++COMPILER" will be
+used as the configuration. The tag for the configuration being used is then
+ripped apart and the name of the compilation environment is placed in the
+variable "C++COMPILERENV".
+
+Each entry should be surrounded by a check of "C++COMPILERENV" to see if
+the variable is set to the name of the compilation environment which the
+entry applies to. When only the compiler tag is used to specify the
+configuration, the compilation environment will have no name and
+"C++COMPILERENV" will be empty. The entry above therefore applies to this
+case and would generally be the compiler in its typical configuration. In
+this case, the entry is for when "C++COMPILER" is set to "SUN4.1".
+
+If you were creating an entry whereby "C++COMPILERENV" will be "THREAD",
+the check above will be as follows.
+
+    ifeq "$(C++COMPILERENV)" "THREAD"
+
+    SUN4.1_VARIANTS = dbg opt prf std
+    SUN4.1_PIC_VARIANTS = opt std
+
+    ...
+
+    endif
+
+Note that the check only contains "THREAD", it does not contain the
+compiler tag. Also, the variables listed only contain the compiler tag and
+does not include the compilation environment tag. The actual value you will
+use for "C++COMPILER" in this case though will be "THREAD-SUN4.1".
+
+For each entry, the variables listed above have to be defined. Each of
+these variables is prefixed with the tag of the C++ compiler which this
+configuration entry applies to. Every variable should be defined, even
+if it is not given a value. The variables are described below. However,
+in mentioning their names, the tag for the C++ compiler name will not
+be mentioned, although it must always appear.
+
+The "VARIANTS" variable should list the variants for which it is possible
+to build a static version of the OSE libraries. This will typically be all
+four variants. The "PIC_VARIANTS" variable lists the variants for which it
+is possible to build shared versions of the OSE libraries. Typically this
+will be just the "opt" and "std" variants, although on some platforms it
+is also possible to build a "dbg" version of a shared library. You should
+not change these if you only want a subset of all possible variants to be
+built, instead, change the plain "VARIANTS" variable towards the start of
+the file.
+
+The "ENV_OODBMS" variable should list the name of any supported OODBMS
+which this configuration is to make use of. The only two currently
+supported OODBMS products are "OSTORE" and "VERSANT".
+
+The "OPT_LIBRARIES" variable should list the names of any of the optional
+OSE libraries you wish to have installed. These optional libraries are:
+
+    OTC-TCL		TCL integration for OSE dispatcher.
+
+    OTC-PY		Python integration for OSE dispatcher.
+
+    OTC-QT		Qt integration for OSE dispatcher.
+
+If TCL, Python and Qt are not in standard include and library search paths,
+you will need to construct appropriate options files for their respective
+modules in the host configuration directory. The names of these files
+should be "tcl-options.mk", "python-options.mk" and "qt-options.mk". Check
+the various host configuration directories for examples. You should also
+check the appropriate modules files in the "include/makeit" directory as to
+what variables can be overridden.
+
+Note that if your version of Python supports threading, ensure that you
+only build up the OTC-PY library with a compiler configuration that
+includes support for threading, ie., such that threading support is also
+built in to OSE. If you do not do this and your Python application uses
+threads, the code might crash inside of OSE.
+
+Note that as of OSE 7.0pl5, the way that the dynamically loadable module
+for Python is built, you no longer have to build the OTC-PY library.
+You only need to build the OTC-PY library if you want to link the OSE
+Python wrappers directly into a Python program executable.
+
+The "C++" variable should list the full pathname of the C++ compiler. The
+"CC" variable should list the full pathname of the C compiler which should
+be used in conjunction with this C++ compiler. The "LD" variable should
+list the full pathname of the linker. If a linker is not provided on the
+platform, this would generally be the same as the C/C++ compiler. The "AR"
+variable should list the full pathname to the librarian program. On UNIX
+this is typically the system "ar" program, for Microsoft C++, it is the
+"LIB" program.
+
+Note that on the Win32 platform, if you do not provide the drive letter in
+the path to the C and C++ compiler, linker and librarian, you will not be
+able to use OSE from a drive outside that which you have installed it. If
+using the MKS Toolkit, the drive letter should use the standard DOS form,
+ie., "C:". If using the Cygnus Win32 Toolkit, the drive letter can use
+either the DOS form or the Cygnus Toolkit form, ie., "C:" or "//C". If when
+using the Cygnus Win32 Toolkit, OSE was installed in the drive mounted as
+"/", the drive letter should not be needed at all.
+
+The "CPPFLAGS", "CFLAGS", "C++FLAGS", "LDFLAGS" and "LDLIBS" variable
+should list preprocessor flags, C compiler flags, C++ compiler flags, linker
+flags and libraries which are to be used for all compilations no matter
+what the variant specified is.
+
+The "PIC_CPPFLAGS", "PIC_CFLAGS" and "PIC_C++FLAGS" variables should list
+the flags passed to the C compiler and linker to have it generate object
+files suitable for use in a shared library. If these variables are empty
+and "PIC_VARIANTS" is non empty, it will be assumed that the same object
+files can be used for both static and shared libraries. The "PIC_LDFLAGS"
+variable should list any special flags which should be passed to the linker
+specified by the "LD" variable to generate a shared library as opposed to
+an executable. The "PIC_LDLIBS" variable should list any special libraries
+or object files which need to be specified when creating a shared library.
+Setting of "PIC_LDFLAGS" and "PIC_LDLIBS" may not be necessary if the
+complete action for generating a shared library is being overridden.
+
+The "CPPFLAGS_dbg", "CFLAGS_dbg", "C++FLAGS_dbg", "LDFLAGS_dbg" and
+"LDLIBS_dbg" variable should list preprocessor flags, C compiler flags, C++
+compiler flags, linker flags and libraries which are to be used for just
+the "dbg" variant. The remainder of the variables are similarly for the
+"opt", "prf" and "std" variants.
+
+Outside of the actual compiler definitions and towards the start of the
+configuration file are default definitions for how static and shared
+libraries are managed for the platform. The defaults will be something
+like:
+
+    # Create a library consisting of objects.
+
+    define DEFAULT_LIB_ARCHIVE
+    $(AR) rv @LIB@ @OBJECTS@
+    endef
+
+    # Extract objects from a library.
+
+    define DEFAULT_LIB_EXTRACT
+    $(AR) xv @LIB@
+    endef
+
+    # Create a library consisting of objects suitable for creating
+    # a shared library.
+
+    define DEFAULT_PIC_ARCHIVE
+    $(AR) rv @LIB@ @OBJECTS@
+    endef
+
+    # Extract objects from a library consisting of objects suitable
+    # for creating a shared library.
+
+    define DEFAULT_PIC_EXTRACT
+    $(AR) xv @LIB@
+    endef
+
+    # Create a shared library.
+
+    define DEFAULT_PIC_LIBRARY
+    $(LD) -G -o @LIB@ $(PIC_LDFLAGS) @LDFLAGS@ @OBJECTS@ \
+     $(PIC_LDLIBS) @LDLIBS@
+    endef
+
+These can be overridden for a specific C++ compiler if the compiler
+performs special tasks such as perform template closure, or ensures that
+static objects are initialised correctly in a shared library. For example,
+for "SUN4.1" compilers, the compiler definition will also include:
+
+    define SUN4.1_LIB_ARCHIVE
+    $(C++) -xar @PTRFLAGS@ -o @LIB@ @OBJECTS@
+    endef
+
+    define SUN4.1_PIC_LIBRARY
+    $(C++) -G @PIC_PTRFLAGS@ -o @LIB@ $(PIC_LDFLAGS) @LDFLAGS@ @OBJECTS@ \
+     $(PIC_LDLIBS) @LDLIBS@
+    endef
+
+Note that in overridding any of these definitions, don't use the same name
+for the variable as the default definition, instead, replace "DEFAULT"
+with the tag for the C++ compiler.
+
+The special tags in the definitions, ie., @LIB@, @OBJECTS@ etc, will be
+replaced at the time of use with the appropriate makefile variables
+for the context in which it is being used. The meanings of the tags are
+as follows:
+
+    @LIB@		The name of the static/shared library being created.
+
+    @OBJECTS@		When creating a static library, will be only those
+			objects which are newer than the existing library.
+			For a shared library, will be all objects being
+			used to create the library.
+
+    @ALLOBJECTS@	When creating a static library, will be all the
+			objects which are being placed into the library.
+
+    @PTRFLAGS@		Special C++ compiler flags related to template
+			repositories. Only has meaning for cfront and cafe
+			type compilers. Would be used with these compilers
+			when creating a static library with template
+			closure.
+
+    @PIC_PTRFLAGS@	Special C++ compiler flags related to template
+			repositories. Only has meaning for cfront and cafe
+			type compilers. Would be used with these compilers
+			when creating a shared library with template
+			closure.
+
+    @LDFLAGS@		Flags for the linker when creating a shared library.
+			For C++ compilers other than Microsoft C++, this
+			tag will expand to.
+
+			  $(filter -L%,$(LDFLAGS))
+
+			If you need to change this, don't use the tag but
+			list the expansion explicitly.
+
+    @LDLIBS@		Libraries for the linker when creating a shared
+			library. For C++ compilers other than Microsoft C++,
+			this tag will expand to.
+
+			  $(filter -l%,$(LDLIBS))
+
+			If you need to change this, don't use the tag but
+			list the expansion explicitly.
+
+    @LIBPATH@		Library search directories in the form:
+
+			  dir1;dir2
+
+			This variable is only relevant to Microsoft C++.
+
+If necessary, override definitions can also use $(PIC_LDFLAGS) and
+$(PIC_LDLIBS). The value of these variables will include not only the user
+supplied values of these variables, but the values for these variables
+supplied in the compiler definition in the configuration file.
+
+If you use shell programming constructs in any of the definitions, you
+should use the "\" continuation character such that the command will be
+evaluated as being one line. For example, on "X86_WIN32" to extract
+objects from a library requires a shell "for" loop. This is written as:
+
+    define DEFAULT_LIB_EXTRACT
+    for obj in `$(AR) @LIB@ /NOLOGO /LIST`; do \
+     $(AR) @LIB@ /NOLOGO /EXTRACT:$$obj; done
+    endef
+
+The most common configurations are supplied in the sample files. The best
+idea is to look at the various samples for all platforms and not just the
+platform you are using. Remember that you should be precise about the
+version number of the C++ compiler you are using.
+
+If when you try and use the build environment it complains about a "bad
+compiler definition", you have used a C++ compiler tag which the build
+environment understands, but you have not provided a configuration for what
+you have specified. If the build environment complains about an "invalid
+compiler tag", it means that you have used a C++ compiler tag which the
+build environment doesn't currently support.
+
+Cross compilation configuration
+-------------------------------
+
+The subdirectories under the "config" directory, matching the value of
+"$OSE_HOST", refer to the host platform. That is, the platform on which
+you are running the installation. The files in these directories actually
+correspond to "$OSE_TARGET.mk" and "$OSE_TARGET-CONFIG.mk". That is, the
+files in the subdirectories correspond to the target platform.
+
+Normally, the host platform is also the target platform and the value of
+the "OSE_TARGET" variable will be the same as the "OSE_HOST" variable.
+You do not however have to set "OSE_TARGET" if this is the case as it
+will default to having the same value as "OSE_HOST".
+
+Where installing OSE in a cross configuration environment, the three
+configuration files used will be:
+
+    config/$OSE_TARGET/OSE-CONFIG.h
+    config/$OSE_HOST/$OSE_TARGET.mk
+    config/$OSE_HOST/$OSE_TARGET-CONFIG.mk
+
+For example, if your were performing the installation on a platform
+where "OSE_HOST" was set to "POWER_AIX", and the target was given by
+setting "OSE_TARGET" to "POWER_LYNX", the configuration files used
+would be:
+
+    config/POWER_LYNX/OSE-CONFIG.h
+    config/POWER_AIX/POWER_LYNX.mk
+    config/POWER_AIX/POWER_LYNX-CONFIG.mk
+
+The "$OSE_TARGET.mk" and "$OSE_TARGET-CONFIG.mk" files should be configured
+as was described above for the case where the host platform was also the
+target platform. The difference will be that the compilers referred to will
+be the cross compilers and their locations will be where they are located
+on the host compilation platform.
+
+If a special version of "strip" is required to be run on the host platform
+when generating executables for the target platform, its location should
+be defined in the "$OSE_TARGET-CONFIG.mk" file. For example:
+
+    STRIP = /CETIA604/CROSS/strip
+
+If the "OSE_CONFIG.h" file doesn't exist for the target platform, you will
+need to create it. You can do this by hand, using "config/OSE-CONFIG.h.in"
+as a template, or if you have this source on the target platform and have a
+C compiler, you can run "config/configure". You will need to be in the
+"config" directory when you run this and you will also need to have
+selected a value for and set the "OSE_HOST" environment variable.
+
+Note that the "mksrc" program is not built or installed for the target of a
+cross development environment. The "classinfo" documentation tools will be
+installed so as to be used from the host and not the target.
+
+
+Part 3: Building and installing OSE
+===================================
+
+Note, first few ways of installing OSE listed here are ONLY for when
+you wish to install just a part of OSE such as the documentation tools
+or build environment. Do not run these if you want everything installed,
+instead skip down a bit.
+
+Note, if your are using Cygnus Win32 Toolkit, make sure SHELL environment
+is set to "/bin/sh" and NOT the location of the bash executable. Also, if
+you unpacked the OSE distribution with WinZip and not GNU gunzip/tar,
+ensure that you indicated that "\n" should be preserved as "\n" and not
+converted to "\r\n". If converted you may find the install dies in cc.mk,
+lib.mk or combine.mk.
+
+If you ONLY want to install the OSE documentation tools, run GNU make
+as follows:
+
+    gnumake install.setup
+    gnumake -C bin/classinfo install
+    gnumake -C bin/classinfo clean
+
+By default the OSE documentation tools will use "gawk". If you do not have
+GNU awk, but have "nawk", or if you do not have "nawk" but do have "awk",
+specify the "AWK" variable in the command line when you do the installation.
+
+    gnumake install.setup
+    gnumake -C bin/classinfo install AWK=nawk
+    gnumake -C bin/classinfo clean
+
+If you ONLY want to install the OSE build environment, run GNU make
+as follows:
+
+    gnumake install.setup
+    gnumake -C config install
+    gnumake -C include/makeit install
+    gnumake -C include/makeit clean
+
+Following will do full installations for either a single compiler or
+multiple compilers. This would normally be what you would use to install
+OSE.
+
+If you want to install OSE for the single C++ compiler listed in the
+"DEFAULTC++COMPILER" variable of the "$OSE_HOST-CONFIG.mk" file, run GNU
+make as follows:
+
+    gnumake install
+    gnumake clean
+
+If you want to install OSE for all the C++ compilers listed in the
+"C++COMPILERS" variable of the "$OSE_HOST-CONFIG.mk" file, run GNU make as
+follows:
+
+    gnumake install.all
+    gnumake clean
+
+Note that if you are installing OSE in cross compilation mode, you will
+need to set the "OSE_TARGET" variable on the command line when you run GNU
+make. For example:
+
+    gnumake install OSE_TARGET=POWER_LYNX
+    gnumake clean OSE_TARGET=POWER_LYNX
+
+All of the above do the installation at the same time as the software is
+being built. A couple of experimental targets are now provided as an
+alternative to the above. In the future, the way in which the software
+is built will move to use the same build model as these experimental
+targets. The commands to run are:
+
+    gnumake build-release
+    gnumake install-release
+
+These targets will only build and install OSE for the default C++ compiler
+configuration. What these targets allow though, is for the build to be
+done seperate from the install. This is helpful where the install needs
+to be done as a different user, such as "root".
+
+
+Part 4: Copy GNU make into place
+================================
+
+If you are installing the whole of OSE or just the build environment, the
+installation process will attempt to create a symlink to the version of GNU
+make you used to install OSE. This is done so as to ensure some certainty
+as to where GNU make is, rather than relying on being able to pick it up in
+your PATH under a certain name.
+
+Note though that this process will not work if you are using the MKS toolkit
+under the Win32 environment, in which case you will need to make a copy of
+the version of GNU make you used into the appropriate location.
+
+    cp gnumake.exe /usr/local/ose/7.0/$OSE_HOST/etc/makeit.exe
+
+The exact paths may be different dependent on whether you change the
+root directory of where OSE was to be installed or the directory underneath
+the root directory for this version of OSE.
+
+
+Part 5: Configuring your user environment
+=========================================
+
+For someone to use OSE, they must now set the environment variables
+"PATH", "MANPATH" and "OSE_HOST".
+
+The "PATH" variable should be set to include the "bin" directory:
+
+    PATH="/usr/local/ose/7.0/bin:$PATH"
+
+The "MANPATH" should be set to include the "man" directory:
+
+    MANPATH="/usr/local/ose/7.0/man:$MANPATH"
+
+The "OSE_HOST" environment variable should be what was used above
+during installation.
+
+
+Part 7: Installing the Python language wrappers
+===============================================
+
+To install the Python module and language wrappers into the OSE installation
+heirarchy, you need to run the GNU make in the "python" directory.
+
+    cd python
+    gnumake install
+
+As of OSE 7.0pl5, you no longer have to first build and install the OSE
+C++ class libraries as they will be compiled direct into the loadable
+module for Python. Make sure however that the default C++ compiler setting
+includes support for threads if you want to make use of threads in Python
+or do any sort of GNU programming in Python. Otherwise, select a specific
+compilation environment which uses threads when installing the Python
+module.
+
+    cd python
+    gnumake install C++COMPILER=PTHREAD-SUN4.1
+
+Note that it is necessary to have "opt" listed in the "VARIANTS" variable
+in the host config file. If it isn't, the build of the "python" directory
+will fail. If for some reason you don't want to list "opt" in "VARIANTS"
+because it will upset how you want the installed version of "makeit",
+you can override "VARIANTS" on the command line when installing just the
+Python wrappers.
+
+     cd python
+     gnumake install VARIANTS=opt
+
+This is now the default way of building the Python module, however if this
+doesn't work you can resort to the older way which relied on the installed
+OSE C++ class libraries. To do this, you will first need to have installed
+OSE, including an "opt" variant of the libraries. If your version of Python
+has support for threads, ensure that the libraries are also installed with
+thread support compiled in. Make sure when you do the installation in the
+python directory that you use the correct compiler configuration, ie., that
+including the thread support, else you might link against the wrong
+libraries. Having done all that you can then run:
+
+    cd python
+    makeit install STANDALONE=NO
+
+To use the Python module and language wrappers you need to set the
+PYTHONPATH environment variable to include the "lib/python" directory in
+the OSE installation area for this version.
+
+    PYTHONPATH="/usr/local/ose/7.0/lib/python"
+
+Having done that you can try some of the Python specific demo programs.
+
+Note that the above two methods will result in the Python wrappers for OSE
+being installed within the OSE installation directory heirarchy. If you
+instead want to install the resulting Python loadable module and the Python
+code into the standard Python installation directory, instead run:
+
+    cd python
+    gnumake python-install
+
+If you want to install the OSE python wrappers into your personal home
+directory, use:
+
+    cd python
+    gnumake python-install PYTHON_HOME=~
+
+If you want to build a binary distribution of the OSE python wrappers, run:
+
+    cd python
+    gnumake python-bdist
+
+The result will be left in the "dist" subdirectory.
+
+Note that if you wish to use the SOAP gateway, you will need to have
+separately installed the ZSI package from "pywebsvcs". This can be obtained
+from "http://sourceforge.net/projects/pywebsvcs". You will need to have
+version 1.2 RC2 or later. That is, version 1.2 should be okay as well as
+any later version. It is not possible to use version 1.1 or earlier of ZSI.
+
+
+Part 7: Installing class library manual pages
+=============================================
+
+To generate UNIX style manual pages for each class in the OSE libraries,
+you should run "class2man". The "class2man" directory should be run in the
+directory "/usr/local/ose/7.0/man/man3". The command you should run is:
+
+    cd /usr/local/ose/7.0/man/man3
+    class2man ../../include/OTC/*/*h
+
+If you are not using "gawk" as the awk program, you may find the awk
+program you are using might die on some files. If "gawk" dies, ensure you
+are using version 3.0 or later of "gawk".
+
+
+Part 8: Compiling and running test programs
+===========================================
+
+If you want to compile and run the test programs which OSE contains, you
+should run the commands:
+
+    cd tests
+    makeit check
+
+When you are happy that the tests worked okay, you can reclaim the space
+used by running:
+
+    makeit clean
+
+Note that the tests will use the installed version of OSE, so you must have
+set your PATH correctly, and install GNU Make in the appropriate location.
+
+You may see slight differences in what was expected due in part to how your
+compiler handles streams output for certain types. You will also see slight
+differences depending on whether or not your compiler supports exceptions.
+
+If you want to look at the actual source code for the test programs, look
+for the files starting with "_" in the directories underneath "lib/OTC".
+In running the tests, an ability of makeit to look in a remote source
+directory for code files is being used. Because of this, you shouldn't use
+the makefiles in the test directories as an indication of how you would
+in general write your own makefiles.
+
+
+Part 9: Getting started
+=======================
+
+If you want to see "makeit" in action, create a new directory and in that
+directory run:
+
+    mksrc Makefile
+    mksrc -DMAIN hello.cc
+
+Edit "Makefile" and add "hello" to the PROGRAMS variable.
+
+    PROGRAMS := hello
+
+Then run "makeit" to build it.
+
+    makeit hello
+
+The compiled application will be found in a subdirectory starting with the
+same value defined in the OSE_HOST environment variable. The latter part of
+the directory name corresponds to the compilation variant used, ie., opt,
+dbg, etc.
+
+Since "makeit" knows all about OSE, it will ensure that all the same compiler
+flags as were used when OSE is installed are also used when applications
+using OSE are built. It is highly recommended that you use "makeit" if you
+are going to use OSE. Doing so will save you a lot of work and avoid any
+problems due to you not duplicating the compilation environment as
+required. You will also end up with makefiles which are generally portable
+across platforms.
+
+You can find online documentation for "makeit" on the OSE web site at:
+
+    http://ose.sourceforge.net
+
+If you are determined not to use "makeit" but still want to use the OSE
+C++ class libraries, still create the "hello world" program as described
+above, but in addition run the command:
+
+    mksrc other.cc
+
+Having done that, run:
+
+    makeit clean; makeit
+
+The file "other.cc" will be compiled into an object file and put into a
+library. The file "hello.cc" will be compiled into an object file and
+linked against the local library and OSE libraries to create an executable.
+
+Take precise note of what compiler flags are used when compiling each type
+of file. You will need to ensure that you duplicate these flags in your own
+makefiles as necessary. For libraries make sure you list them in the same
+order. It is also important that you use the same preprocessor options and
+include directories. After that, you are on your own as little support
+can be provided for build problems if you use your own makefiles.

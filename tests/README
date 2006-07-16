@@ -1,0 +1,22 @@
+This directory contains a makefile for building and running the test
+programs that are included in the OSE source code. You will not actually
+find the test programs in this directory though, they are located in the
+subdirectories of "lib/OTC" along with the actual library code. All test
+programs have a name beginning with an underscore.
+
+If you want to compile and run the test programs, you should run in this
+directory the command:
+
+    makeit check
+
+When you are happy that the tests worked okay, you can reclaim the space
+used by running:
+
+    makeit clean
+
+Note that the tests will use the installed version of OSE, so you must have
+set your PATH correctly.
+
+You may see slight differences in what was expected due in part to how your
+compiler handles streams output for certain types. You will also see slight
+differences depending on whether or not your compiler supports exceptions.

@@ -1,0 +1,17 @@
+TODO
+----
+
+  - It isn't possible to install generated header files unless they are
+    being installed into subdirectory in install area with same name as
+    makeit subdirectory.
+
+  - Be able to suppress lib.a creation and installation if only
+    interested in shlib. Ie., when using Java module.
+
+  - Optimise combine module so that don't have two archives when
+    don't have separate pic objects.
+
+  - Look at dependencies when SRCDIRS is used and directory is an
+    absolute path.
+
+  - Look at dependencies in workspace when SRCDIRS also used.

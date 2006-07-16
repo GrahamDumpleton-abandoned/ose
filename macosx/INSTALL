@@ -1,0 +1,40 @@
+If you are happy with the default deployment options used when a project
+builder target is built, simply run:
+
+  pbxbuild -buildstyle Deployment -target OSE install
+
+This will result in "OSE.framework" being created and placed in:
+
+  build/UninstalledProducts
+
+Copy the "OSE.framework" folder to:
+
+  /Library/Frameworks
+
+Note that the library will not be installed so as to include support for
+POSIX threads. You would need to change the project builder file to build
+that in and you would also need to define the same enabling preprocessor
+symbol in any projects which use the installed version.
+
+If you wish to build a loadable module for the Python wrappers which
+is dependent on the OSE framework rather than being self contained, run:
+
+  pbxbuild -buildstyle Deployment -target python install
+
+This will result in "python.bundle" being created and placed in:
+
+  build/UninstalledProducts
+
+In the "python.bundle" will be found:
+
+  _osemodule.so
+
+Note that you need to have a version of Python installed which installs
+as a MacOS X library framework.
+
+If you want to remove the results of the build, you should run:
+
+  chmod -R u+w build
+  rm -rf build
+
+It is a good idea to do this before any build.

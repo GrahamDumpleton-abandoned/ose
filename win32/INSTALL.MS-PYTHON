@@ -1,0 +1,29 @@
+If you wish to build a DLL which includes the Python wrappers for OSE,
+first follow the instructions in INSTALL.MS for building the DLL for the
+core of OSE. The actual DLL produced by MS.MAK will not be used, but the
+object files produced will be.
+
+Now edit MS-PYTHON.MAK and ensure the definitions are the same as what
+was used in MS.MAK. Further, ensure that the Python and Tcl root and
+version definitions are correct. Normally, the version numbers will not
+include a "." between major and minor version numbers. The idea is that
+value is want is attached to the end of the DLL for Python and Tcl for
+the version being used.
+
+Now build the complete DLL by running:
+
+  nmake -f MS-PYTHON.MAK
+
+This should create a file called "_ose.dll".
+
+You now need to create a directory to hold the Python files and DLL. This
+directory should be located somewhere on your PYTHONPATH or in the Python
+site-packages directory. The Python code directories you need to copy into
+that directory are:
+
+  ..\python\netsvc
+  ..\python\netrpc
+
+Make sure you preserve the directory names. Then copy the "_ose.dll" file
+into the "netsvc" directory to which you copied the above.
+

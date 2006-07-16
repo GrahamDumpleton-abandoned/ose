@@ -1,0 +1,16 @@
+Description of programs as follows:
+
+  simple-threading
+
+    Use low level thread pool to create threads and then generate number of
+    events for them to process. Program will terminate when all events
+    processed.
+
+  agent-threading
+
+    Shows how threads can be introduced into existing event system model.
+    Program will shutdown on a CTRL-C.
+
+Both programs will compile and run successfully with or without thread
+support enabled in OSE. When threading is enabled, processing obviously
+can run in parallel whereas without it, it will be sequential.

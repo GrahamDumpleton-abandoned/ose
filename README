@@ -1,0 +1,14 @@
+Note that documentation is not provided in the source distribution. The
+documentation, along with other information, is available online at:
+
+  http://ose.sourceforge.net
+
+This directory contains the files:
+
+  COPYING	Copyright and license information.
+
+  LICENSE	The Q Public License version 1.0.
+
+  INSTALL	Installation instructions.
+
+  CHANGES	List of changes in release.

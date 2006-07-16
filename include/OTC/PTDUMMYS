@@ -1,0 +1,4 @@
+#include <OTC/collctn/bucket.hh>
+#include <OTC/text/string.hh>
+
+os_typespec* OTC_Bucket<OTC_String>::get_os_typespec() { return 0; }

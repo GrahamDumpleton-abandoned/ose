@@ -1,0 +1,12 @@
+## Copyright 1993 OTC LIMITED
+## Copyright 1994 TELSTRA CORPORATION LIMITED
+
+ifneq "$(OSE_LOCAL_MAKEIT)" ""
+
+include $(OSE_LOCAL_MAKEIT)/modules.mk
+
+else
+
+include $(OSE_MAKEIT)/modules.mk
+
+endif

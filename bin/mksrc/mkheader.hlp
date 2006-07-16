@@ -1,0 +1,48 @@
+
+Usage:
+
+  mksrc [ -DNAME -DNAME=VALUE ] filename
+
+Generator:
+
+  mkheader
+
+Variables:
+
+  AUTHOR
+
+    Defaults to that defined by mksrc through the MKSRC_AUTHOR environment
+    variable. Used in the AUTHOR comment field.
+
+  ORGANISATION
+  
+    Defaults to "CHANGE ME QUICK SOFTWARE". Used in the COPYRIGHT
+    comment field.
+
+  YEAR
+  
+    Defaults to the current year. Used in the COPYRIGHT comment field.
+
+  LIBNAME
+  
+    Defaults to nothing. If defined it will be encoded into the header
+    file guard and will also be used in the LIBRARY comment field.
+
+  DIRNAME
+
+    Defaults to nothing. If defined it will be encoded into the header
+    file guard and will also be used in the FILENAME comment field.
+
+  RCSID
+
+    If defined, RCS ID field is added to the comment header.
+
+  SCCSID
+
+    If defined, SCCS ID field is added to the comment header.
+
+  CLASSNAME
+
+    Defaults to "". If defined the header file will be filled out with
+    a class body with comment fields as per class2man style.
+

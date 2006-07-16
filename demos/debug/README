@@ -1,0 +1,29 @@
+This directory contains some examples of using the logging system.
+
+  logger.py
+
+    Basic use of the logging system.
+
+  logmon-service.py
+
+    Example of a log monitoring service. The idea is that any services
+    would log debug messages using the logger on a channel with name
+    equivalent to the agent identity for that service surrounded by "()".
+    The channel name is enclosed in brackets so that it uses a hidden
+    channel and as such the messages wouldn't normally been seen on the
+    standard error output or in log files.
+
+    Remote clients would subscribe to the log monitor in the same process
+    as the service of interest, using a subject equivalent to agent
+    identity of the service of interest. The log monitoring service
+    monitors subscriptions and only at the point of getting a subscription
+    starts intercepting the log messages for the appropriate service and
+    publishing them such that the remote client will be able to see them.
+
+    The "spyon" GUI can be used to determine the agent identity for a
+    particular service, with the GUI then used to subscribe to the log
+    monitor in the same process to monitor the debug messages. Overall,
+    this technique can be used as a useful debugging tool while getting
+    programs to work. When the "spyon" GUI is developed further, it may
+    be extended to automatically provide this facility using a single
+    press of a button.

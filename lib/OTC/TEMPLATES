@@ -1,0 +1,626 @@
+OTC_Cursor<int>
+#include <OTC/collctn/cursor.hh>
+#include <OTC/collctn/cursor.c>
+
+OTC_ItemCursor< int,OTC_IILink >
+#include <OTC/collctn/icursor.hh>
+#include <OTC/collctn/icursor.c>
+#include <OTC/collctn/iilink.hh>
+
+OTC_ItemCursor< int,OTC_ILink >
+#include <OTC/collctn/icursor.hh>
+#include <OTC/collctn/icursor.c>
+#include <OTC/collctn/ilink.hh>
+
+OTC_KeyCursor< int,OTC_IILink >
+#include <OTC/collctn/kcursor.hh>
+#include <OTC/collctn/kcursor.c>
+#include <OTC/collctn/iilink.hh>
+
+OTC_KeyItemCursor< int,int,OTC_IILink >
+#include <OTC/collctn/kicursor.hh>
+#include <OTC/collctn/kicursor.c>
+#include <OTC/collctn/iilink.hh>
+
+OTC_PairCursor<int,int>
+#include <OTC/collctn/prcursor.hh>
+#include <OTC/collctn/prcursor.c>
+
+OTC_HMap<OTC_String,OTC_Receiver*>
+#include <OTC/text/string.hh>
+#include <OTC/collctn/hmap.hh>
+#include <OTC/collctn/hmap.c>
+#include <OTC/dispatch/receiver.hh>
+
+OTC_PairCursor<OTC_String,OTC_Receiver*>
+#include <OTC/text/string.hh>
+#include <OTC/collctn/prcursor.hh>
+#include <OTC/collctn/prcursor.c>
+#include <OTC/dispatch/receiver.hh>
+
+OTC_PairBucket<OTC_String,OTC_Receiver*>
+#include <OTC/text/string.hh>
+#include <OTC/collctn/prbucket.hh>
+#include <OTC/collctn/prbucket.c>
+#include <OTC/dispatch/receiver.hh>
+
+OTC_KeyItemCursor< OTC_String,OTC_Receiver*,OTC_PairBucket<OTC_String,OTC_Receiver*> >
+#include <OTC/text/string.hh>
+#include <OTC/collctn/prbucket.hh>
+#include <OTC/collctn/kicursor.hh>
+#include <OTC/collctn/kicursor.c>
+#include <OTC/dispatch/receiver.hh>
+
+OTC_KeyCursor< OTC_String,OTC_PairBucket<OTC_String,OTC_Receiver*> >
+#include <OTC/text/string.hh>
+#include <OTC/collctn/prbucket.hh>
+#include <OTC/collctn/kcursor.hh>
+#include <OTC/collctn/kcursor.c>
+#include <OTC/dispatch/receiver.hh>
+
+OTC_ItemCursor< OTC_Receiver*,OTC_PairBucket<OTC_String,OTC_Receiver*> >
+#include <OTC/text/string.hh>
+#include <OTC/collctn/prbucket.hh>
+#include <OTC/collctn/icursor.hh>
+#include <OTC/collctn/icursor.c>
+#include <OTC/dispatch/receiver.hh>
+
+OTC_Cursor<OTC_Receiver*>
+#include <OTC/text/string.hh>
+#include <OTC/collctn/prbucket.hh>
+#include <OTC/collctn/cursor.hh>
+#include <OTC/collctn/cursor.c>
+#include <OTC/dispatch/receiver.hh>
+
+OTC_Bucket<OTC_Receiver*>
+#include <OTC/collctn/bucket.hh>
+#include <OTC/collctn/bucket.c>
+#include <OTC/dispatch/receiver.hh>
+
+OTC_HMap<OTC_String,OTC_EndPoint*>
+#include <OTC/text/string.hh>
+#include <OTC/collctn/hmap.hh>
+#include <OTC/collctn/hmap.c>
+#include <OTC/message/endpoint.hh>
+
+OTC_PairCursor<OTC_String,OTC_EndPoint*>
+#include <OTC/text/string.hh>
+#include <OTC/collctn/prcursor.hh>
+#include <OTC/collctn/prcursor.c>
+#include <OTC/message/endpoint.hh>
+
+OTC_PairBucket<OTC_String,OTC_EndPoint*>
+#include <OTC/text/string.hh>
+#include <OTC/collctn/prbucket.hh>
+#include <OTC/collctn/prbucket.c>
+#include <OTC/message/endpoint.hh>
+
+OTC_KeyItemCursor< OTC_String,OTC_EndPoint*,OTC_PairBucket<OTC_String,OTC_EndPoint*> >
+#include <OTC/text/string.hh>
+#include <OTC/collctn/prbucket.hh>
+#include <OTC/collctn/kicursor.hh>
+#include <OTC/collctn/kicursor.c>
+#include <OTC/message/endpoint.hh>
+
+OTC_KeyCursor< OTC_String,OTC_PairBucket<OTC_String,OTC_EndPoint*> >
+#include <OTC/text/string.hh>
+#include <OTC/collctn/prbucket.hh>
+#include <OTC/collctn/kcursor.hh>
+#include <OTC/collctn/kcursor.c>
+#include <OTC/message/endpoint.hh>
+
+OTC_ItemCursor< OTC_EndPoint*,OTC_PairBucket<OTC_String,OTC_EndPoint*> >
+#include <OTC/text/string.hh>
+#include <OTC/collctn/prbucket.hh>
+#include <OTC/collctn/icursor.hh>
+#include <OTC/collctn/icursor.c>
+#include <OTC/message/endpoint.hh>
+
+OTC_Cursor<OTC_EndPoint*>
+#include <OTC/text/string.hh>
+#include <OTC/collctn/prbucket.hh>
+#include <OTC/collctn/cursor.hh>
+#include <OTC/collctn/cursor.c>
+#include <OTC/message/endpoint.hh>
+
+OTC_HMap<OTC_String,OTC_Exchange*>
+#include <OTC/text/string.hh>
+#include <OTC/collctn/hmap.hh>
+#include <OTC/collctn/hmap.c>
+#include <OTC/message/exchange.hh>
+
+OTC_PairCursor<OTC_String,OTC_Exchange*>
+#include <OTC/text/string.hh>
+#include <OTC/collctn/prcursor.hh>
+#include <OTC/collctn/prcursor.c>
+#include <OTC/message/exchange.hh>
+
+OTC_PairBucket<OTC_String,OTC_Exchange*>
+#include <OTC/text/string.hh>
+#include <OTC/collctn/prbucket.hh>
+#include <OTC/collctn/prbucket.c>
+#include <OTC/message/exchange.hh>
+
+OTC_KeyItemCursor< OTC_String,OTC_Exchange*,OTC_PairBucket<OTC_String,OTC_Exchange*> >
+#include <OTC/text/string.hh>
+#include <OTC/collctn/prbucket.hh>
+#include <OTC/collctn/kicursor.hh>
+#include <OTC/collctn/kicursor.c>
+#include <OTC/message/exchange.hh>
+
+OTC_KeyCursor< OTC_String,OTC_PairBucket<OTC_String,OTC_Exchange*> >
+#include <OTC/text/string.hh>
+#include <OTC/collctn/prbucket.hh>
+#include <OTC/collctn/kcursor.hh>
+#include <OTC/collctn/kcursor.c>
+#include <OTC/message/exchange.hh>
+
+OTC_ItemCursor< OTC_Exchange*,OTC_PairBucket<OTC_String,OTC_Exchange*> >
+#include <OTC/text/string.hh>
+#include <OTC/collctn/prbucket.hh>
+#include <OTC/collctn/icursor.hh>
+#include <OTC/collctn/icursor.c>
+#include <OTC/message/exchange.hh>
+
+OTC_Cursor<OTC_Exchange*>
+#include <OTC/text/string.hh>
+#include <OTC/collctn/prbucket.hh>
+#include <OTC/collctn/cursor.hh>
+#include <OTC/collctn/cursor.c>
+#include <OTC/message/exchange.hh>
+
+OTC_HMap<OTC_String,OTC_EPServer*>
+#include <OTC/text/string.hh>
+#include <OTC/collctn/hmap.hh>
+#include <OTC/collctn/hmap.c>
+#include <OTC/message/epserver.hh>
+
+OTC_PairCursor<OTC_String,OTC_EPServer*>
+#include <OTC/text/string.hh>
+#include <OTC/collctn/prcursor.hh>
+#include <OTC/collctn/prcursor.c>
+#include <OTC/message/epserver.hh>
+
+OTC_PairBucket<OTC_String,OTC_EPServer*>
+#include <OTC/text/string.hh>
+#include <OTC/collctn/prbucket.hh>
+#include <OTC/collctn/prbucket.c>
+#include <OTC/message/epserver.hh>
+
+OTC_KeyItemCursor< OTC_String,OTC_EPServer*,OTC_PairBucket<OTC_String,OTC_EPServer*> >
+#include <OTC/text/string.hh>
+#include <OTC/collctn/prbucket.hh>
+#include <OTC/collctn/kicursor.hh>
+#include <OTC/collctn/kicursor.c>
+#include <OTC/message/epserver.hh>
+
+OTC_KeyCursor< OTC_String,OTC_PairBucket<OTC_String,OTC_EPServer*> >
+#include <OTC/text/string.hh>
+#include <OTC/collctn/prbucket.hh>
+#include <OTC/collctn/kcursor.hh>
+#include <OTC/collctn/kcursor.c>
+#include <OTC/message/epserver.hh>
+
+OTC_ItemCursor< OTC_EPServer*,OTC_PairBucket<OTC_String,OTC_EPServer*> >
+#include <OTC/text/string.hh>
+#include <OTC/collctn/prbucket.hh>
+#include <OTC/collctn/icursor.hh>
+#include <OTC/collctn/icursor.c>
+#include <OTC/message/epserver.hh>
+
+OTC_Cursor<OTC_EPServer*>
+#include <OTC/text/string.hh>
+#include <OTC/collctn/prbucket.hh>
+#include <OTC/collctn/cursor.hh>
+#include <OTC/collctn/cursor.c>
+#include <OTC/message/epserver.hh>
+
+OTC_HMap<OTC_String,OTC_EPRegistry*>
+#include <OTC/text/string.hh>
+#include <OTC/collctn/hmap.hh>
+#include <OTC/collctn/hmap.c>
+#include <OTC/message/eprgstry.hh>
+
+OTC_PairCursor<OTC_String,OTC_EPRegistry*>
+#include <OTC/text/string.hh>
+#include <OTC/collctn/prcursor.hh>
+#include <OTC/collctn/prcursor.c>
+#include <OTC/message/eprgstry.hh>
+
+OTC_PairBucket<OTC_String,OTC_EPRegistry*>
+#include <OTC/text/string.hh>
+#include <OTC/collctn/prbucket.hh>
+#include <OTC/collctn/prbucket.c>
+#include <OTC/message/eprgstry.hh>
+
+OTC_KeyItemCursor< OTC_String,OTC_EPRegistry*,OTC_PairBucket<OTC_String,OTC_EPRegistry*> >
+#include <OTC/text/string.hh>
+#include <OTC/collctn/prbucket.hh>
+#include <OTC/collctn/kicursor.hh>
+#include <OTC/collctn/kicursor.c>
+#include <OTC/message/eprgstry.hh>
+
+OTC_KeyCursor< OTC_String,OTC_PairBucket<OTC_String,OTC_EPRegistry*> >
+#include <OTC/text/string.hh>
+#include <OTC/collctn/prbucket.hh>
+#include <OTC/collctn/kcursor.hh>
+#include <OTC/collctn/kcursor.c>
+#include <OTC/message/eprgstry.hh>
+
+OTC_ItemCursor< OTC_EPRegistry*,OTC_PairBucket<OTC_String,OTC_EPRegistry*> >
+#include <OTC/text/string.hh>
+#include <OTC/collctn/prbucket.hh>
+#include <OTC/collctn/icursor.hh>
+#include <OTC/collctn/icursor.c>
+#include <OTC/message/eprgstry.hh>
+
+OTC_Cursor<OTC_EPRegistry*>
+#include <OTC/text/string.hh>
+#include <OTC/collctn/prbucket.hh>
+#include <OTC/collctn/cursor.hh>
+#include <OTC/collctn/cursor.c>
+#include <OTC/message/eprgstry.hh>
+
+OTC_HSet<OTC_EPListener*>
+#include <OTC/text/string.hh>
+#include <OTC/collctn/hset.hh>
+#include <OTC/collctn/hset.c>
+#include <OTC/message/eplisten.hh>
+
+OTC_ItemCursor< OTC_EPListener*,OTC_Bucket<OTC_EPListener*> >
+#include <OTC/text/string.hh>
+#include <OTC/collctn/bucket.hh>
+#include <OTC/collctn/icursor.hh>
+#include <OTC/collctn/icursor.c>
+#include <OTC/message/eplisten.hh>
+
+OTC_Cursor<OTC_EPListener*>
+#include <OTC/text/string.hh>
+#include <OTC/collctn/cursor.hh>
+#include <OTC/collctn/cursor.c>
+#include <OTC/message/eplisten.hh>
+
+OTC_Bucket<OTC_EPListener*>
+#include <OTC/text/string.hh>
+#include <OTC/collctn/bucket.hh>
+#include <OTC/collctn/bucket.c>
+#include <OTC/message/eplisten.hh>
+
+OTC_Bucket<OTC_EPRegistry*>
+#include <OTC/collctn/bucket.hh>
+#include <OTC/collctn/bucket.c>
+#include <OTC/message/eprgstry.hh>
+
+OTC_Bucket<OTC_EPServer*>
+#include <OTC/collctn/bucket.hh>
+#include <OTC/collctn/bucket.c>
+#include <OTC/message/epserver.hh>
+
+OTC_Bucket<OTC_Exchange*>
+#include <OTC/collctn/bucket.hh>
+#include <OTC/collctn/bucket.c>
+#include <OTC/message/exchange.hh>
+
+OTC_Bucket<OTC_EndPoint*>
+#include <OTC/collctn/bucket.hh>
+#include <OTC/collctn/bucket.c>
+#include <OTC/message/endpoint.hh>
+
+OTC_Bucket<OTC_String>
+#include <OTC/text/string.hh>
+#include <OTC/collctn/bucket.hh>
+#include <OTC/collctn/bucket.c>
+
+OTC_Cursor<OTC_String>
+#include <OTC/text/string.hh>
+#include <OTC/collctn/cursor.hh>
+#include <OTC/collctn/cursor.c>
+
+OTC_Deque<OTC_String>
+#include <OTC/text/string.hh>
+#include <OTC/collctn/deque.hh>
+#include <OTC/collctn/deque.c>
+
+OTC_ItemCursor< OTC_String,OTC_Bucket<OTC_String> >
+#include <OTC/collctn/icursor.hh>
+#include <OTC/collctn/icursor.c>
+#include <OTC/collctn/bucket.hh>
+#include <OTC/text/string.hh>
+
+OTC_List<OTC_String>
+#include <OTC/text/string.hh>
+#include <OTC/collctn/list.hh>
+#include <OTC/collctn/list.c>
+
+OTC_HIndexEntry<OTC_String>
+#include <OTC/text/string.hh>
+#include <OTC/collctn/hindexen.hh>
+#include <OTC/collctn/hindexen.c>
+
+OTC_HIndex<OTC_String>
+#include <OTC/text/string.hh>
+#include <OTC/collctn/hindex.hh>
+#include <OTC/collctn/hindex.c>
+
+OTC_HSet<OTC_String>
+#include <OTC/text/string.hh>
+#include <OTC/collctn/hset.hh>
+#include <OTC/collctn/hset.c>
+
+OTC_TMap<OTC_String,OTC_String>
+#include <OTC/text/string.hh>
+#include <OTC/collctn/tmap.hh>
+#include <OTC/collctn/tmap.c>
+
+OTC_PairCursor<OTC_String,OTC_String>
+#include <OTC/text/string.hh>
+#include <OTC/collctn/prcursor.hh>
+#include <OTC/collctn/prcursor.c>
+
+OTC_PairBucket<OTC_String,OTC_String>
+#include <OTC/text/string.hh>
+#include <OTC/collctn/prbucket.hh>
+#include <OTC/collctn/prbucket.c>
+
+OTC_KeyItemCursor< OTC_String,OTC_String,OTC_PairBucket<OTC_String,OTC_String> >
+#include <OTC/text/string.hh>
+#include <OTC/collctn/prbucket.hh>
+#include <OTC/collctn/kicursor.hh>
+#include <OTC/collctn/kicursor.c>
+
+OTC_KeyCursor< OTC_String,OTC_PairBucket<OTC_String,OTC_String> >
+#include <OTC/text/string.hh>
+#include <OTC/collctn/prbucket.hh>
+#include <OTC/collctn/kcursor.hh>
+#include <OTC/collctn/kcursor.c>
+
+OTC_ItemCursor< OTC_String,OTC_PairBucket<OTC_String,OTC_String> >
+#include <OTC/text/string.hh>
+#include <OTC/collctn/prbucket.hh>
+#include <OTC/collctn/icursor.hh>
+#include <OTC/collctn/icursor.c>
+
+OTC_HMap<OTC_String,OTC_ServiceBinding*>
+#include <OTC/text/string.hh>
+#include <OTC/collctn/hmap.hh>
+#include <OTC/collctn/hmap.c>
+#include <OTC/dispatch/servbind.hh>
+
+OTC_PairCursor<OTC_String,OTC_ServiceBinding*>
+#include <OTC/text/string.hh>
+#include <OTC/collctn/prcursor.hh>
+#include <OTC/collctn/prcursor.c>
+#include <OTC/dispatch/servbind.hh>
+
+OTC_PairBucket<OTC_String,OTC_ServiceBinding*>
+#include <OTC/text/string.hh>
+#include <OTC/collctn/prbucket.hh>
+#include <OTC/collctn/prbucket.c>
+#include <OTC/dispatch/servbind.hh>
+
+OTC_KeyItemCursor< OTC_String,OTC_ServiceBinding*,OTC_PairBucket<OTC_String,OTC_ServiceBinding*> >
+#include <OTC/text/string.hh>
+#include <OTC/collctn/prbucket.hh>
+#include <OTC/collctn/kicursor.hh>
+#include <OTC/collctn/kicursor.c>
+#include <OTC/dispatch/servbind.hh>
+
+OTC_KeyCursor< OTC_String,OTC_PairBucket<OTC_String,OTC_ServiceBinding*> >
+#include <OTC/text/string.hh>
+#include <OTC/collctn/prbucket.hh>
+#include <OTC/collctn/kcursor.hh>
+#include <OTC/collctn/kcursor.c>
+#include <OTC/dispatch/servbind.hh>
+
+OTC_ItemCursor< OTC_ServiceBinding*,OTC_PairBucket<OTC_String,OTC_ServiceBinding*> >
+#include <OTC/text/string.hh>
+#include <OTC/collctn/prbucket.hh>
+#include <OTC/collctn/icursor.hh>
+#include <OTC/collctn/icursor.c>
+#include <OTC/dispatch/servbind.hh>
+
+OTC_Cursor<OTC_ServiceBinding*>
+#include <OTC/text/string.hh>
+#include <OTC/collctn/prbucket.hh>
+#include <OTC/collctn/cursor.hh>
+#include <OTC/collctn/cursor.c>
+#include <OTC/dispatch/servbind.hh>
+
+OTC_Deque<OTC_ServiceBinding*>
+#include <OTC/dispatch/servbind.hh>
+#include <OTC/collctn/deque.hh>
+#include <OTC/collctn/deque.c>
+
+OTC_Bucket<OTC_ServiceBinding*>
+#include <OTC/collctn/bucket.hh>
+#include <OTC/collctn/bucket.c>
+#include <OTC/dispatch/servbind.hh>
+
+OTC_ItemCursor< OTC_ServiceBinding*,OTC_Bucket<OTC_ServiceBinding*> >
+#include <OTC/collctn/bucket.hh>
+#include <OTC/collctn/icursor.hh>
+#include <OTC/collctn/icursor.c>
+#include <OTC/dispatch/servbind.hh>
+
+OTC_TDualMap<OTC_String,int>
+#include <OTC/text/string.hh>
+#include <OTC/collctn/tdualmap.hh>
+#include <OTC/collctn/tdualmap.c>
+
+OTC_PairBucket<OTC_String,int>
+#include <OTC/text/string.hh>
+#include <OTC/collctn/prbucket.hh>
+#include <OTC/collctn/prbucket.c>
+
+OTC_PairCursor<OTC_String,int>
+#include <OTC/text/string.hh>
+#include <OTC/collctn/prcursor.hh>
+#include <OTC/collctn/prcursor.c>
+
+OTC_ItemCursor< int,OTC_PairBucket<OTC_String,int> >
+#include <OTC/collctn/prbucket.hh>
+#include <OTC/collctn/icursor.hh>
+#include <OTC/collctn/icursor.c>
+#include <OTC/text/string.hh>
+
+OTC_KeyCursor< OTC_String,OTC_PairBucket<OTC_String,int> >
+#include <OTC/collctn/prbucket.hh>
+#include <OTC/collctn/kcursor.hh>
+#include <OTC/collctn/kcursor.c>
+#include <OTC/text/string.hh>
+
+OTC_KeyItemCursor< OTC_String,int,OTC_PairBucket<OTC_String,int> >
+#include <OTC/collctn/prbucket.hh>
+#include <OTC/collctn/kicursor.hh>
+#include <OTC/collctn/kicursor.c>
+#include <OTC/text/string.hh>
+
+OTC_Bucket<int>
+#include <OTC/collctn/bucket.hh>
+#include <OTC/collctn/bucket.c>
+
+OTC_TManyMap<OTC_String,OTC_ServiceBinding*>
+#include <OTC/text/string.hh>
+#include <OTC/collctn/tmanymap.hh>
+#include <OTC/collctn/tmanymap.c>
+#include <OTC/dispatch/servbind.hh>
+
+OTC_TDualMap<OTC_String,OTC_ServiceBinding*>
+#include <OTC/text/string.hh>
+#include <OTC/collctn/tdualmap.hh>
+#include <OTC/collctn/tdualmap.c>
+#include <OTC/dispatch/servbind.hh>
+
+OTC_TManyMap<OTC_String,OTC_String>
+#include <OTC/text/string.hh>
+#include <OTC/collctn/tmanymap.hh>
+#include <OTC/collctn/tmanymap.c>
+
+OTC_OrderedList<OTC_ServiceBinding*>
+#include <OTC/dispatch/servbind.hh>
+#include <OTC/collctn/ordlist.hh>
+#include <OTC/collctn/ordlist.c>
+
+OTC_HMap<OTC_String,OTC_String>
+#include <OTC/text/string.hh>
+#include <OTC/collctn/hmap.hh>
+#include <OTC/collctn/hmap.c>
+
+OTC_TDualMap<OTC_String,OTC_String>
+#include <OTC/text/string.hh>
+#include <OTC/collctn/tdualmap.hh>
+#include <OTC/collctn/tdualmap.c>
+
+OTC_KeyCursor<OTC_String,OTC_SILink>
+#include <OTC/text/silink.hh>
+#include <OTC/collctn/kcursor.hh>
+#include <OTC/collctn/kcursor.c>
+
+OTC_KeyCursor<OTC_String,OTC_SVLink>
+#include <OTC/text/svlink.hh>
+#include <OTC/collctn/kcursor.hh>
+#include <OTC/collctn/kcursor.c>
+
+OTC_KeyCursor<int,OTC_IVLink>
+#include <OTC/collctn/ivlink.hh>
+#include <OTC/collctn/kcursor.hh>
+#include <OTC/collctn/kcursor.c>
+
+OTC_ItemCursor<int,OTC_SILink>
+#include <OTC/text/silink.hh>
+#include <OTC/collctn/icursor.hh>
+#include <OTC/collctn/icursor.c>
+
+OTC_ItemCursor<void*,OTC_SVLink>
+#include <OTC/text/svlink.hh>
+#include <OTC/collctn/icursor.hh>
+#include <OTC/collctn/icursor.c>
+
+OTC_ItemCursor<void*,OTC_IVLink>
+#include <OTC/collctn/ivlink.hh>
+#include <OTC/collctn/icursor.hh>
+#include <OTC/collctn/icursor.c>
+
+OTC_KeyItemCursor<OTC_String,int,OTC_SILink>
+#include <OTC/text/silink.hh>
+#include <OTC/collctn/kicursor.hh>
+#include <OTC/collctn/kicursor.c>
+
+OTC_KeyItemCursor<OTC_String,void*,OTC_SVLink>
+#include <OTC/text/svlink.hh>
+#include <OTC/collctn/kicursor.hh>
+#include <OTC/collctn/kicursor.c>
+
+OTC_KeyItemCursor<int,void*,OTC_IVLink>
+#include <OTC/collctn/ivlink.hh>
+#include <OTC/collctn/kicursor.hh>
+#include <OTC/collctn/kicursor.c>
+
+OTC_PairCursor<OTC_String,int>
+#include <OTC/text/string.hh>
+#include <OTC/collctn/prcursor.hh>
+#include <OTC/collctn/prcursor.c>
+
+OTC_PairCursor<OTC_String,void*>
+#include <OTC/text/string.hh>
+#include <OTC/collctn/prcursor.hh>
+#include <OTC/collctn/prcursor.c>
+
+OTC_PairCursor<int,void*>
+#include <OTC/collctn/prcursor.hh>
+#include <OTC/collctn/prcursor.c>
+
+OTC_Cursor<void*>
+#include <OTC/collctn/cursor.hh>
+#include <OTC/collctn/cursor.c>
+
+OTC_HMap<OTC_String,OTC_SVRegistrySubscription*>
+#include <OTC/text/string.hh>
+#include <OTC/collctn/hmap.hh>
+#include <OTC/collctn/hmap.c>
+#include <OTC/dispatch/svregsub.hh>
+
+OTC_PairCursor<OTC_String,OTC_SVRegistrySubscription*>
+#include <OTC/text/string.hh>
+#include <OTC/collctn/prcursor.hh>
+#include <OTC/collctn/prcursor.c>
+#include <OTC/dispatch/svregsub.hh>
+
+OTC_PairBucket<OTC_String,OTC_SVRegistrySubscription*>
+#include <OTC/text/string.hh>
+#include <OTC/collctn/prbucket.hh>
+#include <OTC/collctn/prbucket.c>
+#include <OTC/dispatch/svregsub.hh>
+
+OTC_KeyItemCursor< OTC_String,OTC_SVRegistrySubscription*,OTC_PairBucket<OTC_String,OTC_SVRegistrySubscription*> >
+#include <OTC/text/string.hh>
+#include <OTC/collctn/prbucket.hh>
+#include <OTC/collctn/kicursor.hh>
+#include <OTC/collctn/kicursor.c>
+#include <OTC/dispatch/svregsub.hh>
+
+OTC_KeyCursor< OTC_String,OTC_PairBucket<OTC_String,OTC_SVRegistrySubscription*> >
+#include <OTC/text/string.hh>
+#include <OTC/collctn/prbucket.hh>
+#include <OTC/collctn/kcursor.hh>
+#include <OTC/collctn/kcursor.c>
+#include <OTC/dispatch/svregsub.hh>
+
+OTC_ItemCursor< OTC_SVRegistrySubscription*,OTC_PairBucket<OTC_String,OTC_SVRegistrySubscription*> >
+#include <OTC/text/string.hh>
+#include <OTC/collctn/prbucket.hh>
+#include <OTC/collctn/icursor.hh>
+#include <OTC/collctn/icursor.c>
+#include <OTC/dispatch/svregsub.hh>
+
+OTC_Cursor<OTC_SVRegistrySubscription*>
+#include <OTC/text/string.hh>
+#include <OTC/collctn/prbucket.hh>
+#include <OTC/collctn/cursor.hh>
+#include <OTC/collctn/cursor.c>
+#include <OTC/dispatch/svregsub.hh>
+
+OTC_Bucket<OTC_SVRegistrySubscription*>
+#include <OTC/collctn/bucket.hh>
+#include <OTC/collctn/bucket.c>
+#include <OTC/dispatch/svregsub.hh>

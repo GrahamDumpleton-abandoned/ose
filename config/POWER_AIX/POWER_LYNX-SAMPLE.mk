@@ -1,0 +1,220 @@
+#
+# General definitions.
+#
+
+# System type.
+
+ENV_SYSTEM = UNIX
+
+# Installation directory.
+
+#OSE_ROOT_DIRECTORY = /usr/local/ose
+#OSE_RELEASE_DIRECTORY = tst
+
+# Default and desired C++ compilers.
+
+DEFAULTC++COMPILER = GNU2.7.2
+C++COMPILERS = GNU2.7.2
+
+# Default and desired compilation variants.
+
+DEFAULTVARIANT = dbg
+VARIANTS = dbg opt prf std
+
+#
+# Default library management definitions.
+#
+
+define DEFAULT_LIB_CLOSURE
+endef
+
+define DEFAULT_LIB_ARCHIVE
+$(AR) rv @LIB@ @OBJECTS@
+endef
+
+define DEFAULT_LIB_EXTRACT
+$(AR) xv @LIB@
+endef
+
+define DEFAULT_PIC_CLOSURE
+endef
+
+define DEFAULT_PIC_ARCHIVE
+$(AR) rv @LIB@ @OBJECTS@
+endef
+
+define DEFAULT_PIC_EXTRACT
+$(AR) xv @LIB@
+endef
+
+define DEFAULT_PIC_LIBRARY
+exit 1; *** do not know how to create shared library ***
+endef
+
+#
+# Tool definitions.
+#
+
+STRIP = /CETIA604/CROSS/strip
+
+#
+# Compiler definitions.
+#
+
+# GNU C++ 2.7.2.
+
+ifeq "$(C++COMPILERENV)" ""
+
+GNU2.7.2_VARIANTS = dbg opt prf std
+GNU2.7.2_PIC_VARIANTS =
+
+GNU2.7.2_ENV_OODBMS =
+
+GNU2.7.2_OPT_LIBRARIES =
+
+GNU2.7.2_C++ = /CETIA604/CROSS/g++
+GNU2.7.2_CC = /CETIA604/CROSS/gcc
+GNU2.7.2_LD = /CETIA604/CROSS/g++
+GNU2.7.2_AR = /CETIA604/CROSS/ar
+
+GNU2.7.2_CPPFLAGS =
+GNU2.7.2_CFLAGS = -B/CETIA604/CROSS/ -mcpu=powerpc
+GNU2.7.2_C++FLAGS = -B/CETIA604/CROSS/ -mcpu=powerpc
+GNU2.7.2_LDFLAGS =
+GNU2.7.2_LDLIBS =
+
+GNU2.7.2_PIC_CPPFLAGS =
+GNU2.7.2_PIC_CFLAGS =
+GNU2.7.2_PIC_C++FLAGS =
+GNU2.7.2_PIC_LDFLAGS =
+GNU2.7.2_PIC_LDLIBS =
+
+GNU2.7.2_CPPFLAGS_dbg =
+GNU2.7.2_CFLAGS_dbg = -g
+GNU2.7.2_C++FLAGS_dbg = -g
+GNU2.7.2_LDFLAGS_dbg =
+GNU2.7.2_LDLIBS_dbg =
+
+GNU2.7.2_CPPFLAGS_opt = -DNDEBUG
+GNU2.7.2_CFLAGS_opt = -O
+GNU2.7.2_C++FLAGS_opt = -O
+GNU2.7.2_LDFLAGS_opt =
+GNU2.7.2_LDLIBS_opt =
+
+GNU2.7.2_CPPFLAGS_prf =
+GNU2.7.2_CFLAGS_prf = -p
+GNU2.7.2_C++FLAGS_prf = -p
+GNU2.7.2_LDFLAGS_prf =
+GNU2.7.2_LDLIBS_prf =
+
+GNU2.7.2_CPPFLAGS_std =
+GNU2.7.2_CFLAGS_std =
+GNU2.7.2_C++FLAGS_std =
+GNU2.7.2_LDFLAGS_std =
+GNU2.7.2_LDLIBS_std =
+
+endif
+
+ifeq "$(C++COMPILERENV)" "PPC604"
+
+GNU2.7.2_VARIANTS = dbg opt prf std
+GNU2.7.2_PIC_VARIANTS =
+
+GNU2.7.2_ENV_OODBMS =
+
+GNU2.7.2_OPT_LIBRARIES =
+
+GNU2.7.2_C++ = /CETIA604/CROSS/g++
+GNU2.7.2_CC = /CETIA604/CROSS/gcc
+GNU2.7.2_LD = /CETIA604/CROSS/g++
+GNU2.7.2_AR = /CETIA604/CROSS/ar
+
+GNU2.7.2_CPPFLAGS =
+GNU2.7.2_CFLAGS = -B/CETIA604/CROSS/ -mcpu=604
+GNU2.7.2_C++FLAGS = -B/CETIA604/CROSS/ -mcpu=604
+GNU2.7.2_LDFLAGS =
+GNU2.7.2_LDLIBS =
+
+GNU2.7.2_PIC_CPPFLAGS =
+GNU2.7.2_PIC_CFLAGS =
+GNU2.7.2_PIC_C++FLAGS =
+GNU2.7.2_PIC_LDFLAGS =
+GNU2.7.2_PIC_LDLIBS =
+
+GNU2.7.2_CPPFLAGS_dbg =
+GNU2.7.2_CFLAGS_dbg = -g
+GNU2.7.2_C++FLAGS_dbg = -g
+GNU2.7.2_LDFLAGS_dbg =
+GNU2.7.2_LDLIBS_dbg =
+
+GNU2.7.2_CPPFLAGS_opt = -DNDEBUG
+GNU2.7.2_CFLAGS_opt = -O4
+GNU2.7.2_C++FLAGS_opt = -O4
+GNU2.7.2_LDFLAGS_opt =
+GNU2.7.2_LDLIBS_opt =
+
+GNU2.7.2_CPPFLAGS_prf =
+GNU2.7.2_CFLAGS_prf = -p
+GNU2.7.2_C++FLAGS_prf = -p
+GNU2.7.2_LDFLAGS_prf =
+GNU2.7.2_LDLIBS_prf =
+
+GNU2.7.2_CPPFLAGS_std =
+GNU2.7.2_CFLAGS_std =
+GNU2.7.2_C++FLAGS_std =
+GNU2.7.2_LDFLAGS_std =
+GNU2.7.2_LDLIBS_std =
+
+endif
+
+ifeq "$(C++COMPILERENV)" "PTHREAD"
+
+GNU2.7.2_VARIANTS = dbg opt prf std
+GNU2.7.2_PIC_VARIANTS =
+
+GNU2.7.2_ENV_OODBMS =
+
+GNU2.7.2_OPT_LIBRARIES =
+
+GNU2.7.2_C++ = /CETIA604/CROSS/g++
+GNU2.7.2_CC = /CETIA604/CROSS/gcc
+GNU2.7.2_LD = /CETIA604/CROSS/g++
+GNU2.7.2_AR = /CETIA604/CROSS/ar
+
+GNU2.7.2_CPPFLAGS = -DHAVE_POSIX_THREADS
+GNU2.7.2_CFLAGS = -B/CETIA604/CROSS/ -mcpu=powerpc -mthreads -mposix
+GNU2.7.2_C++FLAGS = -B/CETIA604/CROSS/ -mcpu=powerpc -mthreads -mposix
+GNU2.7.2_LDFLAGS =
+GNU2.7.2_LDLIBS =
+
+GNU2.7.2_PIC_CPPFLAGS =
+GNU2.7.2_PIC_CFLAGS =
+GNU2.7.2_PIC_C++FLAGS =
+GNU2.7.2_PIC_LDFLAGS =
+GNU2.7.2_PIC_LDLIBS =
+
+GNU2.7.2_CPPFLAGS_dbg =
+GNU2.7.2_CFLAGS_dbg = -g
+GNU2.7.2_C++FLAGS_dbg = -g
+GNU2.7.2_LDFLAGS_dbg =
+GNU2.7.2_LDLIBS_dbg =
+
+GNU2.7.2_CPPFLAGS_opt = -DNDEBUG
+GNU2.7.2_CFLAGS_opt = -O
+GNU2.7.2_C++FLAGS_opt = -O
+GNU2.7.2_LDFLAGS_opt =
+GNU2.7.2_LDLIBS_opt =
+
+GNU2.7.2_CPPFLAGS_prf =
+GNU2.7.2_CFLAGS_prf = -p
+GNU2.7.2_C++FLAGS_prf = -p
+GNU2.7.2_LDFLAGS_prf =
+GNU2.7.2_LDLIBS_prf =
+
+GNU2.7.2_CPPFLAGS_std =
+GNU2.7.2_CFLAGS_std =
+GNU2.7.2_C++FLAGS_std =
+GNU2.7.2_LDFLAGS_std =
+GNU2.7.2_LDLIBS_std =
+
+endif

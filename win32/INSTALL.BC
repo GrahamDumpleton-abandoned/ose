@@ -1,0 +1,76 @@
+To be able to compile and use just the C++ libraries from OSE on the Win32
+platform, using Borland C++ you should follow the steps below.
+
+Note that testing for Borland C++ isn't ever done so it may be necessary
+to make changes to the code or makefiles in order to get it to work.
+
+Move the source code to the directory \ose\src. Change to the
+directory \ose\src\ose-7.0\win32. This should now be the directory in
+which this file is located. There should also be a file `BC.MAK' in this
+directory.
+
+Check the file `BC.MAK' to see if the options are as you desire. The
+options that can be turned on are:
+
+  DEBUG         - Will compile debug versions of library instead of
+		  optimised.
+
+  THREADS	- Will compile in support for Win32 threads.
+
+  EXCEPTIONS	- Will compile in support for C++ exceptions.
+
+To enable a particular option, make sure the variable is being set to `YES'.
+
+Note that by default, it is assumed that the version of Borland C++ being
+used supports the "bool" type and that it supports the standard C++ library
+convention for header file inclusion, ie., use <iostream> instead of using
+<iostream.h>. If your C++ compiler does not support "bool" delete the
+preprocessor flag "-DHAVE_BOOL" from the file "CFLAGS.LST". If your C++
+compiler does not support using <iostream>, delete the "-DHAVE_CXSTDLIB"
+from the "CFLAGS.LST" file.
+
+Also make sure the path to the compiler and librarian are correct.
+
+Run Borland Make to build everything.
+
+  make -f BC.MAK lib
+
+If everything went okay, remove all the obj files from the directory.
+
+To use the library, you will need to set/add the following in Borlands IDE.
+Note that some options should only be defined if you had enabled certain
+options.
+
+  1: Include directories.
+
+       \ose\src\ose-7.0\config\X86_WIN32
+       \ose\src\ose-7.0\include
+
+     Equivalent if you are using a makefile and not the IDE, is:
+
+       -I\ose\src\ose-7.0\config\X86_WIN32
+       -I\ose\src\ose-7.0\include
+
+  2: Preprocessor flags.
+
+       EXPAND_TEMPLATES
+       HAVE_WIN32_THREADS		# Only if THREADS was set to YES.
+       HAVE_EXCEPTIONS			# Only if EXCEPTIONS was set to YES.
+
+     Equivalent if you are using a makefile and not the IDE, is:
+
+       -DEXPAND_TEMPLATES
+       -DHAVE_WIN32_THREADS		# Only if THREADS was set to YES.
+       -DHAVE_EXCEPTIONS		# Only if EXCEPTIONS was set to YES.
+
+  3: Compiler flags.
+
+       Multithreaded			# Only if THREADS was set to YES.
+
+     Equivalent if you are using a makefile and not the IDE, is:
+
+       -tWM				# Only if THREADS was set to YES.
+
+  4: Library.
+
+       \ose\src\ose-7.0\win32\OSEB70.LIB

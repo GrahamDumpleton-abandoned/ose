@@ -1,0 +1,25 @@
+
+Usage:
+
+  mksrc [ -DNAME -DNAME=VALUE ] filename
+
+Generator:
+
+  mkmakefile
+
+Variables:
+
+  AUTHOR
+
+    Defaults to that defined by mksrc through the MKSRC_AUTHOR environment
+    variable. Used in the AUTHOR comment field.
+
+  ORGANISATION
+  
+    Defaults to "CHANGE ME QUICK SOFTWARE". Used in the COPYRIGHT
+    comment field.
+
+  YEAR
+  
+    Defaults to the current year. Used in the COPYRIGHT comment field.
+

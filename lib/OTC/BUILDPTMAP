@@ -1,0 +1,41 @@
+#! /bin/sh
+
+if test $# = 1
+then
+  echo "Usage: buildptmap file ..." 1>&2
+fi
+
+TMPFILE=/tmp/PTMAP.$$
+rm -f $TMPFILE
+
+for i in $*
+do
+  echo "reading $i" 1>&2
+  cat $i |
+  gawk '
+    $1 ~ "^@tab$" {
+      getline
+      while ( $0 !~ "^@etab$" )
+        getline
+      next
+    }
+    $1 ~ "^@de.*$" {
+      line = $2 " " $1
+      while ( $0 ~ "^.*\\\\$" )
+	getline
+      getline
+      sub( "^\"", "<", $0 )
+      sub( "\"$", ">", $0 )
+      line = line " " $0
+      print line
+      next
+    }' >> $TMPFILE
+done
+
+sort -u $TMPFILE | gawk '
+  {
+    if ( $3 ~ "<[^/]*/[^/]*/[^/]*>" )
+      print $2 " " $1 "\n" $3
+  }'
+
+rm $TMPFILE

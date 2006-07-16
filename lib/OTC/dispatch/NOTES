@@ -1,0 +1,180 @@
+This file contains details of the sigaction struct defined with various
+compiler/platform combinations. The important bit is how sa_handler is
+defined.
+
+  HPUX
+
+    #define hpux 1
+
+    #if defined(__STDC__) && !defined(_INCLUDE_HPUX_SOURCE) ||
+    defined(__cplusplus)
+    #  define __harg        int
+    #else /* not __STDC__ && not _INCLUDE_HPUX_SOURCE || __cplusplus */
+    #  define __harg        /* nothing */
+    #endif /* not __STDC__ && not _INCLUDE_HPUX_SOURCE || __cplusplus */
+
+    struct sigaction {
+	void  (*sa_handler)(__harg);
+       sigset_t   sa_mask;
+	int       sa_flags;
+    };
+
+  SCO
+
+    #define M_XENIX 1
+
+    #if defined(__STDC__) && !defined(_NO_PROTOTYPE)
+    #define __SIG_FTN (void(*)(int))
+    #else
+    #define __SIG_FTN (void(*)())
+    #endif /* defined(__STDC__) && !defined(_NO_PROTOTYPE) */
+
+    struct  sigaction {
+    #if defined(__STDC__) && !defined(_NO_PROTOTYPE)
+	    void    (*sa_handler)(int);        /* signal handler */
+    #else
+	    void    (*sa_handler)();        /* signal handler */
+    #endif /* defined(__STDC__) && !defined(_NO_PROTOTYPE) */
+	    sigset_t sa_mask;               /* signal mask to apply */
+	    int     sa_flags;               /* see signal options below */
+    };
+
+  SunOS 4.1.X
+
+    AT&T 2.1
+    AT&T 3.0.1
+    CenterLine C++ 2.0
+    ObjectStore C++ 2.0
+
+    typedef void SIG_FUNC_TYP(int);
+    typedef SIG_FUNC_TYP *SIG_TYP;
+    #define SIG_PF SIG_TYP
+
+    struct  sigaction {
+	    void            (*sa_handler)();
+	    sigset_t        sa_mask;
+	    int             sa_flags;
+    };
+
+    Sun C++ 2.1
+    Sun C++ 3.0.1
+
+    typedef void    SIG_FUNC_TYP (int,DOTDOTDOT);
+    typedef SIG_FUNC_TYP*   SIG_PF;
+
+    struct  sigaction {
+	    void            (*sa_handler)(DOTDOTDOT);
+	    sigset_t        sa_mask;
+	    int             sa_flags;
+    };
+
+  SunOS 5.1
+
+    typedef void SIG_FUNC_TYP(int);
+    typedef SIG_FUNC_TYP *SIG_TYP;
+    #define SIG_PF SIG_TYP
+
+    struct sigaction {
+	    int sa_flags;
+	    void (*sa_handler)();
+	    sigset_t sa_mask;
+	    int sa_resv[2];
+    };
+
+  SunOS 5.3
+
+    typedef void SIG_FUNC_TYP(int);
+    typedef SIG_FUNC_TYP *SIG_TYP;
+    #define SIG_PF SIG_TYP
+
+    struct sigaction {
+	    int sa_flags;
+	    union {
+		    void (*_handler)();
+    #if ((__STDC__-0==0) && !defined(_POSIX_C_SOURCE)) || (_POSIX_C_SOURCE>2)
+		   void (*_sigaction)(int, siginfo_t *, void *);
+    #endif
+	    }       _funcptr;
+	    sigset_t sa_mask;
+	    int sa_resv[2];
+    };
+    #define sa_handler      _funcptr._handler
+    #define sa_sigaction    _funcptr._sigaction
+
+  Tandem
+
+    #define __nonstopux 1
+
+    struct sigaction {
+	    int sa_flags;
+	    void (*sa_handler)_EXTERN_ARGS((int sig));
+	    sigset_t sa_mask;
+	    int sa_resv[2];
+    };
+
+  SGI 6.0
+
+    #if defined(_LANGUAGE_C_PLUS_PLUS)
+    #define _sigargs        ...
+    #else
+    #define _sigargs        
+    #endif /* _LANGUAGE_C_PLUS_PLUS) */
+
+    #ifndef __sigret_t
+    #define __sigret_t      void
+    #endif
+
+    typedef struct {
+	    __uint32_t sigbits[4];
+    } sigset_t;
+
+    typedef struct sigaction {
+	    int sa_flags;
+	    __sigret_t (*sa_handler)(_sigargs);
+	    sigset_t sa_mask;
+	    int sa_resv[2];
+    } sigaction_t;
+
+  SGI 7.0
+
+    #if defined(_LANGUAGE_C_PLUS_PLUS)
+    #define __sigargs        int
+    #else
+    #define __sigargs        
+    #endif /* _LANGUAGE_C_PLUS_PLUS) */
+
+    #ifndef __sigret_t
+    #define __sigret_t      void
+    #endif
+
+    typedef struct {
+	    __uint32_t sigbits[4];
+    } sigset_t;
+
+    typedef struct sigaction {
+	    int sa_flags;
+	    __sigret_t (*sa_handler)(__sigargs);
+	    sigset_t sa_mask;
+	    int sa_resv[2];
+    } sigaction_t;
+
+  AIX
+
+    #ifndef _MBI                /* signals might be ints or voids */
+    #define _MBI int            /* use -D_MBI=void for void signal handlers */
+    #endif /* _MBI */
+
+    struct sigaction {
+    #ifdef  _NONSTD_TYPES
+	    _MBI    (*sa_handler)();
+    #else   /* ~_NONSTD_TYPES */
+    #ifdef  _NO_PROTO
+	    void    (*sa_handler)();
+    #else   /* ~NO_PROTO */
+	    void    (*sa_handler)(int);
+    #endif  /* NO_PROTO */
+    #endif  /* _NONSTD_TYPES */
+
+	    sigset_t sa_mask;
+	    int     sa_flags;
+    };

@@ -1,0 +1,3 @@
+# Copyright 1996 DUMPLETON SOFTWARE CONSULTING PTY LIMITED
+
+include $(OSE_MAKEIT)/modules.mk

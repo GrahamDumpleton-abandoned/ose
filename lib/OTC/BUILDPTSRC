@@ -1,0 +1,42 @@
+BEGIN {
+  FS="\n"; RS=""
+}
+
+{
+  print NR " " $1
+
+  file = sprintf("otctpl%05d.cc",NR)
+
+  print "#undef EXPAND_TEMPLATES" > file
+
+  print "" >> file
+
+  for ( i=2; i<=NF; i++)
+    print $i >> file
+
+  print "" >> file
+
+  print "#undef FINISHED" >> file
+
+  print "" >> file
+
+  print "#if defined(CXX_DEC)" >> file
+  print "#pragma define_template " $1 >> file
+  print "#define FINISHED" >> file
+  print "#endif" >> file
+
+  print "" >> file
+
+  print "#if defined(CXX_XL)" >> file
+  print "#pragma define(" $1 ")" >> file
+  print "#define FINISHED" >> file
+  print "#endif" >> file
+
+  print "" >> file
+
+  print "#if !defined(FINISHED)" >> file
+  print "template class " $1 ";" >> file
+  print "#endif" >> file
+
+  close(file)
+}

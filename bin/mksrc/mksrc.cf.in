@@ -1,0 +1,33 @@
+*.h		mkheader@CMDEXT@	mkheader.hlp
+*.hh		mkheader@CMDEXT@	mkheader.hlp
+*.hxx		mkheader@CMDEXT@	mkheader.hlp
+*.hpp		mkheader@CMDEXT@	mkheader.hlp
+*.H		mkheader@CMDEXT@	mkheader.hlp
+
+*.c		mksource@CMDEXT@	mksource.hlp
+*.cc		mksource@CMDEXT@	mksource.hlp
+*.cxx		mksource@CMDEXT@	mksource.hlp
+*.cpp		mksource@CMDEXT@	mksource.hlp
+*.C		mksource@CMDEXT@	mksource.hlp
+
+makeit.mk	mkmakefile@CMDEXT@	mkmakefile.hlp
+Makeit.mk	mkmakefile@CMDEXT@	mkmakefile.hlp
+makefile	mkmakefile@CMDEXT@	mkmakefile.hlp
+Makefile	mkmakefile@CMDEXT@	mkmakefile.hlp
+
+ose/*.h		mkheader@CMDEXT@	mkheader.hlp
+ose/*.hh	mkheader@CMDEXT@	mkheader.hlp
+ose/*.hxx	mkheader@CMDEXT@	mkheader.hlp
+ose/*.hpp	mkheader@CMDEXT@	mkheader.hlp
+ose/*.H		mkheader@CMDEXT@	mkheader.hlp
+
+ose/*.c		mksource@CMDEXT@	mksource.hlp
+ose/*.cc	mksource@CMDEXT@	mksource.hlp
+ose/*.cxx	mksource@CMDEXT@	mksource.hlp
+ose/*.cpp	mksource@CMDEXT@	mksource.hlp
+ose/*.C		mksource@CMDEXT@	mksource.hlp
+
+ose/makeit.mk	mkmakefile@CMDEXT@	mkmakefile.hlp
+ose/Makeit.mk	mkmakefile@CMDEXT@	mkmakefile.hlp
+ose/makefile	mkmakefile@CMDEXT@	mkmakefile.hlp
+ose/Makefile	mkmakefile@CMDEXT@	mkmakefile.hlp

@@ -1,0 +1,31 @@
+OTC_HMap<int,int>
+#include <OTC/collctn/hmap.hh>
+#include <OTC/collctn/hmap.c>
+
+OTC_PairCursor<int,int>
+#include <OTC/collctn/prcursor.hh>
+#include <OTC/collctn/prcursor.c>
+
+OTC_PairBucket<int,int>
+#include <OTC/collctn/prbucket.hh>
+#include <OTC/collctn/prbucket.c>
+
+OTC_KeyItemCursor< int,int,OTC_PairBucket<int,int> >
+#include <OTC/collctn/prbucket.hh>
+#include <OTC/collctn/kicursor.hh>
+#include <OTC/collctn/kicursor.c>
+
+OTC_KeyCursor< int,OTC_PairBucket<int,int> >
+#include <OTC/collctn/prbucket.hh>
+#include <OTC/collctn/kcursor.hh>
+#include <OTC/collctn/kcursor.c>
+
+OTC_ItemCursor< int,OTC_PairBucket<int,int> >
+#include <OTC/collctn/prbucket.hh>
+#include <OTC/collctn/icursor.hh>
+#include <OTC/collctn/icursor.c>
+
+OTC_Cursor<int>
+#include <OTC/collctn/prbucket.hh>
+#include <OTC/collctn/cursor.hh>
+#include <OTC/collctn/cursor.c>
