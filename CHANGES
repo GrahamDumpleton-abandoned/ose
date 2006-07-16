@@ -9,6 +9,9 @@ Changes in OSE Version 7.0pl12
     - Decoding of ISO8601 duration formation in Python wrappers wasn't
       allowing some parts to be optional.
 
+    - Fix in Python wrappers whereby the Python complex data type was not
+      being decoded correctly.
+
 
 Changes in OSE Version 7.0pl11
 ------------------------------
