@@ -11,7 +11,7 @@
 //     Graham Dumpleton
 // 
 // = COPYRIGHT
-//     Copyright 1996-2002 DUMPLETON SOFTWARE CONSULTING PTY LIMITED
+//     Copyright 1996-2006 DUMPLETON SOFTWARE CONSULTING PTY LIMITED
 //
 // ============================================================================
 */
@@ -329,7 +329,8 @@ void OTC_EndPoint::bindRemoteAddress(char const* theRemoteAddress)
    OTCLIB_CONNECTION_ACTIVE);
   OTCLIB_ASSERT_M(theEvent != 0);
 
-  notifyObservers(theEvent,OTCLIB_PRIORITY_JOB);
+  // notifyObservers(theEvent,OTCLIB_PRIORITY_JOB);
+  notifyObservers(theEvent,OTCLIB_STANDARD_JOB);
 }
 
 /* ------------------------------------------------------------------------- */

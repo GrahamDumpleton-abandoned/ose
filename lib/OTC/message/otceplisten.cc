@@ -11,7 +11,7 @@
 //     Graham Dumpleton
 // 
 // = COPYRIGHT
-//     Copyright 1997-2002 DUMPLETON SOFTWARE CONSULTING PTY LIMITED
+//     Copyright 1997-2006 DUMPLETON SOFTWARE CONSULTING PTY LIMITED
 //
 // ============================================================================
 */
@@ -215,7 +215,8 @@ void OTC_EPListener::handle(OTC_Event* theEvent)
 	servers_.remove(theConnection->localAddress(),OTCLIB_UNSAFE);
       }
 
-      notifyObservers(theEvent->clone(),OTCLIB_STANDARD_JOB);
+      // notifyObservers(theEvent->clone(),OTCLIB_STANDARD_JOB);
+      notifyObservers(theEvent->clone(),OTCLIB_PRIORITY_JOB);
     }
     else
     {
@@ -224,9 +225,10 @@ void OTC_EPListener::handle(OTC_Event* theEvent)
   }
   else
   {
-    // Don't really expect to receive any other events.
+    // Pass on any other events, such as congestion events.
 
-    notifyObservers(theEvent->clone(),OTCLIB_STANDARD_JOB);
+    // notifyObservers(theEvent->clone(),OTCLIB_STANDARD_JOB);
+    notifyObservers(theEvent->clone(),OTCLIB_PRIORITY_JOB);
   }
 
   theEvent->destroy();

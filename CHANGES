@@ -12,6 +12,12 @@ Changes in OSE Version 7.0pl12
     - Fix in Python wrappers whereby the Python complex data type was not
       being decoded correctly.
 
+    - Fix potential ordering issue with active/inactive events related to
+      socket connections. In a heavily loaded application, an active event
+      for a socket could get processed before the inactive event for the prior
+      socket connection from the same client. This could possibly have had
+      adverse impacts on the higher level messaging framework.
+
 
 Changes in OSE Version 7.0pl11
 ------------------------------
