@@ -1,6 +1,12 @@
 Changes In OSE 8.2
 ==================
 
+Bug Fixes
+---------
+
+- Fix in Python wrappers whereby the Python complex data type was not
+  being decoded correctly.
+
 Improvements
 ------------
 

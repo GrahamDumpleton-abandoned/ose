@@ -614,10 +614,7 @@ def _encode_Complex(object):
   return ("python:complex",repr(object))
 
 def _decode_Complex(name,string):
-  object = eval(string,{},{})
-  if type(object) != types.ComplexType:
-    raise TypeError("invalid encoding for complex type")
-  return object
+  return complex(string)
 
 encoder(types.ComplexType,_encode_Complex)
 decoder("python:complex",_decode_Complex)
