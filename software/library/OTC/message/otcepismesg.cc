@@ -355,7 +355,8 @@ bool OTC_EPISMessage::processIncoming(OTC_String& theBuffer)
            OTCLIB_CONNECTION_ACTIVE);
           OTCLIB_ASSERT_M(theEvent != 0);
 
-          endPoint()->notifyObservers(theEvent,OTCLIB_PRIORITY_JOB);
+          // endPoint()->notifyObservers(theEvent,OTCLIB_PRIORITY_JOB);
+          endPoint()->notifyObservers(theEvent,OTCLIB_STANDARD_JOB);
 
           resumeOutput();
         }

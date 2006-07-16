@@ -11,7 +11,7 @@
 //     Graham Dumpleton
 // 
 // = COPYRIGHT
-//     Copyright 1995-2004 DUMPLETON SOFTWARE CONSULTING PTY LIMITED
+//     Copyright 1995-2006 DUMPLETON SOFTWARE CONSULTING PTY LIMITED
 //
 // ============================================================================
 */
@@ -1093,7 +1093,8 @@ void OTC_EPISStream::connectionActive()
    OTCLIB_CONNECTION_ACTIVE);
   OTCLIB_ASSERT_M(theEvent != 0);
 
-  endPoint()->notifyObservers(theEvent,OTCLIB_PRIORITY_JOB);
+  // endPoint()->notifyObservers(theEvent,OTCLIB_PRIORITY_JOB);
+  endPoint()->notifyObservers(theEvent,OTCLIB_STANDARD_JOB);
 }
 
 /* ------------------------------------------------------------------------- */

@@ -1069,7 +1069,8 @@ void OTC_Exchange::messageExchangeAnnounce(OTCEV_Envelope* theEnvelope)
        theRemoteProcess,OTCLIB_CONNECTION_ACTIVE);
       OTCLIB_ASSERT_M(tmpEvent != 0);
 
-      registry()->notifyObservers(tmpEvent,OTCLIB_PRIORITY_JOB);
+      // registry()->notifyObservers(tmpEvent,OTCLIB_PRIORITY_JOB);
+      registry()->notifyObservers(tmpEvent,OTCLIB_STANDARD_JOB);
 
       // Inform new exchange of what services we
       // have access to. Do local services first.
