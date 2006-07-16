@@ -44,6 +44,8 @@ class OSE_EXPORT OTC_Applicator
 {
   public:
 
+    virtual		~OTC_Applicator() {}
+
     // = STARTING/FINISHING
 
     virtual void        start();

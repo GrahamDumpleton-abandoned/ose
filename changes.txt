@@ -17,6 +17,10 @@ Improvements
   the higher level messaging framework so improvements here may positively
   affect these higher level layers.
 
+- Added inline virtual destructor to OTC_Applicator to eliminate compiler
+  warnings from GNU C++ about a class with virtual functions not having a
+  virtual destructor.
+
 New Features
 ------------
 
