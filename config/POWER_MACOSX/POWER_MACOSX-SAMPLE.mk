@@ -13,8 +13,8 @@ ENV_SYSTEM = UNIX
 
 # Default and desired C++ compilers.
 
-DEFAULTC++COMPILER = PTHREAD-GNU3.1
-C++COMPILERS = PTHREAD-GNU3.1
+DEFAULTC++COMPILER = PTHREAD-GNU3.3
+C++COMPILERS = PTHREAD-GNU3.3
 
 # Default and desired compilation variants.
 
@@ -59,7 +59,7 @@ endef
 # Tool definitions.
 #
 
-RANLIB = /usr/bin/ranlib -s
+RANLIB = : /usr/bin/ranlib
 
 #
 # Compiler definitions.
@@ -319,6 +319,134 @@ $(C++) -dynamiclib -o @LIB@ -install_name $(LIBDIR)/@LIBFILE@ \
 endef
 
 define GNU3.1_PIC_OBJECT
+$(C++) -bundle -flat_namespace -undefined suppress -o @LIB@ \
+ $(PIC_LDFLAGS) @LDFLAGS@ @OBJECTS@ $(PIC_LDLIBS) @LDLIBS@
+endef
+
+endif
+
+# GNU C++ 3.3.
+
+ifeq "$(C++COMPILERENV)" ""
+
+GNU3.3_VARIANTS = dbg opt std prf
+GNU3.3_PIC_VARIANTS = opt std
+
+GNU3.3_ENV_OODBMS =
+
+GNU3.3_OPT_LIBRARIES =
+
+GNU3.3_C++ = /usr/bin/g++-3.3
+GNU3.3_CC = /usr/bin/gcc-3.3
+GNU3.3_LD = /usr/bin/ld
+GNU3.3_AR = /usr/bin/ar
+
+GNU3.3_CPPFLAGS =
+GNU3.3_CFLAGS = -fno-common
+GNU3.3_C++FLAGS = -fno-common
+GNU3.3_LDFLAGS =
+GNU3.3_LDLIBS = -lm
+
+GNU3.3_PIC_CPPFLAGS =
+GNU3.3_PIC_CFLAGS =
+GNU3.3_PIC_C++FLAGS =
+GNU3.3_PIC_LDFLAGS =
+GNU3.3_PIC_LDLIBS =
+
+GNU3.3_CPPFLAGS_dbg =
+GNU3.3_CFLAGS_dbg = -g
+GNU3.3_C++FLAGS_dbg = -g
+GNU3.3_LDFLAGS_dbg =
+GNU3.3_LDLIBS_dbg =
+
+GNU3.3_CPPFLAGS_opt = -DNDEBUG
+GNU3.3_CFLAGS_opt = -O
+GNU3.3_C++FLAGS_opt = -O
+GNU3.3_LDFLAGS_opt =
+GNU3.3_LDLIBS_opt =
+
+GNU3.3_CPPFLAGS_prf =
+GNU3.3_CFLAGS_prf = -pg
+GNU3.3_C++FLAGS_prf = -pg
+GNU3.3_LDFLAGS_prf =
+GNU3.3_LDLIBS_prf =
+
+GNU3.3_CPPFLAGS_std =
+GNU3.3_CFLAGS_std =
+GNU3.3_C++FLAGS_std =
+GNU3.3_LDFLAGS_std =
+GNU3.3_LDLIBS_std =
+
+define GNU3.3_PIC_LIBRARY
+$(C++) -dynamiclib -o @LIB@ -install_name $(LIBDIR)/@LIBFILE@ \
+ -current_version $(LIBVERSION) $(PIC_LDFLAGS) @LDFLAGS@ \
+ @OBJECTS@ $(PIC_LDLIBS) @LDLIBS@
+endef
+
+define GNU3.3_PIC_OBJECT
+$(C++) -bundle -flat_namespace -undefined suppress -o @LIB@ \
+ $(PIC_LDFLAGS) @LDFLAGS@ @OBJECTS@ $(PIC_LDLIBS) @LDLIBS@
+endef
+
+endif
+
+ifeq "$(C++COMPILERENV)" "PTHREAD"
+
+GNU3.3_VARIANTS = dbg opt std prf
+GNU3.3_PIC_VARIANTS = opt std
+
+GNU3.3_ENV_OODBMS =
+
+GNU3.3_OPT_LIBRARIES =
+
+GNU3.3_C++ = /usr/bin/g++-3.3
+GNU3.3_CC = /usr/bin/gcc-3.3
+GNU3.3_LD = /usr/bin/ld
+GNU3.3_AR = /usr/bin/ar
+
+GNU3.3_CPPFLAGS = -DHAVE_POSIX_THREADS -D__RENTRANT
+GNU3.3_CFLAGS = -fno-common
+GNU3.3_C++FLAGS = -fno-common
+GNU3.3_LDFLAGS =
+GNU3.3_LDLIBS = -lm -lpthread
+
+GNU3.3_PIC_CPPFLAGS =
+GNU3.3_PIC_CFLAGS =
+GNU3.3_PIC_C++FLAGS =
+GNU3.3_PIC_LDFLAGS =
+GNU3.3_PIC_LDLIBS =
+
+GNU3.3_CPPFLAGS_dbg =
+GNU3.3_CFLAGS_dbg = -g
+GNU3.3_C++FLAGS_dbg = -g
+GNU3.3_LDFLAGS_dbg =
+GNU3.3_LDLIBS_dbg =
+
+GNU3.3_CPPFLAGS_opt = -DNDEBUG
+GNU3.3_CFLAGS_opt = -O
+GNU3.3_C++FLAGS_opt = -O
+GNU3.3_LDFLAGS_opt =
+GNU3.3_LDLIBS_opt =
+
+GNU3.3_CPPFLAGS_prf =
+GNU3.3_CFLAGS_prf = -pg
+GNU3.3_C++FLAGS_prf = -pg
+GNU3.3_LDFLAGS_prf =
+GNU3.3_LDLIBS_prf =
+
+GNU3.3_CPPFLAGS_std =
+GNU3.3_CFLAGS_std =
+GNU3.3_C++FLAGS_std =
+GNU3.3_LDFLAGS_std =
+GNU3.3_LDLIBS_std =
+
+define GNU3.3_PIC_LIBRARY
+$(C++) -dynamiclib -o @LIB@ -install_name $(LIBDIR)/@LIBFILE@ \
+ -current_version $(LIBVERSION) $(PIC_LDFLAGS) @LDFLAGS@ \
+ @OBJECTS@ $(PIC_LDLIBS) @LDLIBS@
+endef
+
+define GNU3.3_PIC_OBJECT
 $(C++) -bundle -flat_namespace -undefined suppress -o @LIB@ \
  $(PIC_LDFLAGS) @LDFLAGS@ @OBJECTS@ $(PIC_LDLIBS) @LDLIBS@
 endef
