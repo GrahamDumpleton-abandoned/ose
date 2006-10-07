@@ -65,6 +65,17 @@ New Features
   RPC protocol types can be hosted under the same URL. The change in
   functionality also manifests in the Python wrapper for the class.
 
+- Added new classes netsvc.WsgiServer and netsvc.WsgiServlet to Python
+  wrappers. This allows any web application written to work with a WSGI
+  server adapator to be run as a part of an application using the messaging
+  system. Note that this should not be used for large file uploads as the
+  complete content of a request is read before it is processed. File
+  uploads would preferably be handled by a dedicated HTTP servlet which
+  processes the upload as it arrives in some way. Also note that each
+  indidvidual request is handled within the context of a separate thread
+  and there are no limits set on the number of concurrent requests. Some
+  form of limiting may be added in the future.
+
 Features Removed
 ----------------
 

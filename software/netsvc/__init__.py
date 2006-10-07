@@ -1,4 +1,4 @@
-# COPYRIGHT 2001-2005 DUMPLETON SOFTWARE CONSULTING PTY LIMITED
+# COPYRIGHT 2001-2006 DUMPLETON SOFTWARE CONSULTING PTY LIMITED
 
 import os
 import sys
@@ -9,20 +9,9 @@ import fnmatch
 import StringIO
 
 try:
-  import thread
-  class _Lock:
-    def __init__(self):
-      self._mutex = thread.allocate_lock()
-    def acquire(self):
-      self._mutex.acquire()
-    def release(self):
-      self._mutex.release()
+  import threading
 except:
-  class _Lock:
-    def acquire(self):
-      pass
-    def release(self):
-      pass
+  import dummy_threading as threading
 
 import _ose
 
@@ -1085,7 +1074,7 @@ class _ServiceEndPoint:
 class Service(Monitor):
 
   _services = {}
-  _servicesLock = _Lock()
+  _servicesLock = threading.Lock()
 
   def __init__(self,name="",audience="*",visibility=SERVICE_VISIBLE):
     inner = _ose.new_Service(self,name,audience,visibility)
@@ -2679,3 +2668,185 @@ class HttpBridge(HttpServer,Monitor):
 
   def create(self,session,binding):
     return EchoServlet(session)
+
+
+class _WsgiErrorStream(object):
+
+  def read(self, size=-1):
+    return ''
+
+  def readline(self):
+    return '\n'
+
+  def readlines(self, hint=-1):
+    return []
+
+  def flush(self):
+    pass
+
+  def write(self, s):
+    _logger.notify(LOG_DEBUG, s)
+
+  def writelines(self, seq):
+    for item in seq:
+      _logger.notify(LOG_DEBUG, item)
+
+  def __iter__(self):
+    return iter(int, 0)
+
+
+class WsgiServlet(HttpServlet, Agent):
+
+  def __init__(self, session, application):
+    Agent.__init__(self)
+    HttpServlet.__init__(self, session)
+    self._application = application
+    self._contentLength = 0
+    self._content = []
+    self._headers_set = []
+    self._headers_sent = []
+    self._thread = threading.Thread(target=self._callApplication)
+    self._thread.setDaemon(1)
+
+  def _startResponse(self, status, response_headers, exc_info=None):
+    if exc_info:
+      try:
+        if headers_sent:
+          raise exc_info[0], exc_info[1], exc_info[2]
+      finally:
+          exc_info = None
+    elif self._headers_set:
+      raise AssertionError('Headers already set!')
+
+    self._headers_set[:] = [status,response_headers]
+
+    return self._writeContent
+
+  def _writeContent(self, data):
+    if not self._headers_set:
+      raise AssertionError('write() before start_response()')
+
+    elif not self._headers_sent:
+      self._headers_sent[:] = self._headers_set
+      status, response_headers = self._headers_sent
+      self.sendResponse(int(status[:3]))
+      for header in response_headers:
+        self.sendHeader(*header)
+      self.endHeaders()
+
+    self.sendContent(data)
+
+  def _callApplication(self):
+
+    input = StringIO.StringIO(self._content)
+
+    try:
+      environ = {}
+
+      environ['wsgi.input'] = input
+      environ['wsgi.errors'] = _WsgiErrorStream()
+      environ['wsgi.version'] = (1,0)
+      environ['wsgi.multithread'] = False
+      environ['wsgi.multiprocess'] = False
+      environ['wsgi.run_once'] = False
+      environ['wsgi.url_scheme'] = 'http'
+
+      environ['SERVER_NAME'] = self.serverHost()
+      environ['SERVER_PORT'] = self.serverPort()
+
+      environ['SERVER_PROTOCOL'] = self.protocolVersion()
+      environ['REQUEST_METHOD'] = self.requestMethod()
+
+      if self.serverPath() != '/':
+        environ['SCRIPT_NAME'] = self.serverPath()
+      else:
+        environ['SCRIPT_NAME'] = ''
+
+      if self.servletPath():
+        environ['PATH_INFO'] = '/' + self.servletPath()
+      elif self.serverPath() == '/':
+        environ['PATH_INFO'] = '/'
+      else:
+        environ['PATH_INFO'] = ''
+
+      environ['QUERY_STRING'] = self.queryString()
+
+      if self.contentType():
+        environ['CONTENT_TYPE'] = self.contentType()
+
+      if self.contentLength() >= 0:
+        environ['CONTENT_LENGTH'] = str(self.contentLength())
+
+      if self.remoteUser():
+        environ['REMOTE_USER'] = self.remoteUser()
+
+      for (key, value) in self.headers().items():
+        key = 'HTTP_' + key.upper().replace('-', '_')
+        environ[key] = value
+
+      if environ.has_key('HTTP_CONTENT_TYPE'):
+        del environ['HTTP_CONTENT_TYPE']
+      if environ.has_key('HTTP_CONTENT_LENGTH'):
+        del environ['HTTP_CONTENT_LENGTH']
+
+      if not environ.has_key('HTTP_HOST'):
+        environ['HTTP_HOST'] = '%s:%s' % (self.serverHost(), \
+            self.serverPort())
+
+      result = self._application(environ, self._startResponse)
+
+      try:
+        for data in result:
+          if data:
+            self._writeContent(data)
+        if not self._headers_sent:
+          self._writeContent('')
+      finally:
+        if hasattr(result,'close'):
+          result.close()
+
+      self.scheduleAction(self._endResponse, STANDARD_JOB)
+
+    except:
+      logException()
+      self.scheduleAction(self._abortResponse, STANDARD_JOB)
+
+  def _endResponse(self):
+    self.endContent()
+
+  def _abortResponse(self):
+    self.shutdown(0)
+
+  def processRequest(self):
+    if self.contentLength() <= 0:
+      self._content = ''
+      self._thread.start()
+
+  def processContent(self, content):
+    if self._contentLength == -1:
+      return
+
+    self._content.append(content)
+    self._contentLength = self._contentLength + len(content)
+
+    if self._contentLength >= self.contentLength():
+      self._content = ''.join(self._content)
+      self._content = self._content[:self.contentLength()]
+      self._contentLength = -1
+
+      self._thread.start()
+
+  def destroyServlet(self):
+    Agent.destroyReferences(self)
+    HttpServlet.destroyServlet(self)
+    self._thread = None
+
+
+class WsgiServer(HttpServer):
+
+  def __init__(self, application):
+    HttpServer.__init__(self)
+    self._application = application
+
+  def servlet(self, session):
+    return WsgiServlet(session, self._application)
