@@ -27,6 +27,10 @@ Improvements
   warnings from GNU C++ about a class with virtual functions not having a
   virtual destructor.
 
+- Methods exported by a service implemented using the Python wrappers can
+  now be standard functions and do not have to be member functions of a
+  class.
+
 New Features
 ------------
 

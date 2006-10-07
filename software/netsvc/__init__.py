@@ -1283,12 +1283,20 @@ class Service(Monitor):
 	method = self._exportedMethods[methodName]
 
       if method != None:
-	argcount = method.im_func.func_code.co_argcount-1
-	if method.im_func.func_defaults != None:
-	  argdflts = len(method.im_func.func_defaults)
-	else:
-	  argdflts = 0
-	varargs = method.im_func.func_code.co_flags & 4
+        if type(method) == types.MethodType:
+          argcount = method.im_func.func_code.co_argcount-1
+          if method.im_func.func_defaults != None:
+            argdflts = len(method.im_func.func_defaults)
+          else:
+            argdflts = 0
+          varargs = method.im_func.func_code.co_flags & 4
+        elif type(method) == types.FunctionType:
+          argcount = method.func_code.co_argcount
+          if method.func_defaults != None:
+            argdflts = len(method.func_defaults)
+          else:
+            argdflts = 0
+          varargs = method.func_code.co_flags & 4
 	minargs = argcount - argdflts
 	maxargs = argcount
 	numargs = len(params)
@@ -1415,12 +1423,20 @@ class Service(Monitor):
     self._currentRequest = request
     try:
       if method != None:
-	argcount = method.im_func.func_code.co_argcount-1
-	if method.im_func.func_defaults != None:
-	  argdflts = len(method.im_func.func_defaults)
-	else:
-	  argdflts = 0
-	varargs = method.im_func.func_code.co_flags & 4
+        if type(method) == types.MethodType:
+          argcount = method.im_func.func_code.co_argcount-1
+          if method.im_func.func_defaults != None:
+            argdflts = len(method.im_func.func_defaults)
+          else:
+            argdflts = 0
+          varargs = method.im_func.func_code.co_flags & 4
+        elif type(method) == types.FunctionType:
+          argcount = method.func_code.co_argcount
+          if method.func_defaults != None:
+            argdflts = len(method.func_defaults)
+          else:
+            argdflts = 0
+          varargs = method.func_code.co_flags & 4
 	minargs = argcount - argdflts
 	maxargs = argcount
 	numargs = len(params)
