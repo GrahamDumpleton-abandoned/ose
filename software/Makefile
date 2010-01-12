@@ -100,7 +100,7 @@ distclean.always ::
 	$(RM) config.mk
 
 realclean.target ::
-	-$(MAKE) -C makeit realclean
+	-$(MAKE) -C makeit/software realclean
 	$(MAKE) -C include realclean
 ifneq "$(VARIANT)" ""
 	@$(foreach var,$(VARIANTS), $(MAKE) -C library \
