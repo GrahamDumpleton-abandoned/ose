@@ -171,6 +171,7 @@ void OTC_PLReader::operator>>=(long& theValue)
       {
 	char* theNext = 0;
 
+        errno = 0;
 	theValue = strtol(node_.value().string(),&theNext,10);
 
 	if (*theNext == EOS && errno != ERANGE)
@@ -232,6 +233,7 @@ void OTC_PLReader::operator>>=(u_long& theValue)
       {
 	char* theNext = 0;
 
+        errno = 0;
 	theValue = strtoul(node_.value().string(),&theNext,10);
 
 	if (*theNext == EOS && errno != ERANGE)
@@ -296,6 +298,7 @@ void OTC_PLReader::operator>>=(long long& theValue)
 #if 0
 	char* theNext = 0;
 
+        errno = 0;
 	theValue = strtoll(node_.value().string(),&theNext,10);
 
 	if (*theNext == EOS && errno != ERANGE)
@@ -366,6 +369,7 @@ void OTC_PLReader::operator>>=(unsigned long long& theValue)
 #if 0
 	char* theNext = 0;
 
+        errno = 0;
 	theValue = strtoull(node_.value().string(),&theNext,10);
 
 	if (*theNext == EOS && errno != ERANGE)
@@ -430,6 +434,7 @@ void OTC_PLReader::operator>>=(double& theValue)
       {
 	char* theNext = 0;
 
+        errno = 0;
 	theValue = strtod(node_.value().string(),&theNext);
 
 	if (*theNext == EOS && errno != ERANGE)
@@ -502,6 +507,7 @@ void OTC_PLReader::operator>>=(long double& theValue)
 #if 0
 	char* theNext = 0;
 
+        errno = 0;
 	theValue = strtold(node_.value().string(),&theNext);
 
 	if (*theNext == EOS && errno != ERANGE)

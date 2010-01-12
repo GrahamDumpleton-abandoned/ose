@@ -115,6 +115,8 @@ class OSE_EXPORT OTC_MCObject
 				///< Should never be called. If called,
 				///< generates an exception.
 
+  public:
+
     void		operator delete(void*) {}
 				///< This doesn't do anything as memory is
 				///< released when the arena held by the \c

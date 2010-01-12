@@ -1,7 +1,6 @@
-# COPYRIGHT 2001-2004 DUMPLETON SOFTWARE CONSULTING PTY LIMITED
+# COPYRIGHT 2001-2009 DUMPLETON SOFTWARE CONSULTING PTY LIMITED
 
 import imp
-import md5
 import base64
 import os
 import time
@@ -9,6 +8,14 @@ import string
 import types
 import sys
 
+try:
+    import hashlib
+    def _md5Digest(s):
+        return hashlib.md5(s).digest()
+except:
+    import md5
+    def _md5Digest(s):
+        return md5.new(s).digest()
 
 class _ModuleInfo:
 
@@ -178,7 +185,7 @@ class _ModuleCache:
     # and also probably ensure no leading numbers
     # in the generated name.
     stub = os.path.splitext(file)[0]
-    label = md5.new(stub).digest()
+    label = _md5Digest(stub)
     label = base64.encodestring(label)
     label = string.replace(label," ","")
     label = string.replace(label,"=","")

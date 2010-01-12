@@ -31,6 +31,9 @@ Improvements
   now be standard functions and do not have to be member functions of a
   class.
 
+- Null out Python exception traceback objects to ensure that they are
+  cleaned up as quickly as possible.
+
 New Features
 ------------
 

@@ -101,6 +101,7 @@ PyMethodDef OPY_Agent::gMethods_[] = {
 /* ------------------------------------------------------------------------- */
 OPY_Agent::~OPY_Agent()
 {
+  PyThreadState_Clear(threadState_);
   PyThreadState_Delete(threadState_);
 
   if (threadPool_ != 0)

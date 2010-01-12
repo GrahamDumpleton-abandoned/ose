@@ -85,6 +85,7 @@ def exceptionDetails(skip=0):
     if message:
       error = error + "    " + message + "\n"
   error = error + str(exc_type) + ": " + str(exc_value)
+  exc_traceback = None
   return error
 
 
