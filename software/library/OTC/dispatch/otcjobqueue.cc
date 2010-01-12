@@ -12,7 +12,7 @@
 // 
 // = COPYRIGHT
 //     Copyright 1993 OTC LIMITED
-//     Copyright 1994-2004 DUMPLETON SOFTWARE CONSULTING PTY LIMITED
+//     Copyright 1994-2010 DUMPLETON SOFTWARE CONSULTING PTY LIMITED
 //
 // ============================================================================
 */
@@ -1563,6 +1563,8 @@ void OTC_JobQueue::wakeup(int theType)
 /* ------------------------------------------------------------------------- */
 void OTC_JobQueue::clearPipes()
 {
+  // OTCLIB_MARKBLOCK(MODULE,"OTC_JobQueue::clearPipes()");
+
   // Clear signal and wakeup pipes.
 
   if (signalFds_[0] != INVALID_SOCKET)
@@ -1603,7 +1605,7 @@ void OTC_JobQueue::clearPipes()
       else
 	break;
 
-      OTCLIB_TRACER(MODULE) << "wakeup count = " << wakeupCount_ << endl;
+      // OTCLIB_TRACER(MODULE) << "wakeup count = " << wakeupCount_ << endl;
     }
 
 #if defined(OSE_SYS_WIN32)

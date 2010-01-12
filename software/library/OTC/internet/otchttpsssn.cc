@@ -11,7 +11,7 @@
 //     Graham Dumpleton
 // 
 // = COPYRIGHT
-//     Copyright 1999-2004 DUMPLETON SOFTWARE CONSULTING PTY LIMITED
+//     Copyright 1999-2010 DUMPLETON SOFTWARE CONSULTING PTY LIMITED
 //
 // ============================================================================
 */
@@ -1709,7 +1709,7 @@ void OTC_HttpSession::xmlEncode(
 	  theStart = &theString[i+1];
 
 	  char buf[16];
-	  sprintf(buf,"%X",size_t(u_char(c)));
+	  sprintf(buf,"%X",u_int(u_char(c)));
 
 	  theStream << "&#x";
 	  theStream << buf;

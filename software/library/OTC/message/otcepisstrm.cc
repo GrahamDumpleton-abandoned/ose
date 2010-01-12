@@ -11,7 +11,7 @@
 //     Graham Dumpleton
 // 
 // = COPYRIGHT
-//     Copyright 1995-2006 DUMPLETON SOFTWARE CONSULTING PTY LIMITED
+//     Copyright 1995-2010 DUMPLETON SOFTWARE CONSULTING PTY LIMITED
 //
 // ============================================================================
 */
@@ -1167,6 +1167,8 @@ bool OTC_EPISStream::processIncoming(OTC_String& theBuffer)
 /* ------------------------------------------------------------------------- */
 void OTC_EPISStream::queueOutgoing(OTCEV_Envelope* theEnvelope)
 {
+  OTCLIB_MARKBLOCK(MODULE,"OTC_EPISStream::queueOutgoing(OTCEV_Envelope*)");
+
   // Add the message to the queue.
 
   OTC_Link* theLink;

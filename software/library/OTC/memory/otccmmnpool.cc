@@ -12,7 +12,7 @@
 // 
 // = COPYRIGHT
 //     Copyright 1993 OTC LIMITED
-//     Copyright 1994-2004 DUMPLETON SOFTWARE CONSULTING PTY LIMITED
+//     Copyright 1994-2010 DUMPLETON SOFTWARE CONSULTING PTY LIMITED
 //
 // ============================================================================
 */
@@ -99,12 +99,12 @@ void OTC_CommonPool::initialise()
       int theBlockSize = -1;
       int thePreAllocate = -1;
 
-      sprintf(tmpPointer1,"%d",i+1);
+      sprintf(tmpPointer1,"%d",(int)i+1);
       theVariable = getenv(tmpBuffer1);
       if (theVariable != 0)
 	theBlockSize = atoi(theVariable);
 
-      sprintf(tmpPointer2,"%d",i+1);
+      sprintf(tmpPointer2,"%d",(int)i+1);
       theVariable = getenv(tmpBuffer2);
       if (theVariable != 0)
 	thePreAllocate = atoi(theVariable);

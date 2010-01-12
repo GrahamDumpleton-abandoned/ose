@@ -11,7 +11,7 @@
 //     Graham Dumpleton
 // 
 // = COPYRIGHT
-//     Copyright 1995-2006 DUMPLETON SOFTWARE CONSULTING PTY LIMITED
+//     Copyright 1995-2010 DUMPLETON SOFTWARE CONSULTING PTY LIMITED
 //
 // ============================================================================
 */
@@ -1540,6 +1540,8 @@ OTCEV_Envelope* OTC_EPISMeSsAgE::unpack_()
 /* ------------------------------------------------------------------------- */
 void OTC_EPISMeSsAgE::queueOutgoing(OTCEV_Envelope* theEnvelope)
 {
+  OTCLIB_MARKBLOCK(MODULE,"OTC_EPISMeSsAgE::queueOutgoing(OTCEV_Envelope*)");
+
   // Add the message to the queue.
 
   OTC_Link* theLink;

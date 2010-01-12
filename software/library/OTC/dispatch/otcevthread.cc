@@ -11,7 +11,7 @@
 //     Graham Dumpleton
 // 
 // = COPYRIGHT
-//     Copyright 1997-2004 DUMPLETON SOFTWARE CONSULTING PTY LIMITED
+//     Copyright 1997-2010 DUMPLETON SOFTWARE CONSULTING PTY LIMITED
 //
 // ============================================================================
 */
@@ -167,6 +167,8 @@ OTC_EVThreadPool::OTC_EVThreadPool(
 /* ------------------------------------------------------------------------- */
 void OTC_EVThreadPool::startup()
 {
+  OTCLIB_MARKBLOCK(MODULE,"OTC_EVThreadPool::startup()");
+
 #if defined(OSE_WITH_THREADS)
 
   mutex_.lock();

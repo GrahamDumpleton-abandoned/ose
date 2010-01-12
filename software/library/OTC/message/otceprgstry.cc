@@ -11,7 +11,7 @@
 //     Graham Dumpleton
 // 
 // = COPYRIGHT
-//     Copyright 1997-2005 DUMPLETON SOFTWARE CONSULTING PTY LIMITED
+//     Copyright 1997-2010 DUMPLETON SOFTWARE CONSULTING PTY LIMITED
 //
 // ============================================================================
 */
@@ -88,6 +88,8 @@ void OTC_EPRegistry::shutdown(int theDelay)
 /* ------------------------------------------------------------------------- */
 void OTC_EPRegistry::addService(OTC_ServiceBinding* theBinding)
 {
+  OTCLIB_MARKBLOCK(MODULE,"OTC_EPRegistry::addService(OTC_ServiceBinding*)");
+
   OTCLIB_ENSURE_FN((theBinding != 0),
    "OTC_EPRegistry::addService(OTC_ServiceBinding*)",
    "invalid service description");
@@ -103,6 +105,8 @@ void OTC_EPRegistry::addService(OTC_ServiceBinding* theBinding)
 /* ------------------------------------------------------------------------- */
 void OTC_EPRegistry::removeService(OTC_String const& theServiceAddress)
 {
+  OTCLIB_MARKBLOCK(MODULE,"OTC_EPRegistry::removeService(OTC_String const&)");
+
   OTCLIB_TRACER(MODULE) << "remove = " << theServiceAddress << endl;
 
   serviceGroups_.removeItem(theServiceAddress,OTCLIB_UNSAFE);

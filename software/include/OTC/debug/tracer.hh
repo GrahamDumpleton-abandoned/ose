@@ -14,7 +14,7 @@
 // 
 // = COPYRIGHT
 //     Copyright 1991-1993 OTC LIMITED
-//     Copyright 1994-2004 DUMPLETON SOFTWARE CONSULTING PTY LIMITED
+//     Copyright 1994-2010 DUMPLETON SOFTWARE CONSULTING PTY LIMITED
 //
 // ============================================================================
 */
@@ -42,7 +42,7 @@
 #ifdef OTCLIB_TRACE
 #define OTCLIB_MARKBLOCK(lvl,function) \
  OTC_Tracer otclib_tracer(function,__FILE__,__LINE__,int(lvl)); \
- if (&otclib_tracer){;}
+ if (otclib_tracer()){;}
 #define OTCLIB_DOTRACE(function) OTCLIB_MARKBLOCK(1,function)
 #define OTCLIB_TRACER(lvl) \
   if (!OTC_Tracer::enabled(int(lvl))) ; else otclib_tracer()
@@ -416,6 +416,8 @@ class OSE_EXPORT OTC_Tracer
 				// Pointer to last instance of this class
 				// created.
 };
+
+extern OSE_EXPORT ostream& otclib_tracer();
 
 /* ------------------------------------------------------------------------- */
 
