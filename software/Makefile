@@ -70,7 +70,7 @@ else
 endif
 
 clean.target ::
-	-$(MAKE) -C makeit clean
+	-$(MAKE) -C makeit/software clean
 	$(MAKE) -C include clean
 ifneq "$(VARIANT)" ""
 	@$(foreach var,$(VARIANTS), $(MAKE) -C library \
@@ -84,7 +84,7 @@ clean.always ::
 	rm -rf autom4te.cache
 
 distclean.target ::
-	-$(MAKE) -C makeit distclean
+	-$(MAKE) -C makeit/software distclean
 	$(MAKE) -C include distclean
 ifneq "$(VARIANT)" ""
 	@$(foreach var,$(VARIANTS), $(MAKE) -C library \
