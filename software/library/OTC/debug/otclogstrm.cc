@@ -12,7 +12,7 @@
 // 
 // = COPYRIGHT
 //     Copyright 1993 OTC LIMITED
-//     Copyright 1997-2004 DUMPLETON SOFTWARE CONSULTING PTY LIMITED
+//     Copyright 1997-2012 DUMPLETON SOFTWARE CONSULTING PTY LIMITED
 //
 // ============================================================================
 */
@@ -25,7 +25,7 @@
 
 #include <OTC/debug/logstrm.hh>
 
-#include <new.h>
+#include <new>
 
 /* ------------------------------------------------------------------------- */
 static char otclib_logbuf[2048];
