@@ -12,7 +12,7 @@
 // 
 // = COPYRIGHT
 //     Copyright 1992 OTC LIMITED
-//     Copyright 1994-2005 DUMPLETON SOFTWARE CONSULTING PTY LIMITED
+//     Copyright 1994-2012 DUMPLETON SOFTWARE CONSULTING PTY LIMITED
 //
 // ============================================================================
 */
@@ -42,6 +42,7 @@
 
 #if defined(OSE_SYS_WIN32)
 #include <windows.h>
+#include <io.h>
 #include <process.h>
 #ifndef getpid
 #define getpid _getpid
