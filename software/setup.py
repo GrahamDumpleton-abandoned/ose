@@ -1,5 +1,7 @@
 #!/usr/bin/env python
 
+import os
+
 # If you are not interested in those parts of the Python modules which
 # are dependent upon the C++ class library, specifically you don't
 # require the "netsvc" module, but do want the "netrpc" and "zsirpc"
@@ -20,13 +22,19 @@ WITH_THREADS = True
 # library you use, you will need to modify the following definitions as
 # appropriate.
 
-WIN32_PTHREAD_INCDIRS = ["c:/posix/include"]
-WIN32_PTHREAD_LIBDIRS = ["c:/posix/lib"]
-WIN32_PTHREAD_LDLIBS = ["pthreadVC"]
+WIN32_PTHREAD_ROOTDIR = os.environ.get("WIN32_PTHREAD_ROOTDIR", "c:/pthreads")
+
+WIN32_PTHREAD_INCDIR = os.environ.get("WIN32_PTHREAD_INCDIR",
+    os.path.join(WIN32_PTHREAD_ROOTDIR, "Pre-built.2/include"))
+WIN32_PTHREAD_LIBDIR = os.environ.get("WIN32_PTHREAD_LIBDIR",
+    os.path.join(WIN32_PTHREAD_ROOTDIR, "Pre-built.2/lib/x86"))
+WIN32_PTHREAD_DLLDIR = os.environ.get("WIN32_PTHREAD_DLLDIR",
+    os.path.join(WIN32_PTHREAD_ROOTDIR, "Pre-built.2/dll/x86"))
+WIN32_PTHREAD_LDLIB = os.environ.get("WIN32_PTHREAD_LDLIB", "pthreadVC2")
 
 
 
-import sys, os, glob, string
+import sys, glob, string
 
 from distutils import core
 from distutils import sysconfig
@@ -100,6 +108,8 @@ else:
   library_dirs=[]
   libraries=[]
 
+  data_files=[]
+
   # In older versions of Python it didn't use the C++
   # compiler to perform the final link so fiddle it
   # so that it does.
@@ -115,8 +125,9 @@ else:
   # Don't compile with debugging as final shared object
   # is simply way to big otherwise.
 
-  sysconfig._config_vars["OPT"] = string.replace( \
-   sysconfig.get_config_var("OPT")," -g "," ")
+  if sys.platform != "win32":
+    sysconfig._config_vars["OPT"] = string.replace( \
+     sysconfig.get_config_var("OPT")," -g "," ")
 
   # For native Win32 compiler, need to explicitly list the
   # POSIX threads library. Also link in Winsock 2 libraries
@@ -124,9 +135,11 @@ else:
 
   if sys.platform == "win32":
     if WITH_THREADS:
-      include_dirs.extend(WIN32_PTHREAD_INCDIRS)
-      library_dirs.extend(WIN32_PTHREAD_LIBDIRS)
-      libraries.extend(WIN32_PTHREAD_LDLIBS)
+      include_dirs.extend([WIN32_PTHREAD_INCDIR])
+      library_dirs.extend([WIN32_PTHREAD_LIBDIR])
+      libraries.extend([WIN32_PTHREAD_LDLIB])
+      data_files = [('Lib/site-packages', [os.path.join(WIN32_PTHREAD_DLLDIR,
+        '%s.dll'%WIN32_PTHREAD_LDLIB)])]
     libraries.extend(["ws2_32"])
 
   module = core.Extension(
@@ -149,5 +162,6 @@ else:
    author_email="grahamd@dscpl.com.au",
    url="http://ose.sourceforge.net",
    packages=packages,
-   ext_modules=[module]
+   ext_modules=[module],
+   data_files=data_files,
   )
